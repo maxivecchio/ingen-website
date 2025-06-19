@@ -25,28 +25,40 @@ export default function InvestmentSection() {
   ]
 
   return (
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">¿Qué son las Inversiones Inmobiliarias?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Texto a la izquierda */}
+          <div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              ¿Qué son las Inversiones Inmobiliarias?
+            </h2>
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               Invertí en desarrollos urbanos desde la etapa de construcción y obtené rendimientos superiores al mercado
               tradicional con total seguridad y transparencia.
             </p>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Accedé a oportunidades exclusivas con el respaldo de expertos y el potencial de zonas en crecimiento.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Cards a la derecha */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {benefits.map((benefit, index) => (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-gray rounded-full mb-6">
-                    <benefit.icon className="h-8 w-8 text-brand-black" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
-                  <p className="text-gray-600">{benefit.description}</p>
+              <div
+                key={index}
+                className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
+                  <benefit.icon className="w-6 h-6 text-brand-black transition" />
                 </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{benefit.title}</h3>
+                <p className="text-sm text-gray-600">{benefit.description}</p>
+              </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
   )
 }

@@ -5,19 +5,19 @@ export default function AboutUsSection() {
     {
       name: "Roberto Martínez",
       role: "Director General",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/perfil.png",
       description: "Arquitecto con 20 años de experiencia en desarrollo urbano",
     },
     {
       name: "Laura Fernández",
       role: "Directora de Inversiones",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/perfil.png",
       description: "Especialista en finanzas inmobiliarias y gestión de proyectos",
     },
     {
       name: "Miguel Torres",
       role: "Director de Construcción",
-      image: "/placeholder.svg?height=300&width=300",
+      image: "/perfil.png",
       description: "Ingeniero civil especializado en construcción sustentable",
     },
   ]
