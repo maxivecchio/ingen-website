@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --brand-black: #000000;
+    --brand-white: #ffffff;
+    --brand-gray: #ebeaea;
+    --brand-dark: #202020;
+
+    /* Default shadcn/ui variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 92%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom brand utilities */
+@layer utilities {
+  .bg-brand-black {
+    background-color: var(--brand-black);
+  }
+
+  .bg-brand-white {
+    background-color: var(--brand-white);
+  }
+
+  .bg-brand-gray {
+    background-color: var(--brand-gray);
+  }
+
+  .bg-brand-dark {
+    background-color: var(--brand-dark);
+  }
+
+  .text-brand-black {
+    color: var(--brand-black);
+  }
+
+  .text-brand-white {
+    color: var(--brand-white);
+  }
+
+  .text-brand-gray {
+    color: var(--brand-gray);
+  }
+
+  .text-brand-dark {
+    color: var(--brand-dark);
+  }
+
+  .border-brand-black {
+    border-color: var(--brand-black);
+  }
+
+  .border-brand-gray {
+    border-color: var(--brand-gray);
+  }
+
+  .border-brand-dark {
+    border-color: var(--brand-dark);
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-brand-primary {
+    @apply bg-brand-black text-brand-white hover:bg-brand-dark transition-colors duration-200;
+  }
+
+  .btn-brand-secondary {
+    @apply bg-brand-gray text-brand-black hover:bg-brand-dark hover:text-brand-white transition-colors duration-200;
+  }
+
+  .card-brand {
+    @apply bg-brand-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .section-brand-light {
+    @apply bg-brand-gray;
+  }
+
+  .section-brand-dark {
+    @apply bg-brand-dark text-brand-white;
+  }
+}
