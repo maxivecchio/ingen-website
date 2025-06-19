@@ -86,9 +86,9 @@ export default function FormaPartePage() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="pt-8">
+      <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Formá Parte de Nuestros Proyectos</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -97,6 +97,7 @@ export default function FormaPartePage() {
             </p>
           </div>
         </section>
+        
 
         {/* Investment Benefits */}
         <section className="py-16">
@@ -120,140 +121,6 @@ export default function FormaPartePage() {
           </div>
         </section>
 
-        {/* Investment Calculator */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Calculá tu Inversión</h2>
-              <p className="text-xl text-gray-600">Simulá los retornos de tu inversión</p>
-            </div>
-
-            <Card className="p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Monto a Invertir</label>
-                  <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input
-                      type="number"
-                      value={investmentAmount}
-                      onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                      className="pl-10"
-                      min="25000"
-                      step="5000"
-                    />
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">Mínimo: $25,000</p>
-
-                  <label className="block text-sm font-medium text-gray-700 mb-2 mt-6">Proyecto de Interés</label>
-                  <Select value={selectedProject} onValueChange={setSelectedProject}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar proyecto" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {projects.map((project) => (
-                        <SelectItem key={project.id} value={project.id.toString()}>
-                          {project.name} - {project.expectedReturn} ({project.duration})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="bg-rose-50 rounded-lg p-6">
-                  <div className="flex items-center mb-4">
-                    <Calculator className="h-5 w-5 text-rose-600 mr-2" />
-                    <h3 className="text-lg font-semibold text-gray-900">Proyección de Retornos</h3>
-                  </div>
-
-                  {selectedProject && (
-                    <div className="space-y-4">
-                      {(() => {
-                        const project = projects.find((p) => p.id.toString() === selectedProject)
-                        const returns = calculateReturns(investmentAmount, project.expectedReturn)
-                        return (
-                          <>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Inversión inicial:</span>
-                              <span className="font-semibold">${investmentAmount.toLocaleString()}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Retorno esperado:</span>
-                              <span className="font-semibold text-green-600">${returns.toLocaleString()}</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Total al finalizar:</span>
-                              <span className="font-bold text-lg">
-                                ${(investmentAmount + returns).toLocaleString()}
-                              </span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-600">Duración:</span>
-                              <span className="font-semibold">{project.duration}</span>
-                            </div>
-                          </>
-                        )
-                      })()}
-                    </div>
-                  )}
-
-                  {!selectedProject && (
-                    <p className="text-gray-500 text-center py-8">Seleccioná un proyecto para ver la proyección</p>
-                  )}
-                </div>
-              </div>
-            </Card>
-          </div>
-        </section>
-
-        {/* Investment Plans */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Planes de Inversión</h2>
-              <p className="text-xl text-gray-600">Elegí el plan que mejor se adapte a tu perfil de inversor</p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {investmentOptions.map((option, index) => (
-                <Card
-                  key={index}
-                  className={`relative ${option.color} ${option.popular ? "ring-2 ring-rose-500" : ""}`}
-                >
-                  {option.popular && (
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-rose-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                        Más Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{option.name}</h3>
-                    <div className="mb-4">
-                      <span className="text-3xl font-bold text-rose-600">{option.expectedReturn}</span>
-                      <span className="text-gray-600 ml-2">retorno anual</span>
-                    </div>
-                    <p className="text-gray-600 mb-6">
-                      Inversión: ${option.minAmount.toLocaleString()} - ${option.maxAmount.toLocaleString()}
-                    </p>
-
-                    <ul className="space-y-3 mb-8">
-                      {option.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center">
-                          <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
-                          <span className="text-gray-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Button className="w-full bg-rose-600 hover:bg-rose-700">Comenzar Inversión</Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Contact Form */}
         <section className="py-16 bg-gray-50">
