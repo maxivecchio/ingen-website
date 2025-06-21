@@ -9,7 +9,7 @@ export default function SobreNosotrosPage() {
     {
       name: "Roberto Martínez",
       role: "Director General & Fundador",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/perfil.png",
       description:
         "Arquitecto con 20 años de experiencia en desarrollo urbano. Especializado en proyectos residenciales de gran escala.",
       experience: "20 años",
@@ -19,7 +19,7 @@ export default function SobreNosotrosPage() {
     {
       name: "Laura Fernández",
       role: "Directora de Inversiones",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/perfil.png",
       description:
         "MBA en Finanzas con especialización en mercados inmobiliarios. Experta en estructuración de inversiones.",
       experience: "15 años",
@@ -29,7 +29,7 @@ export default function SobreNosotrosPage() {
     {
       name: "Miguel Torres",
       role: "Director de Construcción",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/perfil.png",
       description: "Ingeniero civil especializado en construcción sustentable y gestión de proyectos complejos.",
       experience: "18 años",
       education: "Ingeniero Civil - Universidad Tecnológica",
@@ -38,7 +38,7 @@ export default function SobreNosotrosPage() {
     {
       name: "Ana García",
       role: "Directora de Ventas",
-      image: "/placeholder.svg?height=400&width=400",
+      image: "/perfil.png",
       description: "Especialista en marketing inmobiliario y relaciones con inversores. Lidera el equipo comercial.",
       experience: "12 años",
       education: "Lic. en Marketing - Universidad del Salvador",
@@ -78,9 +78,9 @@ export default function SobreNosotrosPage() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="pt-8">
+      <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Sobre Nosotros</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -90,22 +90,30 @@ export default function SobreNosotrosPage() {
         </section>
 
         {/* Company Story */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Nuestra Historia</h2>
-              <div className="prose prose-lg mx-auto text-gray-600">
-                <p className="mb-6">
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Cards a la derecha */}
+              <div className="flex items-center justify-center gap-6">
+                <img src="/sobre-nosotros.jpeg" className="h-[500px] shadow-lg rounded-lg overflow-hidden flex justify-center" alt="" />
+              </div>
+
+              {/* Texto a la izquierda */}
+              <div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  Nuestra Historia
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                   Fundada en 2009, <strong>UrbanDev</strong> nació con la visión de transformar el paisaje urbano a
                   través de desarrollos inmobiliarios innovadores y sustentables. Comenzamos como un pequeño estudio de
                   arquitectura y hoy somos una de las desarrolladoras más reconocidas de la región.
                 </p>
-                <p className="mb-6">
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
                   Nuestro enfoque siempre ha sido crear espacios que mejoren la calidad de vida de las personas,
                   combinando diseño de vanguardia con tecnologías sustentables y ubicaciones estratégicas. Cada proyecto
                   es una oportunidad de contribuir al crecimiento ordenado y responsable de nuestras ciudades.
                 </p>
-                <p>
+                <p className="text-lg text-gray-600 leading-relaxed">
                   A lo largo de más de 15 años, hemos entregado más de 2,500 unidades habitacionales y comerciales,
                   siempre manteniendo nuestros valores de calidad, transparencia y compromiso con nuestros clientes e
                   inversores.
@@ -116,83 +124,100 @@ export default function SobreNosotrosPage() {
         </section>
 
         {/* Company Stats */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Texto a la izquierda */}
+              <div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  Nuestros Números
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  Resultados que respaldan nuestra trayectoria.
+                </p>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  Cada número representa la confianza de nuestros inversores, la solidez de nuestros proyectos y el compromiso con la transparencia que nos caracteriza. A lo largo de los años, fuimos construyendo un camino que no solo se mide en metros cuadrados, sino también en relaciones duraderas y oportunidades concretas.
+                </p>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Estos logros no son solo nuestras estadísticas: son el reflejo del impacto real que generamos en la vida de quienes deciden invertir con nosotros. Y vamos por más.
+                </p>
+              </div>
+
+
+              {/* Stats a la derecha */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {companyStats.map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
+                  >
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
+                      <benefit.icon className="w-6 h-6 text-brand-black transition" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{benefit.label}</h3>
+                    <p className="text-sm text-gray-600">{benefit.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Team Section */}
+        <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestros Números</h2>
-              <p className="text-xl text-gray-600">Resultados que respaldan nuestra trayectoria</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Nuestro Equipo</h2>
+              <p className="text-xl text-gray-600">Los profesionales que hacen posible cada proyecto</p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-8">
-              {companyStats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-rose-100 rounded-full mb-4">
-                    <stat.icon className="h-8 w-8 text-rose-600" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+              {team.map((member, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-6 flex flex-col items-center text-center"
+                >
+                  <div className="w-32 h-32 rounded-full overflow-hidden mb-4">
+                    <Image
+                      src={member.image || "/placeholder.svg"}
+                      alt={member.name}
+                      width={128}
+                      height={128}
+                      className="object-cover w-full h-full"
+                    />
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                  <div className="text-gray-600">{stat.label}</div>
+                  <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="text-rose-600 font-medium mb-3">{member.role}</p>
+                  <p className="text-gray-600 text-sm mb-4">{member.description}</p>
+
+                  <div className="text-left w-full text-sm space-y-2">
+                    <div>
+                      <span className="font-semibold text-gray-700">Experiencia:</span>
+                      <span className="text-gray-600 ml-1">{member.experience}</span>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-700">Formación:</span>
+                      <span className="text-gray-600 ml-1">{member.education}</span>
+                    </div>
+                    {member.achievements.length > 0 && (
+                      <div>
+                        <span className="font-semibold text-gray-700">Logros:</span>
+                        <ul className="mt-1 list-disc list-inside text-gray-600 text-xs">
+                          {member.achievements.map((achievement, i) => (
+                            <li key={i}>{achievement}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Team Section */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestro Equipo</h2>
-              <p className="text-xl text-gray-600">Los profesionales que hacen posible cada proyecto</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {team.map((member, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <div className="md:flex">
-                    <div className="md:w-1/3">
-                      <Image
-                        src={member.image || "/placeholder.svg"}
-                        alt={member.name}
-                        width={400}
-                        height={400}
-                        className="w-full h-64 md:h-full object-cover"
-                      />
-                    </div>
-                    <CardContent className="md:w-2/3 p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                      <p className="text-rose-600 font-medium mb-3">{member.role}</p>
-                      <p className="text-gray-600 mb-4">{member.description}</p>
-
-                      <div className="space-y-2 text-sm">
-                        <div>
-                          <span className="font-medium text-gray-700">Experiencia:</span>
-                          <span className="text-gray-600 ml-2">{member.experience}</span>
-                        </div>
-                        <div>
-                          <span className="font-medium text-gray-700">Formación:</span>
-                          <span className="text-gray-600 ml-2">{member.education}</span>
-                        </div>
-                        <div>
-                          <span className="font-medium text-gray-700">Logros:</span>
-                          <ul className="mt-1 ml-4">
-                            {member.achievements.map((achievement, i) => (
-                              <li key={i} className="text-gray-600 text-xs">
-                                • {achievement}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Timeline */}
-        <section className="py-16 bg-gray-50">
+        {/*  <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestra Trayectoria</h2>
@@ -220,13 +245,13 @@ export default function SobreNosotrosPage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Mission & Vision */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12">
-              <Card className="p-8 bg-rose-50 border-rose-200">
+              <Card className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Nuestra Misión</h3>
                 <p className="text-gray-600 leading-relaxed">
                   Crear desarrollos urbanos sustentables que mejoren la calidad de vida de las personas, generando
@@ -236,7 +261,7 @@ export default function SobreNosotrosPage() {
                 </p>
               </Card>
 
-              <Card className="p-8 bg-blue-50 border-blue-200">
+              <Card className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Nuestra Visión</h3>
                 <p className="text-gray-600 leading-relaxed">
                   Ser la desarrolladora urbana líder en la región, reconocida por la calidad de nuestros proyectos, la
@@ -250,86 +275,81 @@ export default function SobreNosotrosPage() {
         </section>
 
         {/* Location */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h2>
               <p className="text-xl text-gray-600">Visitanos en nuestras oficinas centrales</p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12">
-              <div>
-                <Card className="p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6">Información de Contacto</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <MapPin className="h-6 w-6 text-rose-600 mr-3 mt-1" />
-                      <div>
-                        <p className="font-medium text-gray-900">Dirección Principal</p>
-                        <p className="text-gray-600">
-                          Av. Principal 1234, Piso 12
-                          <br />
-                          Centro Empresarial Torre Norte
-                          <br />
-                          Ciudad, Provincia 12345
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <Phone className="h-6 w-6 text-rose-600 mr-3 mt-1" />
-                      <div>
-                        <p className="font-medium text-gray-900">Teléfonos</p>
-                        <p className="text-gray-600">
-                          +52 1 984 879 0708 (Principal)
-                          <br />
-                          +52 1 984 879 0709 (Ventas)
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <Mail className="h-6 w-6 text-rose-600 mr-3 mt-1" />
-                      <div>
-                        <p className="font-medium text-gray-900">Email</p>
-                        <p className="text-gray-600">
-                          info@urbandev.com
-                          <br />
-                          ventas@urbandev.com
-                        </p>
-                      </div>
+              {/* Información de contacto */}
+              <Card className="p-8 shadow-md border">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Información de Contacto</h3>
+                <div className="space-y-6 text-gray-700 text-sm">
+                  <div className="flex items-start">
+                    <MapPin className="h-6 w-6 text-rose-600 mr-4 mt-1" />
+                    <div>
+                      <p className="font-semibold text-gray-800">Dirección Principal</p>
+                      <p>
+                        Av. Principal 1234, Piso 12<br />
+                        Centro Empresarial Torre Norte<br />
+                        Ciudad, Provincia 12345
+                      </p>
                     </div>
                   </div>
+                  <div className="flex items-start">
+                    <Phone className="h-6 w-6 text-rose-600 mr-4 mt-1" />
+                    <div>
+                      <p className="font-semibold text-gray-800">Teléfonos</p>
+                      <p>
+                        +52 1 984 879 0708 (Principal)<br />
+                        +52 1 984 879 0709 (Ventas)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <Mail className="h-6 w-6 text-rose-600 mr-4 mt-1" />
+                    <div>
+                      <p className="font-semibold text-gray-800">Email</p>
+                      <p>
+                        info@urbandev.com<br />
+                        ventas@urbandev.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <h4 className="font-medium text-gray-900 mb-3">Horarios de Atención</h4>
-                    <div className="text-gray-600 space-y-1">
-                      <p>Lunes a Viernes: 9:00 - 18:00</p>
-                      <p>Sábados: 9:00 - 14:00</p>
-                      <p>Domingos: Cerrado</p>
-                    </div>
-                  </div>
-                </Card>
-              </div>
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <h4 className="text-md font-semibold text-gray-800 mb-3">Horarios de Atención</h4>
+                  <p>Lunes a Viernes: 9:00 - 18:00</p>
+                  <p>Sábados: 9:00 - 14:00</p>
+                  <p>Domingos: Cerrado</p>
+                </div>
+              </Card>
 
-              <div>
-                <Card className="p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-6">Ubicación en el Mapa</h3>
-                  <div className="bg-gray-200 rounded-lg h-80 flex items-center justify-center">
-                    <div className="text-center">
-                      <MapPin className="h-12 w-12 text-rose-600 mx-auto mb-4" />
-                      <p className="text-gray-600 font-medium">Mapa Interactivo</p>
-                      <p className="text-sm text-gray-500 mt-2">Av. Principal 1234, Centro Empresarial Torre Norte</p>
-                    </div>
-                  </div>
-                  <div className="mt-4 text-sm text-gray-600">
-                    <p className="mb-2">
-                      <strong>Transporte público:</strong> Líneas de metro A, B y C - Estación Centro (5 min caminando)
-                    </p>
-                    <p>
-                      <strong>Estacionamiento:</strong> Disponible en el edificio (primeras 2 horas gratuitas)
-                    </p>
-                  </div>
-                </Card>
-              </div>
+              {/* Mapa */}
+              <Card className="p-8 shadow-md border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Ubicación en el Mapa</h3>
+                <div className="rounded-lg overflow-hidden h-80 mb-6">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.763088492449!2d-58.41730982426313!3d-34.63565405941545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb6caa16f7e7%3A0xdda4f986f1234567!2sAv.%20Principal%201234!5e0!3m2!1ses!2sar!4v1717020123456"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+                <div className="text-sm text-gray-700 space-y-2">
+                  <p>
+                    <strong>Transporte público:</strong> Líneas de metro A, B y C — Estación Centro (5 min caminando)
+                  </p>
+                  <p>
+                    <strong>Estacionamiento:</strong> Disponible en el edificio (primeras 2 horas gratuitas)
+                  </p>
+                </div>
+              </Card>
             </div>
           </div>
         </section>

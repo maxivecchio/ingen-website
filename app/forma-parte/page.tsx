@@ -8,7 +8,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { TrendingUp, Shield, Clock, Users, DollarSign, Calculator, CheckCircle, MessageCircle } from "lucide-react"
+import { TrendingUp, Shield, Clock, Users, DollarSign, Calculator, CheckCircle, MessageCircle, MapPin } from "lucide-react"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function FormaPartePage() {
   const [investmentAmount, setInvestmentAmount] = useState(50000)
@@ -71,13 +77,36 @@ export default function FormaPartePage() {
     },
   ]
 
+  const benefits = [
+    {
+      icon: TrendingUp,
+      title: "Alta Rentabilidad",
+      description: "Proyectos con retorno de inversión superior al mercado tradicional",
+    },
+    {
+      icon: Shield,
+      title: "Inversión Segura",
+      description: "Respaldo legal completo y transparencia en cada etapa del proyecto",
+    },
+    {
+      icon: MapPin,
+      title: "Ubicaciones Premium",
+      description: "Desarrollos en las mejores zonas con alta plusvalía garantizada",
+    },
+    {
+      icon: Users,
+      title: "Acompañamiento",
+      description: "Asesoramiento personalizado durante todo el proceso de inversión",
+    },
+  ]
+
   const projects = [
     { id: 1, name: "Residencial Vista Verde", expectedReturn: "18%", duration: "18 meses" },
     { id: 2, name: "Torres del Sol", expectedReturn: "22%", duration: "12 meses" },
     { id: 3, name: "Complejo Urbano Plaza", expectedReturn: "25%", duration: "24 meses" },
   ]
 
-  const calculateReturns = (amount, returnRate) => {
+  const calculateReturns = (amount: any, returnRate: any) => {
     const rate = Number.parseFloat(returnRate.replace("%", "")) / 100
     return amount * rate
   }
@@ -97,27 +126,87 @@ export default function FormaPartePage() {
             </p>
           </div>
         </section>
-        
+
 
         {/* Investment Benefits */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Texto a la izquierda */}
+              <div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                  ¿Por Qué Invertir con Nosotros?
+                </h2>
+                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  Formá parte de proyectos inmobiliarios cuidadosamente seleccionados, con alto potencial de rentabilidad y desarrollados por profesionales del sector.
+                </p>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Te acompañamos en cada paso del proceso con transparencia, seguridad jurídica y opciones accesibles desde montos bajos.
+                </p>
+              </div>
+
+              {/* Cards a la derecha */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {investmentBenefits.map((benefit, index) => (
+                  <div
+                    key={index}
+                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
+                  >
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
+                      <benefit.icon className="w-6 h-6 text-brand-black transition" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{benefit.title}</h3>
+                    <p className="text-sm text-gray-600">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">¿Por Qué Invertir con Nosotros?</h2>
-              <p className="text-xl text-gray-600">Conocé las ventajas de formar parte de nuestros desarrollos</p>
-            </div>
+            <h4 className="text-xl font-bold text-gray-900 text-center mb-6">
+              Preguntas Frecuentes
+            </h4>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {investmentBenefits.map((benefit, index) => (
-                <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-rose-100 rounded-full mb-6">
-                    <benefit.icon className="h-8 w-8 text-rose-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
-                  <p className="text-gray-600">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
+            <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>¿Cuál es el monto mínimo para invertir?</AccordionTrigger>
+                <AccordionContent>
+                  Podés invertir desde USD 5.000 en cualquiera de nuestros proyectos habilitados.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2">
+                <AccordionTrigger>¿Qué rentabilidad ofrecen las inversiones?</AccordionTrigger>
+                <AccordionContent>
+                  Dependiendo del proyecto, estimamos retornos anuales entre el 8% y el 12%. Siempre brindamos un informe detallado previo a invertir.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3">
+                <AccordionTrigger>¿Puedo invertir si estoy fuera de Argentina?</AccordionTrigger>
+                <AccordionContent>
+                  Sí. Aceptamos inversores del exterior y ofrecemos acompañamiento legal y fiscal para cada caso.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4">
+                <AccordionTrigger>¿Qué pasa si el proyecto se retrasa?</AccordionTrigger>
+                <AccordionContent>
+                  Mantenemos comunicación constante y reportes mensuales. En caso de demoras, se ajustan los plazos estimados sin perder tu inversión.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger>¿Qué documentación necesito para invertir?</AccordionTrigger>
+                <AccordionContent>
+                  Solo necesitás tu DNI o pasaporte vigente. Nosotros nos encargamos del resto con firma digital y contrato electrónico.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
           </div>
         </section>
 
