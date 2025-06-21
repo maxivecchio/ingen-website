@@ -148,9 +148,9 @@ export default function NovedadesPage() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="pt-8">
+      <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Novedades</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
