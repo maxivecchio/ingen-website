@@ -9,10 +9,20 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, User, Clock, Search, Tag, ArrowRight } from "lucide-react"
 import Image from "next/image"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default function NovedadesPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [activePost, setActivePost] = useState(null)
 
   const categories = [
     { id: "all", name: "Todas", count: 12 },
@@ -134,7 +144,7 @@ export default function NovedadesPage() {
     return matchesCategory && matchesSearch
   })
 
-  const getCategoryColor = (category) => {
+  const getCategoryColor = (category: any) => {
     const colors = {
       proyectos: "bg-blue-100 text-blue-800",
       inversiones: "bg-green-100 text-green-800",
@@ -257,21 +267,13 @@ export default function NovedadesPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map((post) => (
                 <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="relative">
-                    <Image
-                      src={post.image || "/placeholder.svg"}
-                      alt={post.title}
-                      width={400}
-                      height={300}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className={getCategoryColor(post.category)}>
-                        {categories.find((c) => c.id === post.category)?.name}
-                      </Badge>
-                    </div>
-                  </div>
-
+                  <Image
+                    src={post.image || "/placeholder.svg"}
+                    alt={post.title}
+                    width={400}
+                    height={300}
+                    className="w-full h-48 object-cover"
+                  />
                   <CardContent className="p-6">
                     <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
                     <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
@@ -292,9 +294,31 @@ export default function NovedadesPage() {
                         <Calendar className="h-4 w-4 mr-1" />
                         <span>{post.date}</span>
                       </div>
-                      <Button variant="outline" size="sm">
-                        Leer Más
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setActivePost(post)}
+                          >
+                            Leer Más
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl">
+                          <DialogHeader>
+                            <DialogTitle>{activePost?.title}</DialogTitle>
+                            <DialogDescription className="text-sm text-gray-500 mb-4">
+                              <span className="mr-2">Por {activePost?.author}</span> · {activePost?.date} · {activePost?.readTime}
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="text-gray-700 space-y-4">
+                            <p>{activePost?.excerpt}</p>
+                          </div>
+                          <DialogFooter className="mt-6">
+                            <Button variant="ghost">Cerrar</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </CardContent>
                 </Card>
