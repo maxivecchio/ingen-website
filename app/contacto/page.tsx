@@ -11,6 +11,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function ContactoPage() {
   const [formData, setFormData] = useState({
@@ -76,9 +82,9 @@ export default function ContactoPage() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="pt-8">
+      <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Contactanos</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -181,7 +187,7 @@ export default function ContactoPage() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-4">
-                        <Button type="submit" className="flex-1 bg-rose-600 hover:bg-rose-700">
+                        <Button type="submit" className="flex-1 bg-brand-black hover:bg-black/80">
                           <Send className="h-4 w-4 mr-2" />
                           Enviar Mensaje
                         </Button>
@@ -216,8 +222,8 @@ export default function ContactoPage() {
                     <CardContent className="p-6">
                       <div className="flex items-start">
                         <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center">
-                            <info.icon className="h-6 w-6 text-rose-600" />
+                          <div className="w-12 h-12 bg-brand-gray rounded-lg flex items-center justify-center">
+                            <info.icon className="h-6 w-6 text-brand-black" />
                           </div>
                         </div>
                         <div className="ml-4">
@@ -244,10 +250,10 @@ export default function ContactoPage() {
                         <a
                           key={index}
                           href={social.href}
-                          className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center hover:bg-rose-200 transition-colors"
+                          className="w-10 h-10 bg-brand-gray rounded-lg flex items-center justify-center hover:bg-black/10 transition-colors"
                           aria-label={social.label}
                         >
-                          <social.icon className="h-5 w-5 text-rose-600" />
+                          <social.icon className="h-5 w-5 text-brand-black" />
                         </a>
                       ))}
                     </div>
@@ -267,80 +273,66 @@ export default function ContactoPage() {
             </div>
 
             <Card className="overflow-hidden shadow-lg">
-              <div className="h-96 bg-gray-200 relative flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-16 w-16 text-rose-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Mapa Interactivo</h3>
-                  <p className="text-gray-600 mb-4">
-                    Av. Principal 1234, Centro Empresarial Torre Norte
-                    <br />
-                    Ciudad, Provincia 12345
-                  </p>
-                  <div className="space-y-2 text-sm text-gray-500">
-                    <p>
-                      <strong>Transporte público:</strong> Líneas A, B y C - Estación Centro (5 min)
-                    </p>
-                    <p>
-                      <strong>Estacionamiento:</strong> Disponible en el edificio (2hs gratuitas)
-                    </p>
-                  </div>
-                </div>
+              <div className="h-96 bg-gray-200 relative">
+                <iframe
+                  title="Mapa de Ubicación"
+                  src="https://maps.google.com/maps?q=-34.6037,-58.3816&z=15&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </Card>
           </div>
         </section>
 
+
         {/* FAQ Section */}
         <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Preguntas Frecuentes</h2>
-              <p className="text-xl text-gray-600">Respuestas a las consultas más comunes</p>
-            </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h4 className="text-xl font-bold text-gray-900 text-center mb-6">
+              Preguntas Frecuentes
+            </h4>
 
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">¿Cuál es el monto mínimo para invertir?</h3>
-                  <p className="text-gray-600">
-                    El monto mínimo de inversión es de $25,000. Ofrecemos diferentes planes según el monto invertido,
-                    con beneficios adicionales para inversiones mayores.
-                  </p>
-                </CardContent>
-              </Card>
+            <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>¿Cuál es el monto mínimo para invertir?</AccordionTrigger>
+                <AccordionContent>
+                  Podés invertir desde USD 5.000 en cualquiera de nuestros proyectos habilitados.
+                </AccordionContent>
+              </AccordionItem>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">¿Qué garantías ofrecen?</h3>
-                  <p className="text-gray-600">
-                    Todos nuestros proyectos cuentan con respaldo legal completo, seguros de construcción y garantías
-                    reales sobre los inmuebles desarrollados.
-                  </p>
-                </CardContent>
-              </Card>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>¿Qué rentabilidad ofrecen las inversiones?</AccordionTrigger>
+                <AccordionContent>
+                  Dependiendo del proyecto, estimamos retornos anuales entre el 8% y el 12%. Siempre brindamos un informe detallado previo a invertir.
+                </AccordionContent>
+              </AccordionItem>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">¿Con qué frecuencia recibo informes?</h3>
-                  <p className="text-gray-600">
-                    Los informes de avance se envían mensualmente para inversores iniciales, quincenalmente para premium
-                    y semanalmente para inversores VIP.
-                  </p>
-                </CardContent>
-              </Card>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>¿Puedo invertir si estoy fuera de Argentina?</AccordionTrigger>
+                <AccordionContent>
+                  Sí. Aceptamos inversores del exterior y ofrecemos acompañamiento legal y fiscal para cada caso.
+                </AccordionContent>
+              </AccordionItem>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    ¿Puedo visitar las obras en construcción?
-                  </h3>
-                  <p className="text-gray-600">
-                    Sí, organizamos visitas programadas a las obras para todos nuestros inversores. Los inversores
-                    premium y VIP tienen acceso prioritario.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+              <AccordionItem value="item-4">
+                <AccordionTrigger>¿Qué pasa si el proyecto se retrasa?</AccordionTrigger>
+                <AccordionContent>
+                  Mantenemos comunicación constante y reportes mensuales. En caso de demoras, se ajustan los plazos estimados sin perder tu inversión.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger>¿Qué documentación necesito para invertir?</AccordionTrigger>
+                <AccordionContent>
+                  Solo necesitás tu DNI o pasaporte vigente. Nosotros nos encargamos del resto con firma digital y contrato electrónico.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
       </main>

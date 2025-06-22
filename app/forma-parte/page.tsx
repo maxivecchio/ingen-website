@@ -206,7 +206,6 @@ export default function FormaPartePage() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-
           </div>
         </section>
 
