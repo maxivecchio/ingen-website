@@ -7,6 +7,7 @@ import { MapPin, Bed, Bath, Square, ChevronLeft, ChevronRight } from "lucide-rea
 import Image from "next/image"
 import Link from "next/link"
 import { propertyService } from "./api/properties-api"
+import { useRouter } from "next/navigation"
 
 export default function PropertiesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -76,6 +77,8 @@ export default function PropertiesSection() {
     loadProperties()
   }, [loadProperties])
 
+  const router = useRouter()
+
   return (
     <section className="py-16 lg:py-24 bg-brand-gray">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -138,7 +141,7 @@ export default function PropertiesSection() {
                         <p>{property.description || "Sin descripción"}</p>
                       </div>
 
-                      <Button className="w-full mt-2" variant="outline">
+                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} className="w-full mt-2" variant="outline">
                         Ver Detalles
                       </Button>
                     </CardContent>

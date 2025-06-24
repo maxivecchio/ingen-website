@@ -2,6 +2,7 @@ import { ServerUrl } from "@/lib/utils"
 import axios from "axios"
 
 const API_BASE_URL = `${ServerUrl}/myprops`
+const accountId = "684cb03b2d282f47c65cd8c1"
 
 // Property Service
 export const propertyService = {
@@ -31,16 +32,15 @@ export const propertyService = {
         if (filters?.limit) params.append("limit", filters.limit.toString())
 
         const queryString = params.toString()
-        const accountId = "684cb03b2d282f47c65cd8c1"
         const url = `${API_BASE_URL}/properties/visitors/properties/${accountId}${queryString ? `?${queryString}` : ""}`
 
         const response = await axios.get(url)
         return response.data
     },
 
-    async getById(token, id: string) {
-        const response = await axios.get(`${API_BASE_URL}/properties/${id}`, { headers: { Authorization: `Bearer ${token}` } })
-        return response.data
+    async getById(id: string) {
+        const response = await axios.get(`${API_BASE_URL}/properties/visitors/properties/view/${id}?account=${accountId}`);
+        return response.data;
     },
 
 }

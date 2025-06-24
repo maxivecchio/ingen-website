@@ -16,6 +16,7 @@ import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useRouter } from "next/navigation"
 
 export function FilterPopover({ label, options, selected, onChange }: any) {
   const handleToggle = (option: any) => {
@@ -190,6 +191,8 @@ export default function PropiedadesPage() {
 
     return matchesSearch && matchesType && matchesLocation && matchesBedrooms && matchesPrice
   })
+
+  const router = useRouter()
 
   return (
     <div className="min-h-screen bg-white">
@@ -377,7 +380,7 @@ export default function PropiedadesPage() {
                         <MessageCircle className="h-4 w-4 mr-2" />
                         {property.status === "Vendido" ? "Vendido" : "Consultar por WhatsApp"}
                       </Button>
-                      <Button variant="outline" className="w-full">
+                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} variant="outline" className="w-full">
                         Ver Detalles Completos
                       </Button>
                     </div>
