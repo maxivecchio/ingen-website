@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -17,13 +17,31 @@ import L from "leaflet"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
+import { propertyService, propertyTypeService } from "@/components/api/properties-api"
 
 export function FilterPopover({ label, options, selected, onChange }: any) {
+  const isPropertyType = label === "Tipo de propiedad"
+
+  const isChecked = (option: any) => {
+    if (isPropertyType) {
+      return selected === option._id
+    }
+
+    if (option.label && selected?.label) {
+      return selected.label === option.label
+    }
+
+    return selected === option
+  }
+
   const handleToggle = (option: any) => {
-    if (selected.includes(option)) {
-      onChange(selected.filter((item: any) => item !== option))
+    if (isPropertyType) {
+      const value = option._id
+      onChange(selected === value ? null : value)
+    } else if (option.label) {
+      onChange(selected?.label === option.label ? null : option)
     } else {
-      onChange([...selected, option])
+      onChange(selected === option ? null : option)
     }
   }
 
@@ -40,12 +58,14 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
       <PopoverContent className="w-64 p-4">
         <div className="space-y-2">
           {options.map((option: any) => (
-            <label key={option} className="flex items-center space-x-2">
+            <label key={isPropertyType ? option._id : option.label || option} className="flex items-center space-x-2">
               <Checkbox
-                checked={selected.includes(option)}
+                checked={isChecked(option)}
                 onCheckedChange={() => handleToggle(option)}
               />
-              <span className="text-sm text-gray-700">{option}</span>
+              <span className="text-sm text-gray-700">
+                {isPropertyType ? option.name : option.label || option}
+              </span>
             </label>
           ))}
         </div>
@@ -54,109 +74,79 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
   )
 }
 
-
 export default function PropiedadesPage() {
-  const [filters, setFilters] = useState<any>({
-    type: [],
-    priceRange: [],
-    bedrooms: [],
-    location: [],
-  })
+  const [properties, setProperties] = useState<any>([])
+  const [propertiesTypes, setPropertiesTypes] = useState<any>([])
+  const [selectedType, setSelectedType] = useState<string>("all")
+  const [propertiesStatuses, setPropertiesStatuses] = useState<any>([])
+  const [loading, setLoading] = useState(true)
+  const [priceRangeFilter, setPriceRangeFilter] = useState<{ label: string; min: number; max?: number } | null>(null)
 
   const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 0,
+    hasNextPage: false,
+    hasPrevPage: false,
+  })
 
-  const properties = [
-    {
-      id: 1,
-      name: "Casa Moderna Vista Verde",
-      location: "Zona Norte, Ciudad",
-      price: 285000,
-      type: "casa",
-      image: "/imagen-prueba-2.jpg",
-      beds: 3,
-      baths: 2,
-      area: "120 m²",
-      status: "Disponible",
-      description: "Hermosa casa moderna con jardín privado y acabados de lujo",
-      features: ["Jardín", "Garage", "Terraza", "Cocina equipada"],
-      coordinates: { lat: -34.5205, lng: -58.4901 },
-    },
-    {
-      id: 2,
-      name: "Departamento Torres del Sol",
-      location: "Centro Histórico",
-      price: 195000,
-      type: "departamento",
-      image: "/imagen-prueba-2.jpg",
-      beds: 2,
-      baths: 2,
-      area: "85 m²",
-      status: "Vendido",
-      description: "Departamento en torre premium con vista panorámica",
-      features: ["Balcón", "Gimnasio", "Piscina", "Seguridad 24hs"],
-      coordinates: { lat: -34.6075, lng: -58.3789 },
-    },
-    {
-      id: 3,
-      name: "Penthouse Plaza Central",
-      location: "Zona Comercial",
-      price: 450000,
-      type: "departamento",
-      image: "/imagen-prueba-2.jpg",
-      beds: 4,
-      baths: 3,
-      area: "180 m²",
-      status: "Disponible",
-      description: "Exclusivo penthouse con terraza privada y jacuzzi",
-      features: ["Terraza privada", "Jacuzzi", "Vestidor", "Doble altura"],
-      coordinates: { lat: -34.6037, lng: -58.3816 },
-    },
-    {
-      id: 4,
-      name: "Casa Familiar Parque",
-      location: "Zona Residencial",
-      price: 320000,
-      type: "casa",
-      image: "/imagen-prueba-2.jpg",
-      beds: 4,
-      baths: 3,
-      area: "150 m²",
-      status: "En Venta",
-      description: "Amplia casa familiar cerca de parques y colegios",
-      features: ["Patio trasero", "Garage doble", "Estudio", "Lavadero"],
-      coordinates: { lat: -34.5809, lng: -58.4372 },
-    },
-    {
-      id: 5,
-      name: "Loft Urbano Centro",
-      location: "Centro de la Ciudad",
-      price: 165000,
-      type: "loft",
-      image: "/imagen-prueba-2.jpg",
-      beds: 1,
-      baths: 1,
-      area: "65 m²",
-      status: "Disponible",
-      description: "Moderno loft con diseño industrial y ubicación privilegiada",
-      features: ["Diseño industrial", "Techos altos", "Ventanales", "Amoblado"],
-      coordinates: { lat: -34.6104, lng: -58.3755 },
-    },
-    {
-      id: 6,
-      name: "Duplex Residencial Norte",
-      location: "Zona Norte, Ciudad",
-      price: 380000,
-      type: "casa",
-      image: "/imagen-prueba-2.jpg",
-      beds: 3,
-      baths: 3,
-      area: "140 m²",
-      status: "Disponible",
-      description: "Duplex con diseño contemporáneo y espacios amplios",
-      features: ["Duplex", "Parrilla", "Patio", "Cochera"],
-      coordinates: { lat: -34.5152, lng: -58.4713 },
-    },
+  const priceRanges = [
+    { label: "$0 - $50,000", min: 0, max: 50000 },
+    { label: "$50,000 - $100,000", min: 50000, max: 100000 },
+    { label: "$100,000 - $200,000", min: 100000, max: 200000 },
+    { label: "$200,000 - $350,000", min: 200000, max: 350000 },
+    { label: "$350,000+", min: 350000, max: undefined },
   ]
+
+  const loadProperties = useCallback(async () => {
+    try {
+      const filters: any = {
+        page: currentPage,
+        property_type: selectedType !== "all" ? selectedType : undefined,
+        limit: 12,
+        search: searchTerm || undefined,
+      }
+
+      if (priceRangeFilter) {
+        filters.min_price = priceRangeFilter.min
+        if (priceRangeFilter.max !== undefined) {
+          filters.max_price = priceRangeFilter.max
+        }
+      }
+
+      console.log("Loading properties with filters:", filters)
+
+      setLoading(true)
+      const response = await propertyService.getAll(filters)
+      setProperties(response.data)
+      setPagination(response.pagination)
+    } catch (error) {
+      console.error("Error loading properties:", error)
+    } finally {
+      setLoading(false)
+    }
+  }, [currentPage, priceRangeFilter, searchTerm, selectedType])
+
+  const loadPropertyTypes = useCallback(async () => {
+    try {
+      const response = await propertyTypeService.getAll({ limit: "all" })
+      console.log(response);
+      setPropertiesTypes(response.data)
+    } catch (error) {
+      console.error("Error loading property types:", error)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadProperties()
+  }, [loadProperties])
+
+  useEffect(() => {
+    loadPropertyTypes()
+  }, [loadPropertyTypes])
 
   const handleWhatsAppContact = (property: any) => {
     const message = `Hola! Me interesa la propiedad "${property.name}" ubicada en ${property.location} con precio de $${property.price.toLocaleString()}. ¿Podrían brindarme más información?`
@@ -165,32 +155,6 @@ export default function PropiedadesPage() {
   }
 
   const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
-
-  const filteredProperties = properties.filter((property) => {
-    const matchesSearch =
-      property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchTerm.toLowerCase())
-
-    const matchesType = filters.type.length === 0 || filters.type.includes(capitalize(property.type))
-    const matchesLocation =
-      filters.location.length === 0 ||
-      filters.location.some((loc: string) =>
-        property.location.toLowerCase().includes(loc.toLowerCase())
-      )
-    const matchesBedrooms =
-      filters.bedrooms.length === 0 || filters.bedrooms.includes(String(property.beds))
-    const matchesPrice =
-      filters.priceRange.length === 0 ||
-      filters.priceRange.some((range: string) => {
-        const price = property.price
-        if (range === "$0 - $200,000") return price <= 200000
-        if (range === "$200,000 - $350,000") return price > 200000 && price <= 350000
-        if (range === "$350,000+") return price > 350000
-        return true
-      })
-
-    return matchesSearch && matchesType && matchesLocation && matchesBedrooms && matchesPrice
-  })
 
   const router = useRouter()
 
@@ -213,7 +177,7 @@ export default function PropiedadesPage() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {properties.map((project) => (
+            {/* {properties.map((project: any) => (
               <Marker
                 key={project.id}
                 position={[project.coordinates.lat, project.coordinates.lng]}
@@ -226,7 +190,7 @@ export default function PropiedadesPage() {
                   {project.description}
                 </Popup>
               </Marker>
-            ))}
+            ))} */}
           </MapContainer>
         </div>
       </section>
@@ -268,41 +232,35 @@ export default function PropiedadesPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {/* Popover 1: Tipo */}
                 <FilterPopover
                   label="Tipo de propiedad"
-                  options={["Casa", "Departamento", "Loft"]}
-                  selected={filters.type}
-                  onChange={(selected: any) => setFilters({ ...filters, type: selected })}
+                  options={propertiesTypes}
+                  selected={selectedType}
+                  onChange={(selected: any) =>
+                    setSelectedType((prev: any) => (selected))
+                  }
                 />
 
                 {/* Popover 2: Precio */}
                 <FilterPopover
                   label="Rango de precio"
-                  options={["$0 - $200,000", "$200,000 - $350,000", "$350,000+"]}
-                  selected={filters.priceRange}
-                  onChange={(selected: any) => setFilters({ ...filters, priceRange: selected })}
+                  options={priceRanges}
+                  selected={priceRangeFilter}
+                  onChange={(selected: any) => setPriceRangeFilter(selected)}
                 />
 
-                {/* Popover 3: Dormitorios */}
-                <FilterPopover
-                  label="Dormitorios"
+                {/* Popover 3: Estado de la propiedad */}
+                {/*  <FilterPopover
+                  label="Estado de la propiedad"
                   options={["1", "2", "3", "4+"]}
-                  selected={filters.bedrooms}
-                  onChange={(selected: any) => setFilters({ ...filters, bedrooms: selected })}
-                />
-
-                {/* Popover 4: Ubicación */}
-                <FilterPopover
-                  label="Ubicación"
-                  options={["Zona Norte", "Centro Histórico", "Zona Comercial", "Zona Residencial", "Centro"]}
-                  selected={filters.location}
-                  onChange={(selected: any) => setFilters({ ...filters, location: selected })}
-                />
+                  selected={filters.status}
+                  onChange={(selected: any) => setFilters({ ...filters, status: selected })}
+                /> */}
               </div>
 
-              <div className="flex justify-end mt-8">
+              {/* <div className="flex justify-end mt-8">
                 <Button
                   variant="ghost"
                   className="border border-gray-300 text-gray-700 hover:bg-gray-100 rounded-xl"
@@ -313,7 +271,7 @@ export default function PropiedadesPage() {
                 >
                   Limpiar Filtros
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -322,70 +280,64 @@ export default function PropiedadesPage() {
         <section className="pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">{filteredProperties.length} Propiedades Encontradas</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{properties.length} Propiedades Encontradas</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProperties.map((property) => (
-                <Card key={property.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="relative">
-                    <Image
-                      src={property.image || "/placeholder.svg"}
-                      alt={property.name}
-                      width={400}
-                      height={300}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${property.status === "Vendido"
-                          ? "bg-green-600/70 text-white"
-                          : property.status === "Disponible"
-                            ? "bg-blue-600/70 text-white"
-                            : property.status === "En Venta"
-                              ? "bg-purple-600/70 text-white"
-                              : "bg-gray-400 text-white"
-                          }`}
-                      >
-                        {property.status}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
-                        ${property.price.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 left-4">
-                      <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">
-                        {property.type}
-                      </span>
-                    </div>
-                  </div>
+              {properties.map((property: any) => (
+                <div key={property._id} className="px-3">
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative">
+                      <Image
+                        src={property.cover_image || "/placeholder.svg"}
+                        alt={property.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-52 object-cover"
+                      />
 
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
-                    <div className="flex items-center text-gray-600 mb-3">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      <span className="text-sm">{property.location}</span>
+                      <div className="absolute top-4 left-4">
+                        <span
+                          className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                          style={{ backgroundColor: property.status?.color || "#9CA3AF" }} // fallback: gray-400
+                        >
+                          {property.status?.name || "Sin estado"}
+                        </span>
+                      </div>
+
+                      {property.price && (
+                        <div className="absolute top-4 right-4">
+                          <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
+                            {property.price ? `$${property.price}` : "Sin precio"}
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">
+                          {property.property_type_id?.name || "Sin tipo"}
+                        </span>
+                      </div>
                     </div>
 
-                    <p className="text-gray-600 text-sm mb-4">{property.description}</p>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
 
-                    <div className="space-y-2">
-                      <Button
-                        className="w-full bg-brand-black hover:bg-brand-black/80"
-                        onClick={() => handleWhatsAppContact(property)}
-                        disabled={property.status === "Vendido"}
-                      >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        {property.status === "Vendido" ? "Vendido" : "Consultar por WhatsApp"}
+                      <div className="flex items-center text-gray-600 mb-4">
+                        <MapPin className="h-4 w-4 mr-2 text-red-500" />
+                        <span className="text-sm">{property.address_id?.city}, {property.address_id?.state}</span>
+                      </div>
+
+                      <div>
+                        <p>{property.description || "Sin descripción"}</p>
+                      </div>
+
+                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} className="w-full mt-2" variant="outline">
+                        Ver Detalles
                       </Button>
-                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} variant="outline" className="w-full">
-                        Ver Detalles Completos
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </div>
               ))}
             </div>
           </div>

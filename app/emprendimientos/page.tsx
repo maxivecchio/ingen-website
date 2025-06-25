@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -12,6 +12,8 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 /* @ts-ignore */
 import L from "leaflet"
+import { propertyService } from "@/components/api/properties-api"
+import Link from "next/link"
 
 // Soluciona problema con iconos por defecto de Leaflet en Next.js
 delete L.Icon.Default.prototype._getIconUrl
@@ -25,196 +27,60 @@ L.Icon.Default.mergeOptions({
 })
 
 export default function EmprendimientosPage() {
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [propertiesEmprende, setPropertiesEmprende] = useState<any>([])
+  const [loading, setLoading] = useState(true)
 
-  const projects = [
-    {
-      id: 1,
-      name: "Residencial Vista Verde",
-      location: "Zona Norte, Ciudad",
-      coordinates: { lat: -34.6037, lng: -58.3816 },
-      status: "En Construcción",
-      progress: "45%",
-      image: "/imagen-prueba.jpg",
-      description: "Moderno complejo residencial con amenities de primera clase",
-      expectedReturn: "18%",
-      startDate: "Marzo 2024",
-      totalUnits: 120,
-      availableUnits: 68,
-      features: ["Piscina", "Gimnasio", "Área de juegos", "Seguridad 24hs"],
-    },
-    {
-      id: 2,
-      name: "Torres del Sol",
-      location: "Centro Histórico",
-      coordinates: { lat: -34.6118, lng: -58.396 },
-      status: "En Construcción",
-      progress: "72%",
-      image: "/imagen-prueba.jpg",
-      description: "Torres gemelas en el corazón de la ciudad",
-      expectedReturn: "22%",
-      startDate: "Enero 2024",
-      totalUnits: 200,
-      availableUnits: 45,
-      features: ["Rooftop", "Coworking", "Spa", "Estacionamiento"],
-    },
-    {
-      id: 3,
-      name: "Complejo Urbano Plaza",
-      location: "Zona Comercial",
-      coordinates: { lat: -34.5875, lng: -58.3974 },
-      status: "Próximo Lanzamiento",
-      progress: "0%",
-      image: "/imagen-prueba.jpg",
-      description: "Desarrollo mixto con locales comerciales y residencias",
-      expectedReturn: "25%",
-      startDate: "Julio 2024",
-      totalUnits: 150,
-      availableUnits: 150,
-      features: ["Centro comercial", "Oficinas", "Residencias", "Plaza central"],
-    },
-    {
-      id: 4,
-      name: "Mirador del Lago",
-      location: "Barrio Sur",
-      coordinates: { lat: -34.595, lng: -58.372 },
-      status: "En Construcción",
-      progress: "60%",
-      image: "/imagen-prueba.jpg",
-      description: "Departamentos con vista panorámica al lago",
-      expectedReturn: "20%",
-      startDate: "Febrero 2024",
-      totalUnits: 80,
-      availableUnits: 30,
-      features: ["Balcones", "Gimnasio", "Estacionamiento", "Seguridad 24hs"],
-    },
-    {
-      id: 5,
-      name: "Paseo Central",
-      location: "Centro",
-      coordinates: { lat: -34.609, lng: -58.385 },
-      status: "Finalizado",
-      progress: "100%",
-      image: "/imagen-prueba.jpg",
-      description: "Locales comerciales y oficinas en zona estratégica",
-      expectedReturn: "15%",
-      startDate: "Julio 2023",
-      totalUnits: 50,
-      availableUnits: 0,
-      features: ["Locales", "Estacionamiento", "Seguridad 24hs"],
-    },
-    {
-      id: 6,
-      name: "Altos de la Montaña",
-      location: "Zona Alta",
-      coordinates: { lat: -34.620, lng: -58.410 },
-      status: "Próximo Lanzamiento",
-      progress: "0%",
-      image: "/imagen-prueba.jpg",
-      description: "Casas familiares con diseño moderno",
-      expectedReturn: "23%",
-      startDate: "Octubre 2024",
-      totalUnits: 90,
-      availableUnits: 90,
-      features: ["Parque", "Seguridad 24hs", "Piscina", "Área de juegos"],
-    },
-    {
-      id: 7,
-      name: "Costa Azul",
-      location: "Zona Costera",
-      coordinates: { lat: -34.580, lng: -58.395 },
-      status: "En Construcción",
-      progress: "35%",
-      image: "/imagen-prueba.jpg",
-      description: "Departamentos con vista al mar",
-      expectedReturn: "19%",
-      startDate: "Marzo 2024",
-      totalUnits: 100,
-      availableUnits: 70,
-      features: ["Balcones", "Piscina", "Spa", "Gimnasio"],
-    },
-    {
-      id: 8,
-      name: "Jardines de Palermo",
-      location: "Palermo",
-      coordinates: { lat: -34.586, lng: -58.422 },
-      status: "En Construcción",
-      progress: "50%",
-      image: "/imagen-prueba.jpg",
-      description: "Complejo residencial con amplios jardines",
-      expectedReturn: "21%",
-      startDate: "Abril 2024",
-      totalUnits: 130,
-      availableUnits: 90,
-      features: ["Jardines", "Seguridad 24hs", "Gimnasio", "Estacionamiento"],
-    },
-    {
-      id: 9,
-      name: "Torres de la Ciudad",
-      location: "Centro",
-      coordinates: { lat: -34.605, lng: -58.381 },
-      status: "Finalizado",
-      progress: "100%",
-      image: "/imagen-prueba.jpg",
-      description: "Edificios de oficinas modernas",
-      expectedReturn: "17%",
-      startDate: "Enero 2023",
-      totalUnits: 60,
-      availableUnits: 0,
-      features: ["Oficinas", "Estacionamiento", "Seguridad 24hs"],
-    },
-    {
-      id: 10,
-      name: "Altura del Sol",
-      location: "Zona Norte",
-      coordinates: { lat: -34.600, lng: -58.370 },
-      status: "En Construcción",
-      progress: "55%",
-      image: "/imagen-prueba.jpg",
-      description: "Departamentos con diseño sustentable",
-      expectedReturn: "20%",
-      startDate: "Marzo 2024",
-      totalUnits: 140,
-      availableUnits: 75,
-      features: ["Energía Solar", "Gimnasio", "Piscina", "Seguridad 24hs"],
-    },
-    {
-      id: 11,
-      name: "Vistas del Río",
-      location: "Zona Ribereña",
-      coordinates: { lat: -34.610, lng: -58.390 },
-      status: "Próximo Lanzamiento",
-      progress: "0%",
-      image: "/imagen-prueba.jpg",
-      description: "Residencias con vista al río",
-      expectedReturn: "24%",
-      startDate: "Septiembre 2024",
-      totalUnits: 110,
-      availableUnits: 110,
-      features: ["Vista al río", "Seguridad 24hs", "Piscina", "Gimnasio"],
-    },
-    {
-      id: 12,
-      name: "Parque Central",
-      location: "Zona Central",
-      coordinates: { lat: -34.598, lng: -58.382 },
-      status: "En Construcción",
-      progress: "65%",
-      image: "/imagen-prueba.jpg",
-      description: "Complejo residencial rodeado de espacios verdes",
-      expectedReturn: "19%",
-      startDate: "Febrero 2024",
-      totalUnits: 160,
-      availableUnits: 90,
-      features: ["Parque", "Seguridad 24hs", "Piscina", "Área de juegos"],
-    },
-  ]
+  const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 0,
+    hasNextPage: false,
+    hasPrevPage: false,
+  })
 
+  const loadPropertiesEmprende = useCallback(async () => {
+    try {
+      setLoading(true)
+      const filters: any = {
+        page: currentPage,
+        property_type: "all",
+        limit: 10,
+      }
+
+      const response = await propertyService.getAllEmprende(filters)
+      console.log(response);
+      setPropertiesEmprende(response.data)
+      setPagination(response.pagination)
+    } catch (error) {
+      console.error("Error loading properties:", error)
+    } finally {
+      setLoading(false)
+    }
+  }, [currentPage])
+
+  useEffect(() => {
+    loadPropertiesEmprende()
+  }, [loadPropertiesEmprende])
 
   const handleWhatsAppContact = (project: any) => {
     const message = `Hola! Me interesa obtener más información sobre el proyecto ${project.name} ubicado en ${project.location}. ¿Podrían brindarme detalles sobre las oportunidades de inversión disponibles?`
     const whatsappUrl = `https://wa.me/5219848790708?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
+  }
+
+  const goToNextPage = () => {
+    if (pagination.hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const goToPreviousPage = () => {
+    if (pagination.hasPrevPage) {
+      setCurrentPage(currentPage - 1)
+    }
   }
 
   return (
@@ -236,7 +102,7 @@ export default function EmprendimientosPage() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {projects.map((project) => (
+            {/* {projects.map((project) => (
               <Marker
                 key={project.id}
                 position={[project.coordinates.lat, project.coordinates.lng]}
@@ -249,7 +115,7 @@ export default function EmprendimientosPage() {
                   {project.description}
                 </Popup>
               </Marker>
-            ))}
+            ))} */}
           </MapContainer>
         </div>
       </section>
@@ -276,7 +142,7 @@ export default function EmprendimientosPage() {
             </div>
 
             <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-              {projects.map((project) => (
+              {/* {projects.map((project) => (
 
                 <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
                   <div className="relative">
@@ -345,13 +211,136 @@ export default function EmprendimientosPage() {
                     </div>
                   </CardContent>
                 </Card>
+              ))} */}
+              {propertiesEmprende && propertiesEmprende.map((project: any) => (
+                <Card
+                  key={project?._id}
+                  className="overflow-hidden bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300"
+                >
+                  <div className="relative">
+                    <Image
+                      src={project?.cover_image || "/placeholder.svg"}
+                      alt={project?.name}
+                      width={400}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span
+                        className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                        style={{ backgroundColor: project.status?.color || "#9CA3AF" }} // fallback: gray-400
+                      >
+                        {project.status?.name || "Sin estado"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{project?.name}</h3>
+
+                    <div className="flex items-center text-gray-600 mb-3 text-sm">
+                      <MapPin className="h-4 w-4 mr-2 text-red-500" />
+                      <span className="text-sm">{project.address_id?.city}, {project.address_id?.state}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+                      <div className="flex items-center">
+                        <Calendar className="h-4 w-4 mr-1 text-gray-500" />
+                        {new Date(project?.publication_date).toLocaleDateString("es-AR")}
+                      </div>
+                    </div>
+
+                    <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
+
+                    <div className="mb-5">
+                      <div className="flex justify-between text-sm text-gray-500 mb-1">
+                        <span>Progreso</span>
+                        <span>
+                          {
+                            project?.type_info?.find(
+                              (info: any) =>
+                                info.label?.toLowerCase() === "progreso" ||
+                                info.name?.toLowerCase().includes("progreso")
+                            )?.value ?? "0"
+                          }%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-brand-black to-brand-dark transition-all duration-500"
+                          style={{
+                            width: `${project?.type_info?.find(
+                              (info: any) =>
+                                info.label?.toLowerCase() === "progreso" ||
+                                info.name?.toLowerCase().includes("progreso")
+                            )?.value ?? "0"
+                              }%`,
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-3">
+                      <Button
+                        className="w-full bg-brand-black hover:bg-brand-dark text-white"
+                        onClick={() => handleWhatsAppContact(project)}
+                      >
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Consultar por WhatsApp
+                      </Button>
+
+                      <Link
+                        href={`/emprendimientos/${project?._id}`}
+                        className="block text-center text-brand-black border border-brand-black rounded-md py-2 text-sm font-medium hover:bg-brand-black hover:text-white transition"
+                      >
+                        Ver Detalles
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+
               ))}
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mt-6">
+                <div className="text-sm text-black">
+                  Mostrando {(pagination.page - 1) * pagination.limit + 1}-
+                  {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
+                  {searchTerm && ` (búsqueda: "${searchTerm}")`}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={!pagination.hasPrevPage}
+                    onClick={goToPreviousPage}
+                    className="shadow-sm"
+                  >
+                    Anterior
+                  </Button>
+                  <span className="text-sm text-black px-2">
+                    Página {pagination.page} de {pagination.totalPages}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={!pagination.hasNextPage}
+                    onClick={goToNextPage}
+                    className="shadow-sm"
+                  >
+                    Siguiente
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+
+
         {/* Suggested Projects */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">También te Puede Interesar</h2>
@@ -387,7 +376,7 @@ export default function EmprendimientosPage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
 
       <Footer />

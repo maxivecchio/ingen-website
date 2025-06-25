@@ -22,17 +22,6 @@ export default function PropertiesSection() {
 
   /* test */
   const [properties, setProperties] = useState<any>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
-  const [type, setType] = useState("all")
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 10,
-    total: 0,
-    totalPages: 0,
-    hasNextPage: false,
-    hasPrevPage: false,
-  })
   const [loading, setLoading] = useState(true)
 
   const loadProperties = useCallback(async () => {
@@ -41,41 +30,26 @@ export default function PropertiesSection() {
 
 
       const filters: any = {
-        page: currentPage,
-        property_type: type,
+        page: 1,
+        property_type: "all",
         limit: 10,
-      }
-
-      // Agregar filtro de estado según el tab activo
-      /*       if (activeTab !== "Todos") {
-              const statusMap = {
-                Disponibles: "available",
-                Ocupadas: "occupied",
-                Mantenimiento: "maintenance",
-                Pendientes: "pending",
-              }
-              filters.status = statusMap[activeTab as keyof typeof statusMap]
-            } */
-
-      // Agregar búsqueda
-      if (searchTerm) {
-        filters.search = searchTerm
       }
 
       const response = await propertyService.getAll(filters)
       console.log(response);
       setProperties(response.data)
-      setPagination(response.pagination)
     } catch (error) {
       console.error("Error loading properties:", error)
     } finally {
       setLoading(false)
     }
-  }, [currentPage, searchTerm, type])
+  }, [])
 
   useEffect(() => {
     loadProperties()
   }, [loadProperties])
+
+ 
 
   const router = useRouter()
 
