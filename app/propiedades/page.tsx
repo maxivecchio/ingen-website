@@ -127,6 +127,7 @@ export default function PropiedadesPage() {
 
       setLoading(true)
       const response = await propertyService.getAll(filters)
+      console.log("Properties loaded:", response);
       setProperties(response.data)
       setPagination(response.pagination)
     } catch (error) {
@@ -186,6 +187,13 @@ export default function PropiedadesPage() {
 
   const router = useRouter()
 
+  const customIcon = new L.DivIcon({
+    html: `<div style="color: #2563eb; font-size: 24px;">📍</div>`, // icono emoji o podés usar un SVG inline
+    className: "",
+    iconSize: [24, 24],
+    iconAnchor: [12, 24],
+  });
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -205,20 +213,25 @@ export default function PropiedadesPage() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {/* {properties.map((project: any) => (
-              <Marker
-                key={project.id}
-                position={[project.coordinates.lat, project.coordinates.lng]}
-              >
-                <Popup>
-                  <strong>{project.name}</strong>
-                  <br />
-                  {project.location}
-                  <br />
-                  {project.description}
-                </Popup>
-              </Marker>
-            ))} */}
+            {properties.map((project: any) => {
+              const lat = project?.address_id?.latitude;
+              const lng = project?.address_id?.longitude;
+
+              if (typeof lat !== "number" || typeof lng !== "number") return null;
+
+              return (
+                /* @ts-ignore */
+                <Marker key={project.id} icon={customIcon} position={[lat, lng]}>
+                  <Popup>
+                    <strong>{project.name}</strong>
+                    <br />
+                    {project.location}
+                    <br />
+                    {project.description}
+                  </Popup>
+                </Marker>
+              );
+            })}
           </MapContainer>
         </div>
       </section>
