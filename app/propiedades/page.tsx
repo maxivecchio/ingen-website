@@ -366,7 +366,7 @@ export default function PropiedadesPage() {
 
                       <div className="flex items-center text-gray-600 mb-4">
                         <MapPin className="h-4 w-4 mr-2 text-red-500" />
-                        <span className="text-sm">{property.address_id?.city}, {property.address_id?.state}</span>
+                        <span className="text-sm">{property.address_id?.address_line}</span>
                       </div>
 
                       <div>
