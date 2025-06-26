@@ -17,13 +17,13 @@ import L from "leaflet"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
-import { propertyService, propertyTypeService } from "@/components/api/properties-api"
+import { propertyService, propertyTypeService, statusService } from "@/components/api/properties-api"
 
 export function FilterPopover({ label, options, selected, onChange }: any) {
-  const isPropertyType = label === "Tipo de propiedad"
+  const isObjectWithId = label === "Tipo de propiedad" || label === "Estado de la propiedad"
 
   const isChecked = (option: any) => {
-    if (isPropertyType) {
+    if (isObjectWithId) {
       return selected === option._id
     }
 
@@ -35,9 +35,9 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
   }
 
   const handleToggle = (option: any) => {
-    if (isPropertyType) {
+    if (isObjectWithId) {
       const value = option._id
-      onChange(selected === value ? null : value)
+      onChange(selected === value ? "all" : value)
     } else if (option.label) {
       onChange(selected?.label === option.label ? null : option)
     } else {
@@ -58,13 +58,16 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
       <PopoverContent className="w-64 p-4">
         <div className="space-y-2">
           {options.map((option: any) => (
-            <label key={isPropertyType ? option._id : option.label || option} className="flex items-center space-x-2">
+            <label
+              key={isObjectWithId ? option._id : option.label || option}
+              className="flex items-center space-x-2"
+            >
               <Checkbox
                 checked={isChecked(option)}
                 onCheckedChange={() => handleToggle(option)}
               />
               <span className="text-sm text-gray-700">
-                {isPropertyType ? option.name : option.label || option}
+                {isObjectWithId ? option.name : option.label || option}
               </span>
             </label>
           ))}
@@ -80,10 +83,12 @@ export default function PropiedadesPage() {
   const [selectedType, setSelectedType] = useState<string>("all")
   const [propertiesStatuses, setPropertiesStatuses] = useState<any>([])
   const [loading, setLoading] = useState(true)
-  const [priceRangeFilter, setPriceRangeFilter] = useState<{ label: string; min: number; max?: number } | null>(null)
 
+  const [priceRangeFilter, setPriceRangeFilter] = useState<{ label: string; min: number; max?: number } | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
+  const [currentPageStatus, setCurrentPageStatus] = useState(1)
+  const [selectedStatus, setSelectedStatus] = useState<string>("all")
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -108,6 +113,7 @@ export default function PropiedadesPage() {
         property_type: selectedType !== "all" ? selectedType : undefined,
         limit: 12,
         search: searchTerm || undefined,
+        status: selectedStatus !== "all" ? selectedStatus : undefined,
       }
 
       if (priceRangeFilter) {
@@ -128,7 +134,7 @@ export default function PropiedadesPage() {
     } finally {
       setLoading(false)
     }
-  }, [currentPage, priceRangeFilter, searchTerm, selectedType])
+  }, [currentPage, priceRangeFilter, searchTerm, selectedType, selectedStatus])
 
   const loadPropertyTypes = useCallback(async () => {
     try {
@@ -139,6 +145,28 @@ export default function PropiedadesPage() {
       console.error("Error loading property types:", error)
     }
   }, [])
+
+  const loadStatus = useCallback(async () => {
+    const filters = {
+      page: currentPageStatus,
+      limit: "all"
+    }
+    try {
+      setLoading(true)
+
+      const response = await statusService.getAll(filters)
+      console.log(response);
+      setPropertiesStatuses(response.data)
+    } catch (error) {
+      console.error("Error loading properties:", error)
+    } finally {
+      setLoading(false)
+    }
+  }, [currentPageStatus])
+
+  useEffect(() => {
+    loadStatus()
+  }, [loadStatus])
 
   useEffect(() => {
     loadProperties()
@@ -169,7 +197,7 @@ export default function PropiedadesPage() {
             center={[-34.6, -58.39]}
             zoom={12}
             scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: "100%", width: "100%", zIndex: 0 }}
           >
             <TileLayer
               /* @ts-ignore */
@@ -252,12 +280,12 @@ export default function PropiedadesPage() {
                 />
 
                 {/* Popover 3: Estado de la propiedad */}
-                {/*  <FilterPopover
+                <FilterPopover
                   label="Estado de la propiedad"
-                  options={["1", "2", "3", "4+"]}
-                  selected={filters.status}
-                  onChange={(selected: any) => setFilters({ ...filters, status: selected })}
-                /> */}
+                  options={propertiesStatuses}
+                  selected={selectedStatus}
+                  onChange={(selected: any) => setSelectedStatus(selected)}
+                />
               </div>
 
               {/* <div className="flex justify-end mt-8">

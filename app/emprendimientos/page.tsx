@@ -94,7 +94,7 @@ export default function EmprendimientosPage() {
             center={[-34.6, -58.39]}
             zoom={12}
             scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: "100%", width: "100%", zIndex: 0 }}
           >
             <TileLayer
               /* @ts-ignore */

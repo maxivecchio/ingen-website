@@ -100,9 +100,9 @@ export const propertyTypeService = {
 }
 
 export const statusService = {
-    async getAll(token, filters?: {
+    async getAll(filters?: {
         page?: number
-        limit?: number
+        limit?: any
     }) {
         const params = new URLSearchParams()
 
@@ -112,29 +112,10 @@ export const statusService = {
         console.log(filters);
 
         const queryString = params.toString()
-        const url = `${API_BASE_URL}/status${queryString ? `?${queryString}` : ""}`
+        const url = `${API_BASE_URL}/status/visitors/status/${accountId}${queryString ? `?${queryString}` : ""}`
 
-        const response = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.get(url)
         return response.data
-    },
-
-    async getById(token, id: string) {
-        const response = await axios.get(`${API_BASE_URL}/status/${id}`, { headers: { Authorization: `Bearer ${token}` } })
-        return response.data
-    },
-
-    async create(token, data: any) {
-        const response = await axios.post(`${API_BASE_URL}/status`, data, { headers: { Authorization: `Bearer ${token}` } })
-        return response.data
-    },
-
-    async update(token, id: string, data: any) {
-        const response = await axios.patch(`${API_BASE_URL}/status/${id}`, data, { headers: { Authorization: `Bearer ${token}` } })
-        return response.data
-    },
-
-    async delete(token, id: string) {
-        await axios.delete(`${API_BASE_URL}/status/${id}`, { headers: { Authorization: `Bearer ${token}` } })
     },
 }
 
