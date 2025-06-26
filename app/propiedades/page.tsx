@@ -178,7 +178,7 @@ export default function PropiedadesPage() {
 
   const handleWhatsAppContact = (property: any) => {
     const message = `Hola! Me interesa la propiedad "${property.name}" ubicada en ${property.location} con precio de $${property.price.toLocaleString()}. ¿Podrían brindarme más información?`
-    const whatsappUrl = `https://wa.me/5219848790708?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5491139549810?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
   }
 

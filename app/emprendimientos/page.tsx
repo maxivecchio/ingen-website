@@ -67,7 +67,7 @@ export default function EmprendimientosPage() {
 
   const handleWhatsAppContact = (project: any) => {
     const message = `Hola! Me interesa obtener más información sobre el proyecto ${project.name} ubicado en ${project.location}. ¿Podrían brindarme detalles sobre las oportunidades de inversión disponibles?`
-    const whatsappUrl = `https://wa.me/5219848790708?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5491139549810?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
   }
 

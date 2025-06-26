@@ -283,7 +283,7 @@ export default function FormaPartePage() {
                     onClick={() => {
                       const message =
                         "Hola! Me interesa conocer más sobre las oportunidades de inversión en sus desarrollos inmobiliarios. ¿Podrían brindarme información detallada?"
-                      const whatsappUrl = `https://wa.me/5219848790708?text=${encodeURIComponent(message)}`
+                      const whatsappUrl = `https://wa.me/5491139549810?text=${encodeURIComponent(message)}`
                       window.open(whatsappUrl, "_blank")
                     }}
                   >
