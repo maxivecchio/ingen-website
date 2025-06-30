@@ -83,6 +83,14 @@ export default function EmprendimientosPage() {
     }
   }
 
+  const customIcon = new L.DivIcon({
+    html: `<div style="color: #2563eb; font-size: 24px;">📍</div>`, // icono emoji o podés usar un SVG inline
+    className: "",
+    iconSize: [24, 24],
+    iconAnchor: [12, 24],
+  });
+
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -94,28 +102,33 @@ export default function EmprendimientosPage() {
             center={[-34.6, -58.39]}
             zoom={12}
             scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%", zIndex: 0 }}
+            style={{ height: '100%', width: '100%', zIndex: 0 }}
           >
             <TileLayer
-              /* @ts-ignore */
+            /* @ts-ignore */
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {/* {projects.map((project) => (
-              <Marker
-                key={project.id}
-                position={[project.coordinates.lat, project.coordinates.lng]}
-              >
-                <Popup>
-                  <strong>{project.name}</strong>
-                  <br />
-                  {project.location}
-                  <br />
-                  {project.description}
-                </Popup>
-              </Marker>
-            ))} */}
+            {propertiesEmprende.map((property: any) => (
+              property.address_id?.latitude &&
+              property.address_id?.longitude && (
+                <Marker
+                  key={property._id}
+                  position={[property.address_id.latitude, property.address_id.longitude]}
+                  /* @ts-ignore */
+                  icon={customIcon}
+                >
+                  <Popup>
+                    <strong>{property.name}</strong>
+                    <br />
+                    {property.address_id.address_line}, {property.address_id.city}
+                    <br />
+                    {property.description}
+                  </Popup>
+                </Marker>
+              )
+            ))}
           </MapContainer>
         </div>
       </section>

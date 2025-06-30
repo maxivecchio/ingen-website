@@ -205,7 +205,7 @@ export default function PropiedadesPage() {
             center={[-34.6, -58.39]}
             zoom={12}
             scrollWheelZoom={true}
-            style={{ height: "100%", width: "100%", zIndex: 0 }}
+            style={{ height: '100%', width: '100%', zIndex: 0 }}
           >
             <TileLayer
               /* @ts-ignore */
@@ -213,25 +213,25 @@ export default function PropiedadesPage() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            {properties.map((project: any) => {
-              const lat = project?.address_id?.latitude;
-              const lng = project?.address_id?.longitude;
-
-              if (typeof lat !== "number" || typeof lng !== "number") return null;
-
-              return (
-                /* @ts-ignore */
-                <Marker key={project.id} icon={customIcon} position={[lat, lng]}>
+            {properties.map((property: any) => (
+              property.address_id?.latitude &&
+              property.address_id?.longitude && (
+                <Marker
+                  key={property._id}
+                  position={[property.address_id.latitude, property.address_id.longitude]}
+                  /* @ts-ignore */
+                  icon={customIcon}
+                >
                   <Popup>
-                    <strong>{project.name}</strong>
+                    <strong>{property.name}</strong>
                     <br />
-                    {project.location}
+                    {property.address_id.address_line}, {property.address_id.city}
                     <br />
-                    {project.description}
+                    {property.description}
                   </Popup>
                 </Marker>
-              );
-            })}
+              )
+            ))}
           </MapContainer>
         </div>
       </section>
