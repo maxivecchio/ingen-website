@@ -11,6 +11,7 @@ export const blogService = {
         search?: string
         page?: number
         limit?: number
+        categories?: string[]
     }) {
         const params = new URLSearchParams()
 
@@ -18,6 +19,9 @@ export const blogService = {
         if (filters?.search) params.append("search", filters.search)
         if (filters?.page) params.append("page", filters.page.toString())
         if (filters?.limit) params.append("limit", filters.limit.toString())
+        if (filters?.categories && filters.categories.length > 0) {
+            params.append("categories", filters.categories.join(","))
+        }
 
         const queryString = params.toString()
         const url = `${API_BASE_URL}/visitors/posts/${accountId}${queryString ? `?${queryString}` : ""}`
@@ -26,7 +30,7 @@ export const blogService = {
         return response.data
     },
 
-     async getAllCategories(filters?: {
+    async getAllCategories(filters?: {
         status?: string
         search?: string
         page?: number
@@ -40,6 +44,24 @@ export const blogService = {
 
         const queryString = params.toString()
         const url = `${API_BASE_URL}/visitors/categories/${accountId}${queryString ? `?${queryString}` : ""}`
+
+        const response = await axios.get(url)
+        return response.data
+    },
+
+    async getAllPostRecomended(filters?: {
+        status?: string
+        categories?: any[]
+    }) {
+        const params = new URLSearchParams()
+
+        if (filters?.status) params.append("status", filters.status)
+        if (filters?.categories && filters.categories.length > 0) {
+            params.append("categories", filters.categories.join(","))
+        }
+
+        const queryString = params.toString()
+        const url = `${API_BASE_URL}/visitors/posts/recomended/${accountId}${queryString ? `?${queryString}` : ""}`
 
         const response = await axios.get(url)
         return response.data

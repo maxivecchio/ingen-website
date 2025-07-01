@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, User, Clock, Search, Tag, ArrowRight } from "lucide-react"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Calendar, User, Clock, Search, Tag, ArrowRight, Filter, Check } from "lucide-react"
 import Image from "next/image"
 import {
   Dialog,
@@ -20,10 +21,12 @@ import {
 } from "@/components/ui/dialog"
 import { blogService } from "@/components/api/blog-api"
 import { useRouter } from "next/navigation"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function NovedadesPage() {
 
   const [postsList, setPostsList] = useState<any>([])
+  const [postsListRecomended, setPostsListRecomended] = useState<any>([])
   const [categoriesList, setCategoriesList] = useState<any>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
@@ -36,14 +39,60 @@ export default function NovedadesPage() {
     hasPrevPage: false,
   })
   const route = useRouter()
+  const [categoriasSelected, setCategoriasSelected] = useState<string[]>([])
+  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const [categorySearchTerm, setCategorySearchTerm] = useState("")
 
-  const loadProperties = useCallback(async () => {
+  // Filtrar categorías para el sheet
+  const filteredCategoriesForSheet = categoriesList.filter((cat: any) =>
+    cat.name.toLowerCase().includes(categorySearchTerm.toLowerCase()),
+  )
+
+  // Función para toggle de categorías seleccionadas
+  const toggleCategorySelection = (categoryId: string) => {
+    setCategoriasSelected((prev) => {
+      if (prev.includes(categoryId)) {
+        return prev.filter((id) => id !== categoryId)
+      } else {
+        return [...prev, categoryId]
+      }
+    })
+  }
+
+  // Función para limpiar selección
+  const clearSelection = () => {
+    setCategoriasSelected([])
+  }
+
+  // Obtener nombres de categorías seleccionadas
+  const getSelectedCategoryNames = () => {
+    return categoriesList.filter((cat: any) => categoriasSelected.includes(cat._id)).map((cat: any) => cat.name)
+  }
+
+  /* 68641d03be9d0053209528ec */
+
+  const loadPostsRecomended = useCallback(async () => {
+    try {
+      const filters: any = {
+        status: "publish",
+        categories: ["68641d03be9d0053209528ec"],
+      }
+      const response = await blogService.getAllPostRecomended(filters)
+      console.log("Posts loaded:", response);
+      setPostsListRecomended(response)
+    } catch (error) {
+      console.error("Error loading posts:", error)
+    }
+  }, [currentPage, searchTerm, categoriasSelected])
+
+
+  const loadPosts = useCallback(async () => {
     try {
       const filters: any = {
         page: currentPage,
         limit: 12,
         search: searchTerm || undefined,
-        categories: undefined,
+        categories: categoriasSelected.length > 0 ? categoriasSelected : undefined,
       }
 
       console.log("Loading posts with filters:", filters)
@@ -55,7 +104,7 @@ export default function NovedadesPage() {
     } catch (error) {
       console.error("Error loading posts:", error)
     }
-  }, [currentPage, searchTerm])
+  }, [currentPage, searchTerm, categoriasSelected])
 
   const loadCategories = useCallback(async () => {
     const filters: any = {
@@ -72,8 +121,12 @@ export default function NovedadesPage() {
   }, [])
 
   useEffect(() => {
-    loadProperties()
-  }, [loadProperties])
+    loadPosts()
+  }, [loadPosts])
+
+  useEffect(() => {
+    loadPostsRecomended()
+  }, [loadPostsRecomended])
 
   useEffect(() => {
     loadCategories()
@@ -120,20 +173,95 @@ export default function NovedadesPage() {
                 />
               </div>
 
-              {/* <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={selectedCategory === category.id ? "bg-rose-600 hover:bg-rose-700" : ""}
-                  >
-                    <Tag className="h-4 w-4 mr-1" />
-                    {category.name} ({category.count})
-                  </Button>
-                ))}
-              </div> */}
+              <div className="flex flex-wrap gap-2">
+                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="sm" className="relative bg-transparent">
+                      <Filter className="h-4 w-4 mr-2" />
+                      Filtrar por categorías
+                      {categoriasSelected.length > 0 && (
+                        <Badge variant="secondary" className="ml-2 bg-rose-600 text-white hover:bg-rose-700">
+                          {categoriasSelected.length}
+                        </Badge>
+                      )}
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-[400px] sm:w-[540px]">
+                    <SheetHeader>
+                      <SheetTitle>Seleccionar Categorías</SheetTitle>
+                      <SheetDescription>Elige las categorías que quieres incluir en tu búsqueda</SheetDescription>
+                    </SheetHeader>
+
+                    <div className="mt-6 space-y-4">
+                      {/* Buscador dentro del sheet */}
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          placeholder="Buscar categorías..."
+                          value={categorySearchTerm}
+                          onChange={(e) => setCategorySearchTerm(e.target.value)}
+                          className="pl-10"
+                        />
+                      </div>
+
+                      {/* Mostrar categorías seleccionadas */}
+                      {categoriasSelected.length > 0 && (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-medium">Seleccionadas ({categoriasSelected.length})</h4>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={clearSelection}
+                              className="text-rose-600 hover:text-rose-700"
+                            >
+                              Limpiar todo
+                            </Button>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {getSelectedCategoryNames().map((name: any) => (
+                              <Badge key={name} variant="secondary" className="bg-rose-100 text-rose-800">
+                                {name}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Lista de categorías */}
+                      <ScrollArea className="h-[400px] w-full">
+                        <div className="space-y-2">
+                          {filteredCategoriesForSheet.map((category: any) => {
+                            const isSelected = categoriasSelected.includes(category._id)
+                            return (
+                              <div
+                                key={category._id}
+                                className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-colors ${isSelected ? "bg-rose-50 border-rose-200" : "hover:bg-gray-50 border-gray-200"
+                                  }`}
+                                onClick={() => toggleCategorySelection(category._id)}
+                              >
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2">
+                                    <Tag className="h-4 w-4 text-gray-500" />
+                                    <span className="font-medium">{category.name}</span>
+                                    <Badge variant="outline" className="text-xs">
+                                      {category.count}
+                                    </Badge>
+                                  </div>
+                                  {category.description && (
+                                    <p className="text-sm text-gray-500 mt-1 ml-6">{category.description}</p>
+                                  )}
+                                </div>
+                                {isSelected && <Check className="h-5 w-5 text-rose-600" />}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </ScrollArea>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
           </div>
         </section>
@@ -146,64 +274,77 @@ export default function NovedadesPage() {
               <div className="w-20 h-1 bg-rose-600"></div>
             </div>
 
-            {/*  <Card className="overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="md:flex">
-                <div className="md:w-1/2">
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Post Principal (ocupa 2 columnas en md+) */}
+              {postsListRecomended[0] && (
+                <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} className="md:col-span-2 relative rounded-xl overflow-hidden">
                   <Image
-                    src={featuredPost.image || "/placeholder.svg"}
-                    alt={featuredPost.title}
-                    width={800}
-                    height={400}
-                    className="w-full h-64 md:h-full object-cover"
+                    src={postsListRecomended[0].image || "/placeholder.svg"}
+                    alt={postsListRecomended[0].title}
+                    width={1200}
+                    height={600}
+                    className="w-full h-[400px] md:h-[500px] object-cover"
                   />
-                </div>
-                <CardContent className="md:w-1/2 p-8">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Badge className={getCategoryColor(featuredPost.category)}>
-                      {categories.find((c) => c.id === featuredPost.category)?.name}
-                    </Badge>
-                    <span className="text-sm text-gray-500">Destacado</span>
-                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-60 p-6 flex flex-col justify-end">
+                    <div className="">
+                      <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
+                        {postsListRecomended[0].category.name}
+                      </Badge>
+                    </div>
 
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{featuredPost.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{featuredPost.excerpt}</p>
-
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <User className="h-4 w-4 mr-1" />
-                      <span className="mr-4">{featuredPost.author}</span>
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span className="mr-4">{featuredPost.date}</span>
-                      <Clock className="h-4 w-4 mr-1" />
-                      <span>{featuredPost.readTime}</span>
+                    <h2 className="text-white text-3xl font-bold mb-2">{postsListRecomended[0].title}</h2>
+                    <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
+                    <div className="flex items-center justify-between text-sm text-white/80">
+                      <span>Ingen</span>
                     </div>
                   </div>
+                </div>
+              )}
 
-                  <Button className="bg-rose-600 hover:bg-rose-700">
-                    Leer Artículo Completo
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </CardContent>
+              {/* Secundarios */}
+              <div className="flex flex-col gap-6">
+                {postsListRecomended.slice(1, 3).map((post: any) => (
+                  <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
+                    <Image
+                      src={post.image || "/placeholder.svg"}
+                      alt={post.title}
+                      width={600}
+                      height={300}
+                      className="w-full h-[240px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-60 p-4 flex flex-col justify-end">
+                      <div className="">
+                        <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
+                          {postsListRecomended[0].category.name}
+                        </Badge>
+                      </div>
+                      <h3 className="text-white font-bold text-lg leading-tight mb-1">{post.title}</h3>
+                      <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
+                      <div className="flex justify-between items-center text-sm text-white/80 mt-2">
+                        <span>Ingen</span>
+                        <span>💬 {post.comments.length}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </Card> */}
+            </div>
           </div>
         </section>
 
         {/* Posts Grid */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/*             <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-bold text-gray-900">
-                {selectedCategory === "all"
-                  ? "Todos los Artículos"
-                  : `Artículos de ${categories.find((c) => c.id === selectedCategory)?.name}`}
+                Todos los Artículos
               </h2>
-              <span className="text-gray-600">{filteredPosts.length} artículos encontrados</span>
-            </div> */}
+              <span className="text-gray-600">{postsList.length} artículos encontrados</span>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {postsList.map((post: any) => (
-                <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+                <Card key={post.id} className="overflow-hidden relative hover:shadow-xl transition-shadow">
                   <Image
                     src={post.image || "/placeholder.svg"}
                     alt={post.title}
@@ -211,9 +352,15 @@ export default function NovedadesPage() {
                     height={300}
                     className="w-full h-48 object-cover"
                   />
+                  <Badge variant="secondary" className="ml-2 absolute top-2 right-2 bg-rose-600 text-white hover:bg-rose-700">
+                    {post.category.name}
+                  </Badge>
+
+
                   <CardContent className="p-6">
                     <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
-                    {/* <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p> */}
+
+                    <p className="text-black mb-4 line-clamp-2">{post?.short_description}</p>
 
                     <div className="flex flex-col justify-between text-sm text-gray-500 mb-4">
                       <div className="flex items-center">
@@ -272,30 +419,6 @@ export default function NovedadesPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Newsletter Signup */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Card className="bg-gradient-to-r from-rose-600 to-orange-600 text-white">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-bold mb-4">Suscribite a Nuestro Newsletter</h3>
-                <p className="text-rose-100 mb-6 max-w-2xl mx-auto">
-                  Recibí las últimas novedades, análisis del mercado y oportunidades de inversión directamente en tu
-                  email
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                  <Input type="email" placeholder="tu@email.com" className="bg-white text-gray-900 border-0" />
-                  <Button variant="secondary" className="bg-white text-rose-600 hover:bg-gray-100">
-                    Suscribirse
-                  </Button>
-                </div>
-                <p className="text-rose-100 text-sm mt-4">
-                  No spam. Podés cancelar tu suscripción en cualquier momento.
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </section>
       </main>
