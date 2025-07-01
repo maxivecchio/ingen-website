@@ -68,7 +68,7 @@ export const blogService = {
     },
 
     async getById(id: string) {
-        const response = await axios.get(`${API_BASE_URL}/properties/visitors/properties/view/${id}?account=${accountId}`);
+        const response = await axios.get(`${API_BASE_URL}/visitors/posts/view/${id}?account=${accountId}`);
         return response.data;
     },
 
