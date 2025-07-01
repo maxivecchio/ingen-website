@@ -91,7 +91,7 @@ export default function PropiedadesPage() {
   const [selectedStatus, setSelectedStatus] = useState<string>("all")
   const [pagination, setPagination] = useState({
     page: 1,
-    limit: 10,
+    limit: 12,
     total: 0,
     totalPages: 0,
     hasNextPage: false,
@@ -193,6 +193,18 @@ export default function PropiedadesPage() {
     iconSize: [24, 24],
     iconAnchor: [12, 24],
   });
+
+  const goToNextPage = () => {
+    if (pagination.hasNextPage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  const goToPreviousPage = () => {
+    if (pagination.hasPrevPage) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -380,6 +392,37 @@ export default function PropiedadesPage() {
                   </Card>
                 </div>
               ))}
+            </div>
+
+            <div className="flex justify-between items-center mt-4">
+              <div className="text-sm text-muted-foreground">
+                Mostrando {(pagination.page - 1) * pagination.limit + 1}-
+                {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
+                {searchTerm && ` (búsqueda: "${searchTerm}")`}
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!pagination.hasPrevPage}
+                  onClick={goToPreviousPage}
+                  className="shadow-sm"
+                >
+                  Anterior
+                </Button>
+                <span className="text-sm text-muted-foreground px-2">
+                  Página {pagination.page} de {pagination.totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!pagination.hasNextPage}
+                  onClick={goToNextPage}
+                  className="shadow-sm"
+                >
+                  Siguiente
+                </Button>
+              </div>
             </div>
           </div>
         </section>
