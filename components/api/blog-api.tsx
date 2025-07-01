@@ -72,6 +72,11 @@ export const blogService = {
         return response.data;
     },
 
+    async createCommentPublic(postId: string, commentData: { user_name: string; content: string }) {
+        const response = await axios.post(`${API_BASE_URL}/visitors/posts/${postId}/comments`, commentData);
+        return response.data;
+    }
+
 }
 
 // API con autenticación

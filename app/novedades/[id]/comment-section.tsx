@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { MessageCircle, Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { blogService } from "@/components/api/blog-api"
 
 interface Comment {
   _id: string
@@ -19,11 +20,12 @@ interface Comment {
 }
 
 interface CommentSectionProps {
-  postId: string
-  initialComments: Comment[]
+  postId: any
+  initialComments: any
+  loadPost: any
 }
 
-export default function CommentSection({ postId, initialComments }: CommentSectionProps) {
+export default function CommentSection({ postId, initialComments, loadPost }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>(initialComments)
   const [newComment, setNewComment] = useState({ user_name: "", content: "" })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -75,13 +77,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
 
     try {
       // Reemplaza con tu endpoint real
-      const response = await fetch(`/api/posts/${postId}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newComment),
-      })
+      const response = await blogService.createCommentPublic(postId, newComment)
 
       if (response.ok) {
         const savedComment = await response.json()
@@ -102,6 +98,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
         variant: "destructive",
       })
     } finally {
+      loadPost()
       setIsSubmitting(false)
     }
   }

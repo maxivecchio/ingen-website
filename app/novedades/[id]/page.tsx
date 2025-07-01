@@ -178,13 +178,14 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
                         <CardContent className="p-6 sm:p-8">
                             <div
                                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-rose-600 prose-strong:text-gray-900 prose-table:table-auto prose-th:bg-gray-100 prose-th:font-semibold prose-th:text-gray-700"
+                                /* @ts-ignore */
                                 dangerouslySetInnerHTML={{ __html: post?.content }}
                             />
                         </CardContent>
                     </Card>
 
                     {/* Sección de comentarios */}
-                    {/* <CommentSection postId={post?._id} initialComments={post?.comments} /> */}
+                    <CommentSection loadPost={loadPost} postId={post?._id} initialComments={post?.comments} />
                 </div>
             </main>
 
