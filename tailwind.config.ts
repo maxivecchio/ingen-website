@@ -19,6 +19,19 @@ const config: Config = {
 			},
 		},
 		extend: {
+			typography: {
+				DEFAULT: {
+					css: {
+						th: {
+							backgroundColor: '#f3f4f6', // gray-100
+							color: '#374151',           // gray-700
+							fontWeight: '600',
+							padding: '0.75rem',
+							textAlign: 'left',
+						},
+					},
+				},
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
