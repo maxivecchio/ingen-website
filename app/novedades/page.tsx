@@ -304,7 +304,7 @@ export default function NovedadesPage() {
               {/* Secundarios */}
               <div className="flex flex-col gap-6">
                 {postsListRecomended.slice(1, 3).map((post: any) => (
-                  <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
+                  <div onClick={() => route.push(`/novedades/${post._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
                     <Image
                       src={post.image || "/placeholder.svg"}
                       alt={post.title}
