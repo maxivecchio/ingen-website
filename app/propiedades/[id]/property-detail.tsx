@@ -38,7 +38,7 @@ import { set } from "date-fns"
 import { propertyService } from "@/components/api/properties-api"
 import TabComponentFrame from "@/components/propiedades/TabComponentFrame"
 import Header from "@/components/header"
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet"
 /* @ts-ignore */
 import L from "leaflet"
 
@@ -139,6 +139,16 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
         iconSize: [24, 24],
         iconAnchor: [12, 24],
     });
+
+    function MapRefresher() {
+        const map = useMap()
+        useEffect(() => {
+            setTimeout(() => {
+                map.invalidateSize()
+            }, 100) // tiempo suficiente para asegurar que el contenedor se haya mostrado
+        }, [])
+        return null
+    }
 
     return (
         <div className="min-h-screen bg-white">
@@ -408,47 +418,18 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <div className="h-[200px] bg-slate-100 rounded-lg flex items-center justify-center mb-4">
-                                        <MapPin className="h-8 w-8 text-slate-400" />
-                                        <span className="ml-2 text-slate-500">Mapa no disponible</span>
+                                    <div className="rounded-md overflow-hidden relative" style={{ height: 200 }}>
+                                        <iframe
+                                            title="Mapa de Ubicación"
+                                            src={`https://maps.google.com/maps?q=${property.address_id?.latitude},${property.address_id?.longitude}&z=15&output=embed`}
+                                            width="100%"
+                                            height="100%"
+                                            style={{ border: 0 }}
+                                            allowFullScreen={false}
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                        />
                                     </div>
-
-                                    {/* <div className="rounded-md overflow-hidden relative" style={{ height: 200 }}>
-                                        <MapContainer
-                                            center={[
-                                                parseFloat(property.address_id.latitude),
-                                                parseFloat(property.address_id.longitude),
-                                            ]}
-                                            zoom={14}
-                                            scrollWheelZoom={false}
-                                            style={{ height: "100%", width: "100%" }}
-                                            className="leaflet-map"
-                                        >
-                                            <TileLayer
-                                                attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                            />
-                                            <Marker
-                                                key={property._id}
-                                                position={[
-                                                    parseFloat(property.address_id.latitude),
-                                                    parseFloat(property.address_id.longitude),
-                                                ]}
-                                                icon={customIcon}
-                                            >
-                                                <Popup>
-                                                    <img className="mb-2 rounded-lg" src={property.cover_image} alt="" />
-                                                    <strong>{property.name}</strong>
-                                                    <br />
-                                                    {property.address_id.address_line}, {property.address_id.city}
-                                                    <br />
-                                                    <Button onClick={() => window.location.href = `/propiedades/${property._id}`} className="h-6 px-2 mt-2">
-                                                        Ver detalle
-                                                    </Button>
-                                                </Popup>
-                                            </Marker>
-                                        </MapContainer>
-                                    </div> */}
 
                                     <div className="space-y-2">
                                         <div className="flex items-start gap-2">
