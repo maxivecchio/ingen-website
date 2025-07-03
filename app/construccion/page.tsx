@@ -105,8 +105,6 @@ export default function ConstruccionPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-
       <main className="pt-8">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
@@ -325,8 +323,6 @@ export default function ConstruccionPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

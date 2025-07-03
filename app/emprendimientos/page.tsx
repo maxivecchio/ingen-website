@@ -93,19 +93,17 @@ export default function EmprendimientosPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-
       <section>
         <div className="w-full h-[600px]">
           <MapContainer
             /* @ts-ignore */
-            center={[-34.6, -58.39]}
-            zoom={12}
-            scrollWheelZoom={true}
+            center={[-36.6, -58.39]}
+            zoom={6}
+            scrollWheelZoom={false}
             style={{ height: '100%', width: '100%', zIndex: 0 }}
           >
             <TileLayer
-            /* @ts-ignore */
+              /* @ts-ignore */
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
@@ -155,76 +153,6 @@ export default function EmprendimientosPage() {
             </div>
 
             <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-              {/* {projects.map((project) => (
-
-                <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
-                  <div className="relative">
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.name}
-                      width={600}
-                      height={400}
-                      className="w-full h-64 object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium text-white ${project.status === "En Construcción"
-                        ? "bg-yellow-600/70"
-                        : project.status === "Próximo Lanzamiento"
-                          ? "bg-blue-700/70"
-                          : "bg-gray-700/70"
-                        }`}>
-                        {project.status}
-                      </span>
-                    </div>
-                  </div>
-
-                  <CardContent className="p-6 flex flex-col flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{project.name}</h3>
-                    <div className="flex items-center text-gray-600 mb-3">
-                      <MapPin className="h-4 w-4 mr-2" />
-                      <span className="text-sm">{project.location}</span>
-                    </div>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
-
-                    <div className="grid gap-4 mb-4 text-sm">
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-2 text-brand-black" />
-                        <span>Inicio: {project.startDate}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <TrendingUp className="h-4 w-4 mr-2 text-brand-black" />
-                        <span>ROI: {project.expectedReturn}</span>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Progreso de Obra</span>
-                        <span>{project.progress}</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-brand-black h-2 rounded-full"
-                          style={{ width: project.progress }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    <div className="mt-auto space-y-2">
-                      <Button
-                        className="w-full bg-brand-black hover:bg-brand-dark text-white"
-                        onClick={() => handleWhatsAppContact(project)}
-                      >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        Consultar por WhatsApp
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        Ver Detalles Completos
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))} */}
               {propertiesEmprende && propertiesEmprende.map((project: any) => (
                 <Card
                   key={project?._id}

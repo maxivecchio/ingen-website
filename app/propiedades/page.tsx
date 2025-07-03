@@ -208,15 +208,13 @@ export default function PropiedadesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-
       <section>
         <div className="w-full h-[600px]">
           <MapContainer
             /* @ts-ignore */
-            center={[-34.6, -58.39]}
-            zoom={12}
-            scrollWheelZoom={true}
+            center={[-36.6, -58.39]}
+            zoom={6}
+            scrollWheelZoom={false}
             style={{ height: '100%', width: '100%', zIndex: 0 }}
           >
             <TileLayer
@@ -427,8 +425,6 @@ export default function PropiedadesPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }

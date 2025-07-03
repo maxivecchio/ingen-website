@@ -146,8 +146,6 @@ export default function NovedadesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-
       <main className="">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
@@ -422,8 +420,6 @@ export default function NovedadesPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }
