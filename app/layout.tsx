@@ -6,9 +6,8 @@ import Footer from '@/components/footer';
 import Providers from "@/app/layout-master";
 
 export const metadata: Metadata = {
-    title: 'v0 App',
-    description: 'Created with v0',
-    generator: 'v0.dev',
+    title: 'Ingen | Desarrollo Urbano e Inversiones Inmobiliarias',
+    description: 'Líderes en desarrollo urbano e inversiones inmobiliarias con más de 15 años de experiencia. Ofrecemos soluciones innovadoras y sostenibles para transformar espacios urbanos.',
 }
 
 const montserrat = Montserrat({
