@@ -44,17 +44,17 @@ export default function ContactoPage() {
     {
       icon: MapPin,
       title: "Dirección Principal",
-      details: ["Av. Principal 1234, Piso 12", "Centro Empresarial Torre Norte", "Ciudad, Provincia 12345"],
+      details: ["Av. Principal 1234, Piso 123", "Centro Empresarial", "Ciudad, Provincia 12345"],
     },
     {
       icon: Phone,
       title: "Teléfonos",
-      details: ["+52 1 984 879 0708 (Principal)", "+52 1 984 879 0709 (Ventas)", "+52 1 984 879 0710 (Inversiones)"],
+      details: ["+54 9 11 2345-6789 (Principal)", "+54 9 11 2345-6789 (Ventas)", "+54 9 11 2345-6789 (Inversiones)"],
     },
     {
       icon: Mail,
       title: "Emails",
-      details: ["info@urbandev.com", "ventas@urbandev.com", "inversiones@urbandev.com"],
+      details: ["hello@moveup.digital", "billing@moveup.digital"],
     },
     {
       icon: Clock,

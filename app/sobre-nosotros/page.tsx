@@ -102,7 +102,7 @@ export default function SobreNosotrosPage() {
                   Nuestra Historia
                 </h2>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Fundada en 2009, <strong>UrbanDev</strong> nació con la visión de transformar el paisaje urbano a
+                  Fundada en 2009, <strong>INGEN</strong> nació con la visión de transformar el paisaje urbano a
                   través de desarrollos inmobiliarios innovadores y sustentables. Comenzamos como un pequeño estudio de
                   arquitectura y hoy somos una de las desarrolladoras más reconocidas de la región.
                 </p>
@@ -311,8 +311,8 @@ export default function SobreNosotrosPage() {
                     <div>
                       <p className="font-semibold text-gray-800">Email</p>
                       <p>
-                        info@urbandev.com<br />
-                        ventas@urbandev.com
+                        info@moveup.digital<br />
+                        billing@moveup.digital
                       </p>
                     </div>
                   </div>
