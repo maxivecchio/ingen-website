@@ -319,8 +319,6 @@ export default function EmprendimientosPage() {
           </div>
         </section> */}
       </main>
-
-      <Footer />
     </div>
   )
 }
