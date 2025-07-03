@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 import {
     ArrowLeft,
     MapPin,
@@ -25,17 +25,17 @@ import {
     Eye,
 } from "lucide-react"
 
-import {Button} from "@/components/ui/button"
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
-import {Badge} from "@/components/ui/badge"
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import {Separator} from "@/components/ui/separator"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
-import {Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator} from "@/components/ui/breadcrumb"
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
-import {useRouter} from "next/navigation"
-import {set} from "date-fns"
-import {propertyService} from "@/components/api/properties-api"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Separator } from "@/components/ui/separator"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useRouter } from "next/navigation"
+import { set } from "date-fns"
+import { propertyService } from "@/components/api/properties-api"
 import TabComponentFrame from "@/components/propiedades/TabComponentFrame"
 import Header from "@/components/header"
 
@@ -62,7 +62,7 @@ const getStatusBadge = (status: any) => {
     )
 }
 
-export default function PropertyDetail({propertyId}: { propertyId: string }) {
+export default function PropertyDetail({ propertyId }: { propertyId: string }) {
     const [property, setProperty] = useState<any>(null)
     const [loading, setLoading] = useState(true)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -124,7 +124,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                 <p className="text-muted-foreground mb-6">La propiedad que estás buscando no existe o ha sido
                     eliminada.</p>
                 <Button variant="default" className="gap-2">
-                    <ArrowLeft className="h-4 w-4"/>
+                    <ArrowLeft className="h-4 w-4" />
                     Volver al listado
                 </Button>
             </div>
@@ -138,8 +138,8 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <Button onClick={() => router.push("/propiedades")} variant="outline" size="icon"
-                                className="h-9 w-9 shrink-0">
-                            <ArrowLeft className="h-4 w-4"/>
+                            className="h-9 w-9 shrink-0">
+                            <ArrowLeft className="h-4 w-4" />
                         </Button>
                         <div>
                             <div className="flex items-center gap-3">
@@ -177,7 +177,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                                 onClick={prevImage}
                                                 className="h-10 w-10 rounded-full bg-white/80 hover:bg-white"
                                             >
-                                                <ChevronLeft className="h-6 w-6"/>
+                                                <ChevronLeft className="h-6 w-6" />
                                             </Button>
                                             <Button
                                                 variant="outline"
@@ -185,7 +185,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                                 onClick={nextImage}
                                                 className="h-10 w-10 rounded-full bg-white/80 hover:bg-white"
                                             >
-                                                <ChevronRight className="h-6 w-6"/>
+                                                <ChevronRight className="h-6 w-6" />
                                             </Button>
                                         </div>
 
@@ -219,7 +219,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                         {/* Detalles de la propiedad */}
                         <Tabs value={activeTab} className="w-full">
                             <div className="mb-6 bg-white p-2 border border-black/5 shadow rounded-lg">
-                                <TabComponentFrame activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs}/>
+                                <TabComponentFrame activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
                             </div>
 
                             <TabsContent value="Detalles" className="space-y-6">
@@ -243,16 +243,16 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                                     <span className="text-muted-foreground">Tipo de propiedad</span>
                                                     <span className="font-medium">{property.property_type}</span>
                                                 </div>
-                                                <Separator/>
+                                                <Separator />
                                                 <div className="flex justify-between">
                                                     <span className="text-muted-foreground">Estado</span>
                                                     <span>{getStatusBadge(property.status)}</span>
                                                 </div>
-                                                <Separator/>
+                                                <Separator />
                                                 <div className="flex justify-between">
                                                     <span className="text-muted-foreground">Precio</span>
                                                     <span className="font-medium">
-                                            {property?.price ? `$${property?.price?.toLocaleString()}` : "No especificado"} {property?.price ? property.currency : ""}
+                                                        {property?.price ? `$${property?.price?.toLocaleString()}` : "No especificado"} {property?.price ? property.currency : ""}
                                                     </span>
                                                 </div>
 
@@ -264,13 +264,13 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                                         {property?.monthly_fee ? `$${property?.monthly_fee?.toLocaleString()}` : "No especificado"} {property?.monthly_fee ? property.monthly_fee_currency : ""}
                                                     </span>
                                                 </div>
-                                                <Separator/>
+                                                <Separator />
                                                 <div className="flex justify-between">
                                                     <span className="text-muted-foreground">Complejo</span>
                                                     <span
                                                         className="font-medium">{property.complex_name || "No especificado"}</span>
                                                 </div>
-                                                <Separator/>
+                                                <Separator />
                                                 <div className="flex justify-between">
                                                     <span className="text-muted-foreground">Fecha de publicación</span>
                                                     <span
@@ -289,7 +289,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                             <div
                                                 className="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-lg">
-                                                <Maximize className="h-8 w-8 text-blue-500 mb-2"/>
+                                                <Maximize className="h-8 w-8 text-blue-500 mb-2" />
                                                 <span
                                                     className="text-2xl font-bold">{property.dimensions.square_meters} m²</span>
                                                 <span className="text-sm text-muted-foreground">Superficie total</span>
@@ -297,7 +297,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                             {property.dimensions.built_meters > 0 && (
                                                 <div
                                                     className="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-lg">
-                                                    <Home className="h-8 w-8 text-blue-500 mb-2"/>
+                                                    <Home className="h-8 w-8 text-blue-500 mb-2" />
                                                     <span
                                                         className="text-2xl font-bold">{property.dimensions.built_meters} m²</span>
                                                     <span className="text-sm text-muted-foreground">Superficie construida</span>
@@ -306,7 +306,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                             {property.dimensions.land_meters > 0 && (
                                                 <div
                                                     className="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-lg">
-                                                    <Ruler className="h-8 w-8 text-blue-500 mb-2"/>
+                                                    <Ruler className="h-8 w-8 text-blue-500 mb-2" />
                                                     <span
                                                         className="text-2xl font-bold">{property.dimensions.land_meters} m²</span>
                                                     <span className="text-sm text-muted-foreground">Superficie de terreno</span>
@@ -326,7 +326,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                             {property.type_info.length > 0 && property.type_info.map((feature: any, index: number) => (
                                                 <div key={index} className="flex items-center gap-2">
-                                                    <Check className="h-5 w-5 text-emerald-500"/>
+                                                    <Check className="h-5 w-5 text-emerald-500" />
                                                     <span>{feature?.label} - {feature?.value}</span>
                                                 </div>
                                             ))}
@@ -389,7 +389,7 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                             {property?.price ? `$${property?.price?.toLocaleString()}` : "No especificado"} {property?.price ? property.currency : ""}
                                         </span>
                                     </div>
-                                    <Separator/>
+                                    <Separator />
                                     <div className="flex justify-between">
                                         <span className="text-muted-foreground">Expensas mensuales</span>
                                         <span className="font-medium">
@@ -414,14 +414,22 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <div
-                                        className="h-[200px] bg-slate-100 rounded-lg flex items-center justify-center mb-4">
-                                        <MapPin className="h-8 w-8 text-slate-400"/>
-                                        <span className="ml-2 text-slate-500">Mapa no disponible</span>
+                                    <div className="rounded-md overflow-hidden relative" style={{ height: 200 }}>
+                                        <iframe
+                                            title="Mapa de Ubicación"
+                                            src={`https://maps.google.com/maps?q=${property.address_id?.latitude},${property.address_id?.longitude}&z=15&output=embed`}
+                                            width="100%"
+                                            height="100%"
+                                            style={{ border: 0 }}
+                                            allowFullScreen={false}
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                        />
                                     </div>
+
                                     <div className="space-y-2">
                                         <div className="flex items-start gap-2">
-                                            <MapPin className="h-4 w-4 text-blue-500 mt-0.5"/>
+                                            <MapPin className="h-4 w-4 text-blue-500 mt-0.5" />
                                             <div>
                                                 <p className="font-medium">{property.address_id?.address_line}</p>
                                                 <p className="text-sm text-muted-foreground">
@@ -431,11 +439,18 @@ export default function PropertyDetail({propertyId}: { propertyId: string }) {
                                             </div>
                                         </div>
                                     </div>
+
                                     <div className="pt-2">
-                                        <Button variant="outline" className="w-full gap-1">
-                                            <ExternalLink className="h-4 w-4"/>
-                                            <span>Ver en Google Maps</span>
-                                        </Button>
+                                        <a
+                                            href={`https://www.google.com/maps/search/?api=1&query=${property.address_id?.latitude},${property.address_id?.longitude}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <Button variant="outline" className="w-full gap-1">
+                                                <ExternalLink className="h-4 w-4" />
+                                                <span>Ver en Google Maps</span>
+                                            </Button>
+                                        </a>
                                     </div>
                                 </div>
                             </CardContent>
