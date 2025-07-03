@@ -197,7 +197,7 @@ export default function EmprendimientosPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
+                                        <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
 
                                         <div className="mb-5">
                                             <div className="flex justify-between text-sm text-gray-500 mb-1">

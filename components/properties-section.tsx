@@ -112,7 +112,7 @@ export default function PropertiesSection() {
                       </div>
 
                       <div>
-                        <p>{property.description || "Sin descripción"}</p>
+                        <p className="line-clamp-3">{property.description || "Sin descripción"}</p>
                       </div>
 
                       <Button onClick={() => router.push(`/propiedades/${property._id}`)} className="w-full mt-2" variant="outline">
