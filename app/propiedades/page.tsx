@@ -1,24 +1,26 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import {Button, buttonVariants} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, Bed, Bath, Square, Filter, Search, MessageCircle } from "lucide-react"
+import { MapPin, Filter, Search } from "lucide-react"
 import Image from "next/image"
-
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import "leaflet/dist/leaflet.css"
-/* @ts-ignore */
-import L from "leaflet"
+import dynamic from "next/dynamic"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
 import { propertyService, propertyTypeService, statusService } from "@/components/api/properties-api"
-import Link from "next/link";
+
+// Dynamically import the map component with SSR disabled
+const DynamicPropertiesMap = dynamic(() => import("@/components/properties-map"), {
+  ssr: false,
+  loading: () => (
+      <div className="w-full h-[600px] bg-gray-200 flex items-center justify-center">
+        <div className="text-gray-600">Cargando mapa...</div>
+      </div>
+  ),
+})
 
 export function FilterPopover({ label, options, selected, onChange }: any) {
   const isObjectWithId = label === "Tipo de propiedad" || label === "Estado de la propiedad"
@@ -47,34 +49,23 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
   }
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full justify-between rounded-xl h-12"
-        >
-          {label}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-64 p-4">
-        <div className="space-y-2">
-          {options.map((option: any) => (
-            <label
-              key={isObjectWithId ? option._id : option.label || option}
-              className="flex items-center space-x-2"
-            >
-              <Checkbox
-                checked={isChecked(option)}
-                onCheckedChange={() => handleToggle(option)}
-              />
-              <span className="text-sm text-gray-700">
-                {isObjectWithId ? option.name : option.label || option}
-              </span>
-            </label>
-          ))}
-        </div>
-      </PopoverContent>
-    </Popover>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline" className="w-full justify-between rounded-xl h-12 bg-transparent">
+            {label}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-64 p-4">
+          <div className="space-y-2">
+            {options.map((option: any) => (
+                <label key={isObjectWithId ? option._id : option.label || option} className="flex items-center space-x-2">
+                  <Checkbox checked={isChecked(option)} onCheckedChange={() => handleToggle(option)} />
+                  <span className="text-sm text-gray-700">{isObjectWithId ? option.name : option.label || option}</span>
+                </label>
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
   )
 }
 
@@ -85,7 +76,11 @@ export default function PropiedadesPage() {
   const [propertiesStatuses, setPropertiesStatuses] = useState<any>([])
   const [loading, setLoading] = useState(true)
 
-  const [priceRangeFilter, setPriceRangeFilter] = useState<{ label: string; min: number; max?: number } | null>(null)
+  const [priceRangeFilter, setPriceRangeFilter] = useState<{
+    label: string
+    min: number
+    max?: number
+  } | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [currentPageStatus, setCurrentPageStatus] = useState(1)
@@ -128,7 +123,7 @@ export default function PropiedadesPage() {
 
       setLoading(true)
       const response = await propertyService.getAll(filters)
-      console.log("Properties loaded:", response);
+      console.log("Properties loaded:", response)
       setProperties(response.data)
       setPagination(response.pagination)
     } catch (error) {
@@ -141,7 +136,7 @@ export default function PropiedadesPage() {
   const loadPropertyTypes = useCallback(async () => {
     try {
       const response = await propertyTypeService.getAll({ limit: "all" })
-      console.log(response);
+      console.log(response)
       setPropertiesTypes(response.data)
     } catch (error) {
       console.error("Error loading property types:", error)
@@ -151,13 +146,13 @@ export default function PropiedadesPage() {
   const loadStatus = useCallback(async () => {
     const filters = {
       page: currentPageStatus,
-      limit: "all"
+      limit: "all",
     }
     try {
       setLoading(true)
 
       const response = await statusService.getAll(filters)
-      console.log(response);
+      console.log(response)
       setPropertiesStatuses(response.data)
     } catch (error) {
       console.error("Error loading properties:", error)
@@ -188,13 +183,6 @@ export default function PropiedadesPage() {
 
   const router = useRouter()
 
-  const customIcon = new L.DivIcon({
-    html: `<div style="color: #2563eb; font-size: 24px;">📍</div>`, // icono emoji o podés usar un SVG inline
-    className: "",
-    iconSize: [24, 24],
-    iconAnchor: [12, 24],
-  });
-
   const goToNextPage = () => {
     if (pagination.hasNextPage) {
       setCurrentPage(currentPage + 1)
@@ -208,229 +196,179 @@ export default function PropiedadesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <section>
-        <div className="w-full h-[600px]">
-          <MapContainer
-            /* @ts-ignore */
-            center={[-36.6, -58.39]}
-            zoom={6}
-            scrollWheelZoom={false}
-            style={{ height: '100%', width: '100%', zIndex: 0 }}
-          >
-            <TileLayer
-              /* @ts-ignore */
-              attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-
-            {properties.map((property: any) => (
-              property.address_id?.latitude &&
-              property.address_id?.longitude && (
-                <Marker
-                  key={property._id}
-                  position={[property.address_id.latitude, property.address_id.longitude]}
-                  /* @ts-ignore */
-                  icon={customIcon}
-                >
-                  <Popup>
-                    <img className={"mb-2 rounded-lg"} src={property.cover_image} alt={""} />
-                    <strong>{property.name}</strong>
-                    <br />
-                    {property.address_id.address_line}, {property.address_id.city}
-                    <br />
-                    <Button onClick={() => {
-                      window.location.href = `/propiedades/${property._id}`
-                    }} className={`absolute top-0 h-6 px-2 mt-5 left-7`}>
-                      Ver detalle
-                    </Button>
-                  </Popup>
-                </Marker>
-              )
-            ))}
-          </MapContainer>
-        </div>
-      </section>
-
-      <main className="">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Nuestras Propiedades
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Encontrá la propiedad perfecta entre nuestra selección de casas, departamentos y lofts
-            </p>
+      <div className="min-h-screen bg-white">
+        <section>
+          <div className="w-full h-[600px]">
+            <DynamicPropertiesMap properties={properties} />
           </div>
         </section>
 
-        {/* Filters Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-gray-50 rounded-3xl p-10 shadow-md">
-              <div className="mb-8">
-                <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
-                  <Filter className="h-6 w-6 text-rose-600 mr-3" />
-                  Buscá tu próxima propiedad
-                </h3>
-                <p className="text-gray-600">Filtrá por tipo, precio, dormitorios o ubicación</p>
-              </div>
+        <main className="">
+          {/* Hero Section */}
+          <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Nuestras Propiedades</h1>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Encontrá la propiedad perfecta entre nuestra selección de casas, departamentos y lofts
+              </p>
+            </div>
+          </section>
 
-              <div className="mb-8">
-                <div className="relative">
-                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <Input
-                    placeholder="Buscar por nombre o ubicación..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 pr-4 py-4 w-full text-lg rounded-xl border-gray-300 focus:ring-rose-500 focus:border-rose-500"
+          {/* Filters Section */}
+          <section className="py-16 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-gray-50 rounded-3xl p-10 shadow-md">
+                <div className="mb-8">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
+                    <Filter className="h-6 w-6 text-rose-600 mr-3" />
+                    Buscá tu próxima propiedad
+                  </h3>
+                  <p className="text-gray-600">Filtrá por tipo, precio, dormitorios o ubicación</p>
+                </div>
+
+                <div className="mb-8">
+                  <div className="relative">
+                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                        placeholder="Buscar por nombre o ubicación..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-12 pr-4 py-4 w-full text-lg rounded-xl border-gray-300 focus:ring-rose-500 focus:border-rose-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {/* Popover 1: Tipo */}
+                  <FilterPopover
+                      label="Tipo de propiedad"
+                      options={propertiesTypes}
+                      selected={selectedType}
+                      onChange={(selected: any) => setSelectedType(selected)}
+                  />
+
+                  {/* Popover 2: Precio */}
+                  <FilterPopover
+                      label="Rango de precio"
+                      options={priceRanges}
+                      selected={priceRangeFilter}
+                      onChange={(selected: any) => setPriceRangeFilter(selected)}
+                  />
+
+                  {/* Popover 3: Estado de la propiedad */}
+                  <FilterPopover
+                      label="Estado de la propiedad"
+                      options={propertiesStatuses}
+                      selected={selectedStatus}
+                      onChange={(selected: any) => setSelectedStatus(selected)}
                   />
                 </div>
               </div>
+            </div>
+          </section>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {/* Popover 1: Tipo */}
-                <FilterPopover
-                  label="Tipo de propiedad"
-                  options={propertiesTypes}
-                  selected={selectedType}
-                  onChange={(selected: any) =>
-                    setSelectedType((prev: any) => (selected))
-                  }
-                />
-
-                {/* Popover 2: Precio */}
-                <FilterPopover
-                  label="Rango de precio"
-                  options={priceRanges}
-                  selected={priceRangeFilter}
-                  onChange={(selected: any) => setPriceRangeFilter(selected)}
-                />
-
-                {/* Popover 3: Estado de la propiedad */}
-                <FilterPopover
-                  label="Estado de la propiedad"
-                  options={propertiesStatuses}
-                  selected={selectedStatus}
-                  onChange={(selected: any) => setSelectedStatus(selected)}
-                />
+          {/* Properties Grid */}
+          <section className="pb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-bold text-gray-900">{properties.length} Propiedades Encontradas</h2>
               </div>
 
-              {/* <div className="flex justify-end mt-8">
-                <Button
-                  variant="ghost"
-                  className="border border-gray-300 text-gray-700 hover:bg-gray-100 rounded-xl"
-                  onClick={() => {
-                    setFilters({ type: [], priceRange: [], bedrooms: [], location: [] })
-                    setSearchTerm("")
-                  }}
-                >
-                  Limpiar Filtros
-                </Button>
-              </div> */}
-            </div>
-          </div>
-        </section>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {properties.map((property: any) => (
+                    <div key={property._id} className="px-3">
+                      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                        <div className="relative">
+                          <Image
+                              src={property.cover_image || "/placeholder.svg"}
+                              alt={property.name}
+                              width={400}
+                              height={400}
+                              className="w-full h-52 object-cover"
+                          />
 
-        {/* Properties Grid */}
-        <section className="pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">{properties.length} Propiedades Encontradas</h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {properties.map((property: any) => (
-                <div key={property._id} className="px-3">
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="relative">
-                      <Image
-                        src={property.cover_image || "/placeholder.svg"}
-                        alt={property.name}
-                        width={400}
-                        height={400}
-                        className="w-full h-52 object-cover"
-                      />
-
-                      <div className="absolute top-4 left-4">
+                          <div className="absolute top-4 left-4">
                         <span
-                          className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                          style={{ backgroundColor: property.status?.color || "#9CA3AF" }} // fallback: gray-400
+                            className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                            style={{ backgroundColor: property.status?.color || "#9CA3AF" }}
                         >
                           {property.status?.name || "Sin estado"}
                         </span>
-                      </div>
+                          </div>
 
-                      {property.price && (
-                        <div className="absolute top-4 right-4">
+                          {property.price && (
+                              <div className="absolute top-4 right-4">
                           <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
                             {property.price ? `$${property.price}` : "Sin precio"}
                           </span>
-                        </div>
-                      )}
+                              </div>
+                          )}
 
-                      <div className="absolute bottom-4 left-4">
+                          <div className="absolute bottom-4 left-4">
                         <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">
                           {property.property_type_id?.name || "Sin tipo"}
                         </span>
-                      </div>
+                          </div>
+                        </div>
+
+                        <CardContent className="p-6">
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
+
+                          <div className="flex items-center text-gray-600 mb-4">
+                            <MapPin className="h-4 w-4 mr-2 text-red-500" />
+                            <span className="text-sm">{property.address_id?.address_line}</span>
+                          </div>
+
+                          <div>
+                            <p className="line-clamp-3 text-sm">{property.description || "Sin descripción"}</p>
+                          </div>
+
+                          <Button
+                              onClick={() => router.push(`/propiedades/${property._id}`)}
+                              className="w-full mt-2"
+                              variant="outline"
+                          >
+                            Ver Detalles
+                          </Button>
+                        </CardContent>
+                      </Card>
                     </div>
-
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
-
-                      <div className="flex items-center text-gray-600 mb-4">
-                        <MapPin className="h-4 w-4 mr-2 text-red-500" />
-                        <span className="text-sm">{property.address_id?.address_line}</span>
-                      </div>
-
-                      <div>
-                        <p className="line-clamp-3 text-sm">{property.description || "Sin descripción"}</p>
-                      </div>
-
-                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} className="w-full mt-2" variant="outline">
-                        Ver Detalles
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between items-center mt-4">
-              <div className="text-sm text-muted-foreground">
-                Mostrando {(pagination.page - 1) * pagination.limit + 1}-
-                {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
-                {searchTerm && ` (búsqueda: "${searchTerm}")`}
+                ))}
               </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!pagination.hasPrevPage}
-                  onClick={goToPreviousPage}
-                  className="shadow-sm"
-                >
-                  Anterior
-                </Button>
-                <span className="text-sm text-muted-foreground px-2">
+
+              <div className="flex justify-between items-center mt-4">
+                <div className="text-sm text-muted-foreground">
+                  Mostrando {(pagination.page - 1) * pagination.limit + 1}-
+                  {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
+                  {searchTerm && ` (búsqueda: "${searchTerm}")`}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={!pagination.hasPrevPage}
+                      onClick={goToPreviousPage}
+                      className="shadow-sm bg-transparent"
+                  >
+                    Anterior
+                  </Button>
+                  <span className="text-sm text-muted-foreground px-2">
                   Página {pagination.page} de {pagination.totalPages}
                 </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={!pagination.hasNextPage}
-                  onClick={goToNextPage}
-                  className="shadow-sm"
-                >
-                  Siguiente
-                </Button>
+                  <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={!pagination.hasNextPage}
+                      onClick={goToNextPage}
+                      className="shadow-sm bg-transparent"
+                  >
+                    Siguiente
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
+          </section>
+        </main>
+      </div>
   )
 }
