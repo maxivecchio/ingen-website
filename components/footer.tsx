@@ -87,7 +87,7 @@ export default function Footer() {
                             <p>Av. Principal 1234, Centro</p>
                             <p>Ciudad, Provincia 12345</p>
                             <p>+52 1 984 879 0708</p>
-                            <p>info@moveup.digital</p>
+                            <p>hello@moveup.digital</p>
                         </div>
                     </div>
                 </div>

@@ -67,60 +67,66 @@ export default function PropertiesSection() {
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
             >
-              {properties.map((property: any) => (
-                <div key={property._id} className="w-1/3 flex-shrink-0 px-3">
-                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="relative">
-                      <Image
-                        src={property.cover_image || "/placeholder.svg"}
-                        alt={property.name}
-                        width={400}
-                        height={400}
-                        className="w-full h-52 object-cover"
-                      />
+              {properties.map((property) => (
+                  <div key={property._id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="relative">
+                        <Image
+                            src={property.cover_image || "/placeholder.svg"}
+                            alt={property.name}
+                            width={400}
+                            height={300}
+                            className="w-full h-52 object-cover"
+                        />
 
-                      <div className="absolute top-4 left-4">
-                        <span
-                          className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                          style={{ backgroundColor: property.status?.color || "#9CA3AF" }} // fallback: gray-400
-                        >
-                          {property.status?.name || "Sin estado"}
-                        </span>
-                      </div>
-
-                      {property.price && (
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
-                            {property.price ? `$${property.price}` : "Sin precio"}
-                          </span>
+                        <div className="absolute top-4 left-4">
+                    <span
+                        className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                        style={{ backgroundColor: property.status?.color || "#9CA3AF" }}
+                    >
+                      {property.status?.name || "Sin estado"}
+                    </span>
                         </div>
-                      )}
 
-                      <div className="absolute bottom-4 left-4">
-                        <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">
-                          {property.property_type_id?.name || "Sin tipo"}
-                        </span>
-                      </div>
-                    </div>
+                        {property.price && (
+                            <div className="absolute top-4 right-4">
+                      <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-sm md:text-base font-bold">
+                        ${property.price}
+                      </span>
+                            </div>
+                        )}
 
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
-
-                      <div className="flex items-center text-gray-600 mb-4">
-                        <MapPin className="h-4 w-4 mr-2 text-red-500" />
-                        <span className="text-sm">{property.address_id?.city}, {property.address_id?.state}</span>
-                      </div>
-
-                      <div>
-                        <p>{property.description || "Sin descripción"}</p>
+                        <div className="absolute bottom-4 left-4">
+                    <span className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-medium capitalize">
+                      {property.property_type_id?.name || "Sin tipo"}
+                    </span>
+                        </div>
                       </div>
 
-                      <Button onClick={() => router.push(`/propiedades/${property._id}`)} className="w-full mt-2" variant="outline">
-                        Ver Detalles
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </div>
+                      <CardContent className="p-4 md:p-6">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{property.name}</h3>
+
+                        <div className="flex items-center text-gray-600 mb-4">
+                          <MapPin className="h-4 w-4 mr-2 text-red-500 flex-shrink-0" />
+                          <span className="text-sm truncate">
+                      {property.address_id?.city}, {property.address_id?.state}
+                    </span>
+                        </div>
+
+                        <div className="mb-4">
+                          <p className="text-sm text-gray-600 line-clamp-2">{property.description || "Sin descripción"}</p>
+                        </div>
+
+                        <Button
+                            onClick={() => console.log(`Ver detalles de ${property._id}`)}
+                            className="w-full"
+                            variant="outline"
+                        >
+                          Ver Detalles
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
               ))}
 
             </div>
