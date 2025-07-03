@@ -58,11 +58,11 @@ export default function Footer() {
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Servicios</h4>
                         <ul className="space-y-2">
-                            <li>
+                            {/*<li>
                                 <Link href="/construccion" className="text-gray-300 hover:text-rose-400">
                                     Construcción
                                 </Link>
-                            </li>
+                            </li>*/}
                             <li>
                                 <Link href="/sobre-nosotros" className="text-gray-300 hover:text-rose-400">
                                     Sobre Nosotros
