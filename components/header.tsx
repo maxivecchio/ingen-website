@@ -27,7 +27,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
-              <img src="/logo.png" className="h-32" alt="" />
+              <img src="/logo.png" className="h-8" alt="" />
             </Link>
           </div>
 
@@ -65,7 +65,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-dark hover:bg-brand-gray"
+                  className="block rounded px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-dark hover:bg-brand-gray"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

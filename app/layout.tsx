@@ -1,32 +1,35 @@
-import type { Metadata } from 'next'
+import type {Metadata} from 'next'
 import './globals.css'
-import { Montserrat } from "next/font/google";
+import {Montserrat} from "next/font/google";
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import Providers from "@/app/layout-master";
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+    title: 'v0 App',
+    description: 'Created with v0',
+    generator: 'v0.dev',
 }
 
 const montserrat = Montserrat({
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    subsets: ["latin"],
 });
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${montserrat.className}`}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  )
+    return (
+        <html lang="en">
+        <body className={`${montserrat.className}`}>
+        <Providers>
+            <Header/>
+            {children}
+            <Footer/>
+        </Providers>
+        </body>
+        </html>
+    )
 }

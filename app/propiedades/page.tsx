@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
+import {Button, buttonVariants} from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -18,6 +18,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
 import { propertyService, propertyTypeService, statusService } from "@/components/api/properties-api"
+import Link from "next/link";
 
 export function FilterPopover({ label, options, selected, onChange }: any) {
   const isObjectWithId = label === "Tipo de propiedad" || label === "Estado de la propiedad"
@@ -233,11 +234,16 @@ export default function PropiedadesPage() {
                   icon={customIcon}
                 >
                   <Popup>
+                    <img className={"mb-2 rounded-lg"} src={property.cover_image} alt={""} />
                     <strong>{property.name}</strong>
                     <br />
                     {property.address_id.address_line}, {property.address_id.city}
                     <br />
-                    {property.description}
+                    <Button onClick={() => {
+                      window.location.href = `/propiedades/${property._id}`
+                    }} className={`absolute top-0 h-6 px-2 mt-5 left-7`}>
+                      Ver detalle
+                    </Button>
                   </Popup>
                 </Marker>
               )
