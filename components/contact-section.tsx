@@ -141,7 +141,7 @@ export default function ContactSection() {
                   <Mail className="h-6 w-6 mr-3 mt-1 text-purple-500" />
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-gray-600">info@moveup.digital</p>
+                    <p className="text-gray-600">hello@moveup.digital</p>
                   </div>
                 </div>
                 <div className="flex items-start">

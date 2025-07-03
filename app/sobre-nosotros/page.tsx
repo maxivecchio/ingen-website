@@ -311,7 +311,7 @@ export default function SobreNosotrosPage() {
                     <div>
                       <p className="font-semibold text-gray-800">Email</p>
                       <p>
-                        info@moveup.digital<br />
+                        hello@moveup.digital<br />
                         billing@moveup.digital
                       </p>
                     </div>

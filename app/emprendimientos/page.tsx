@@ -67,7 +67,7 @@ export default function EmprendimientosPage() {
 
     const handleWhatsAppContact = (project: any) => {
         const message = `Hola! Me interesa obtener más información sobre el proyecto ${project.name} ubicado en ${project.location}. ¿Podrían brindarme detalles sobre las oportunidades de inversión disponibles?`
-        const whatsappUrl = `https://wa.me/5491139549810?text=${encodeURIComponent(message)}`
+        const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`
         window.open(whatsappUrl, "_blank")
     }
 
@@ -197,7 +197,7 @@ export default function EmprendimientosPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
+                                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">{project.description}</p>
 
                                         <div className="mb-5">
                                             <div className="flex justify-between text-sm text-gray-500 mb-1">
