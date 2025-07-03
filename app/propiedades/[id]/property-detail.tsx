@@ -443,11 +443,18 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                                             </div>
                                         </div>
                                     </div>
+
                                     <div className="pt-2">
-                                        <Button variant="outline" className="w-full gap-1">
-                                            <ExternalLink className="h-4 w-4" />
-                                            <span>Ver en Google Maps</span>
-                                        </Button>
+                                        <a
+                                            href={`https://www.google.com/maps/search/?api=1&query=${property.address_id?.latitude},${property.address_id?.longitude}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <Button variant="outline" className="w-full gap-1">
+                                                <ExternalLink className="h-4 w-4" />
+                                                <span>Ver en Google Maps</span>
+                                            </Button>
+                                        </a>
                                     </div>
                                 </div>
                             </CardContent>
