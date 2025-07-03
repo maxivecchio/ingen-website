@@ -22,9 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Header />
-      <body className={`${montserrat.className}`}>{children}</body>
-      <Footer />
+      <body className={`${montserrat.className}`}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }
