@@ -14,6 +14,7 @@ import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 import {propertyService} from "@/components/api/properties-api"
 import Link from "next/link"
+import {useRouter} from "next/navigation";
 
 // Soluciona problema con iconos por defecto de Leaflet en Next.js
 delete L.Icon.Default.prototype._getIconUrl
@@ -90,6 +91,8 @@ export default function EmprendimientosPage() {
         iconAnchor: [12, 24],
     });
 
+    const router = useRouter()
+
 
     return (
         <div className="min-h-screen bg-white">
@@ -124,7 +127,7 @@ export default function EmprendimientosPage() {
                                         {property.address_id.address_line}, {property.address_id.city}
                                         <br/>
                                         <Button onClick={() => {
-                                            window.location.href = `/emprendimientos/${property._id}`
+                                            router.push(`/emprendimientos/${property._id}`)
                                         }} className={`absolute top-0 h-6 px-2 mt-5 left-7`}>
                                             Ver detalle
                                         </Button>
