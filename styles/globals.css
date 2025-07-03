@@ -14,6 +14,12 @@ body {
   }
 }
 
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0.5rem;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

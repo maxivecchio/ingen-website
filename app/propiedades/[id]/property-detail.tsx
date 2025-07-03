@@ -38,6 +38,9 @@ import { set } from "date-fns"
 import { propertyService } from "@/components/api/properties-api"
 import TabComponentFrame from "@/components/propiedades/TabComponentFrame"
 import Header from "@/components/header"
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+/* @ts-ignore */
+import L from "leaflet"
 
 // Función para obtener el color de estado
 const getStatusBadge = (status: any) => {
@@ -130,7 +133,12 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
         )
     }
 
-
+    const customIcon = new L.DivIcon({
+        html: `<div style="color: #2563eb; font-size: 24px;">📍</div>`, // icono emoji o podés usar un SVG inline
+        className: "",
+        iconSize: [24, 24],
+        iconAnchor: [12, 24],
+    });
 
     return (
         <div className="min-h-screen bg-white">
@@ -404,6 +412,44 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                                         <MapPin className="h-8 w-8 text-slate-400" />
                                         <span className="ml-2 text-slate-500">Mapa no disponible</span>
                                     </div>
+
+                                    {/* <div className="rounded-md overflow-hidden relative" style={{ height: 200 }}>
+                                        <MapContainer
+                                            center={[
+                                                parseFloat(property.address_id.latitude),
+                                                parseFloat(property.address_id.longitude),
+                                            ]}
+                                            zoom={14}
+                                            scrollWheelZoom={false}
+                                            style={{ height: "100%", width: "100%" }}
+                                            className="leaflet-map"
+                                        >
+                                            <TileLayer
+                                                attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            />
+                                            <Marker
+                                                key={property._id}
+                                                position={[
+                                                    parseFloat(property.address_id.latitude),
+                                                    parseFloat(property.address_id.longitude),
+                                                ]}
+                                                icon={customIcon}
+                                            >
+                                                <Popup>
+                                                    <img className="mb-2 rounded-lg" src={property.cover_image} alt="" />
+                                                    <strong>{property.name}</strong>
+                                                    <br />
+                                                    {property.address_id.address_line}, {property.address_id.city}
+                                                    <br />
+                                                    <Button onClick={() => window.location.href = `/propiedades/${property._id}`} className="h-6 px-2 mt-2">
+                                                        Ver detalle
+                                                    </Button>
+                                                </Popup>
+                                            </Marker>
+                                        </MapContainer>
+                                    </div> */}
+
                                     <div className="space-y-2">
                                         <div className="flex items-start gap-2">
                                             <MapPin className="h-4 w-4 text-blue-500 mt-0.5" />
