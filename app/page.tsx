@@ -11,7 +11,6 @@ import Footer from "@/components/footer"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       <main>
         <HeroSection />
         <InvestmentSection />
@@ -21,7 +20,6 @@ export default function HomePage() {
         <AboutUsSection />
         <ContactSection />
       </main>
-      <Footer />
     </div>
   )
 }
