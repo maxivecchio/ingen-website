@@ -45,7 +45,7 @@ export default function Header() {
                     <div className="hidden lg:flex items-center space-x-4">
                         <div className="flex items-center text-sm text-gray-600">
                             <Phone className="h-4 w-4 mr-2"/>
-                            +52 1 984 879 0708
+                            +11 2345-6789
                         </div>
                     </div>
 
