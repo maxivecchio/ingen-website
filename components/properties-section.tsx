@@ -103,8 +103,9 @@ export default function PropertiesSection() {
                         </div>
                       </div>
 
-                      <CardContent className="p-4 md:p-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{property.name}</h3>
+                      <div>
+                        <p className="line-clamp-3">{property.description || "Sin descripción"}</p>
+                      </div>
 
                         <div className="flex items-center text-gray-600 mb-4">
                           <MapPin className="h-4 w-4 mr-2 text-red-500 flex-shrink-0" />
