@@ -36,7 +36,7 @@ export default function Header() {
 
                         <TabComponentFrame
                             tabs={navigation}
-                            disabledList={["Construcción"]}
+                            /* disabledList={["Construcción"]} */
                             setActiveTab={(tab) => console.log(tab)}
                         />
                     </nav>

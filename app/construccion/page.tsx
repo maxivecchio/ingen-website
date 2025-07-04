@@ -1,94 +1,82 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import { useCallback, useEffect, useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import {Button} from "@/components/ui/button"
-import {Card, CardContent} from "@/components/ui/card"
-import {ChevronLeft, ChevronRight, Calendar, MapPin, TrendingUp, X} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { ChevronLeft, ChevronRight, Calendar, MapPin, TrendingUp, X, MessageCircle } from "lucide-react"
 import Image from "next/image"
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import { propertyService } from "@/components/api/properties-api"
+import Link from "next/link"
 
 export default function ConstruccionPage() {
-    const [selectedProject, setSelectedProject] = useState(null)
+    const [selectedProject, setSelectedProject] = useState<any>(null)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-    const router = useRouter()  
+    const router = useRouter()
+
+    /*  useEffect(() => {
+         router.push("/")
+     }, []) */
+
+    const [propertiesConstruccion, setPropertiesConstruccion] = useState<any>([])
+    const [loading, setLoading] = useState(true)
+    const [searchTerm, setSearchTerm] = useState("")
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 10,
+        total: 0,
+        totalPages: 0,
+        hasNextPage: false,
+        hasPrevPage: false,
+    })
+
+    const loadPropertiesEmprende = useCallback(async () => {
+        try {
+            setLoading(true)
+            const filters: any = {
+                page: currentPage,
+                property_type: "all",
+                limit: 10,
+            }
+
+            const response = await propertyService.getAllConstruccion(filters)
+            console.log(response)
+            setPropertiesConstruccion(response.data)
+            setPagination(response.pagination)
+        } catch (error) {
+            console.error("Error loading properties:", error)
+        } finally {
+            setLoading(false)
+        }
+    }, [currentPage])
 
     useEffect(() => {
-        router.push("/")
-    }, [])
+        loadPropertiesEmprende()
+    }, [loadPropertiesEmprende])
 
-    const projects = [
-        {
-            id: 1,
-            name: "Residencial Vista Verde",
-            location: "Zona Norte, Ciudad",
-            status: "En Construcción",
-            progress: "45%",
-            startDate: "Marzo 2024",
-            renderImage: "/placeholder.svg?height=400&width=600",
-            progressImages: [
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-            ],
-            description: "Avances de construcción del complejo residencial con 120 unidades",
-            lastUpdate: "15 de Diciembre, 2024",
-        },
-        {
-            id: 2,
-            name: "Torres del Sol",
-            location: "Centro Histórico",
-            status: "En Construcción",
-            progress: "72%",
-            startDate: "Enero 2024",
-            renderImage: "/placeholder.svg?height=400&width=600",
-            progressImages: [
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-            ],
-            description: "Torres gemelas de 25 pisos cada una con acabados premium",
-            lastUpdate: "12 de Diciembre, 2024",
-        },
-        {
-            id: 3,
-            name: "Complejo Urbano Plaza",
-            location: "Zona Comercial",
-            status: "Próximo Lanzamiento",
-            progress: "0%",
-            startDate: "Julio 2024",
-            renderImage: "/placeholder.svg?height=400&width=600",
-            progressImages: ["/placeholder.svg?height=400&width=600"],
-            description: "Desarrollo mixto con locales comerciales y 150 unidades residenciales",
-            lastUpdate: "10 de Diciembre, 2024",
-        },
-        {
-            id: 4,
-            name: "Residencial Parque Central",
-            location: "Zona Residencial",
-            status: "En Construcción",
-            progress: "30%",
-            startDate: "Abril 2024",
-            renderImage: "/placeholder.svg?height=400&width=600",
-            progressImages: [
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-                "/placeholder.svg?height=400&width=600",
-            ],
-            description: "Complejo residencial sustentable con áreas verdes",
-            lastUpdate: "8 de Diciembre, 2024",
-        },
-    ]
+    const handleWhatsAppContact = (project: any) => {
+        const message = `Hola! Me interesa obtener más información sobre el proyecto ${project.name} ubicado en ${project.location}. ¿Podrían brindarme detalles sobre las oportunidades de inversión disponibles?`
+        const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`
+        window.open(whatsappUrl, "_blank")
+    }
 
-    const openGallery = (project) => {
+    const goToNextPage = () => {
+        if (pagination.hasNextPage) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const goToPreviousPage = () => {
+        if (pagination.hasPrevPage) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const openGallery = (project: any) => {
         setSelectedProject(project)
         setCurrentImageIndex(0)
     }
@@ -100,13 +88,13 @@ export default function ConstruccionPage() {
 
     const nextImage = () => {
         if (selectedProject) {
-            setCurrentImageIndex((prev) => (prev === selectedProject.progressImages.length - 1 ? 0 : prev + 1))
+            setCurrentImageIndex((prev) => (prev === selectedProject?.gallery?.length - 1 ? 0 : prev + 1))
         }
     }
 
     const prevImage = () => {
         if (selectedProject) {
-            setCurrentImageIndex((prev) => (prev === 0 ? selectedProject.progressImages.length - 1 : prev - 1))
+            setCurrentImageIndex((prev) => (prev === 0 ? selectedProject?.gallery?.length - 1 : prev - 1))
         }
     }
 
@@ -132,68 +120,85 @@ export default function ConstruccionPage() {
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-8">
-                            {projects.map((project) => (
-                                <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+                            {propertiesConstruccion && propertiesConstruccion.map((project: any) => (
+                                <Card
+                                    key={project?._id}
+                                    className="overflow-hidden bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300"
+                                >
                                     <div className="relative">
                                         <Image
-                                            src={project.renderImage || "/placeholder.svg"}
-                                            alt={`Render de ${project.name}`}
-                                            width={600}
-                                            height={400}
-                                            className="w-full h-64 object-cover"
+                                            src={project?.cover_image || "/placeholder.svg"}
+                                            alt={project?.name}
+                                            width={400}
+                                            height={300}
+                                            className="w-full h-48 object-cover"
                                         />
                                         <div className="absolute top-4 left-4">
                                             <span
-                                                className="bg-rose-600 text-white px-3 py-1 rounded-full text-sm font-medium">Render</span>
-                                        </div>
-                                        <div className="absolute top-4 right-4">
-                      <span className="bg-white text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
-                        {project.progress} Completado
-                      </span>
+                                                className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                                                style={{ backgroundColor: project.status?.color || "#9CA3AF" }}
+                                            >
+                                                {project.status?.name || "Sin estado"}
+                                            </span>
                                         </div>
                                     </div>
 
                                     <CardContent className="p-6">
                                         <h3 className="text-xl font-bold text-gray-900 mb-2">{project.name}</h3>
-                                        <div className="flex items-center text-gray-600 mb-3">
-                                            <MapPin className="h-4 w-4 mr-2"/>
-                                            <span className="text-sm">{project.location}</span>
-                                        </div>
 
-                                        <p className="text-gray-600 text-sm mb-4">{project.description}</p>
+                                        <div className="flex items-center text-gray-600 mb-3">
+                                            <MapPin className="h-4 w-4 mr-2 text-red-400" />
+                                            <span className="text-sm">{project?.address_id?.address_line}</span>
+                                        </div>
 
                                         <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
                                             <div className="flex items-center">
-                                                <Calendar className="h-4 w-4 mr-2 text-rose-600"/>
-                                                <span>Inicio: {project.startDate}</span>
+                                                <Calendar className="h-4 w-4 mr-2 text-rose-600" />
+                                                <span>Inicio: {new Date(project?.publication_date).toLocaleDateString("es-AR")}</span>
                                             </div>
                                             <div className="flex items-center">
-                                                <TrendingUp className="h-4 w-4 mr-2 text-rose-600"/>
-                                                <span>Estado: {project.status}</span>
+                                                <TrendingUp className="h-4 w-4 mr-2 text-rose-600" />
+                                                <span>Estado: {project?.status?.name}</span>
                                             </div>
                                         </div>
 
-                                        <div className="mb-4">
-                                            <div className="flex justify-between text-sm text-gray-600 mb-1">
-                                                <span>Progreso de Obra</span>
-                                                <span>{project.progress}</span>
+
+                                        <p className="text-gray-600 text-sm mb-2 line-clamp-3">{project.description}</p>
+
+                                        <div className="mb-5">
+                                            <div className="flex justify-between text-sm text-gray-500 mb-1">
+                                                <span>Progreso</span>
+                                                <span>
+                                                    {project?.type_info?.find(
+                                                        (info: any) =>
+                                                            info.label?.toLowerCase() === "progreso" ||
+                                                            info.name?.toLowerCase().includes("progreso"),
+                                                    )?.value ?? "0"}
+                                                    %
+                                                </span>
                                             </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2">
-                                                <div className="bg-rose-600 h-2 rounded-full"
-                                                     style={{width: project.progress}}></div>
+                                            <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                                                <div
+                                                    className="h-full bg-gradient-to-r from-brand-black to-brand-dark transition-all duration-500"
+                                                    style={{
+                                                        width: `${project?.type_info?.find(
+                                                            (info: any) =>
+                                                                info.label?.toLowerCase() === "progreso" ||
+                                                                info.name?.toLowerCase().includes("progreso"),
+                                                        )?.value ?? "0"
+                                                            }%`,
+                                                    }}
+                                                />
                                             </div>
                                         </div>
-
-                                        <div className="text-sm text-gray-500 mb-4">Última
-                                            actualización: {project.lastUpdate}</div>
 
                                         <div className="space-y-2">
                                             <Button className="w-full bg-rose-600 hover:bg-rose-700"
-                                                    onClick={() => openGallery(project)}>
-                                                Ver Galería de Avances ({project.progressImages.length} fotos)
+                                                onClick={() => openGallery(project)}>
+                                                Ver Galería de Avances ({project?.gallery?.length} fotos)
                                             </Button>
                                             <div className="text-center text-sm text-gray-500">
-                                                {project.progressImages.length} fotos de progreso disponibles
+                                                {project?.gallery?.length} fotos de progreso disponibles
                                             </div>
                                         </div>
                                     </CardContent>
@@ -212,33 +217,33 @@ export default function ConstruccionPage() {
                                 onClick={closeGallery}
                                 className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
                             >
-                                <X className="h-6 w-6 text-gray-600"/>
+                                <X className="h-6 w-6 text-gray-600" />
                             </button>
 
                             {/* Image */}
                             <div className="relative">
                                 <Image
-                                    src={selectedProject.progressImages[currentImageIndex] || "/placeholder.svg"}
-                                    alt={`Avance ${currentImageIndex + 1} de ${selectedProject.name}`}
+                                    src={selectedProject?.gallery?.[currentImageIndex] || "/placeholder.svg"}
+                                    alt={`Avance ${currentImageIndex + 1} de ${selectedProject?.name}`}
                                     width={800}
                                     height={600}
                                     className="w-full h-auto max-h-[70vh] object-contain rounded-lg"
                                 />
 
                                 {/* Navigation Arrows */}
-                                {selectedProject.progressImages.length > 1 && (
+                                {selectedProject?.gallery?.length > 1 && (
                                     <>
                                         <button
                                             onClick={prevImage}
                                             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100 transition-all"
                                         >
-                                            <ChevronLeft className="h-6 w-6 text-gray-800"/>
+                                            <ChevronLeft className="h-6 w-6 text-gray-800" />
                                         </button>
                                         <button
                                             onClick={nextImage}
                                             className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 hover:bg-opacity-100 transition-all"
                                         >
-                                            <ChevronRight className="h-6 w-6 text-gray-800"/>
+                                            <ChevronRight className="h-6 w-6 text-gray-800" />
                                         </button>
                                     </>
                                 )}
@@ -248,35 +253,41 @@ export default function ConstruccionPage() {
                             <div className="bg-white rounded-lg mt-4 p-4">
                                 <div className="flex justify-between items-start mb-2">
                                     <div>
-                                        <h3 className="text-lg font-bold text-gray-900">{selectedProject.name}</h3>
-                                        <p className="text-gray-600">{selectedProject.location}</p>
+                                        <h3 className="text-lg font-bold text-gray-900">{selectedProject?.name}</h3>
+                                        <p className="text-gray-600">{selectedProject?.location}</p>
                                     </div>
                                     <div className="text-right">
-                    <span className="text-sm text-gray-500">
-                      Foto {currentImageIndex + 1} de {selectedProject.progressImages.length}
-                    </span>
+                                        <span className="text-sm text-gray-500">
+                                            Foto {currentImageIndex + 1} de {selectedProject?.gallery?.length || 1}
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center space-x-4 text-sm text-gray-600">
-                                        <span>Progreso: {selectedProject.progress}</span>
+                                        <span>
+                                            Progreso: {" "}
+                                            {selectedProject?.type_info?.find(
+                                                (info: any) =>
+                                                    info.label?.toLowerCase() === "progreso" ||
+                                                    info.name?.toLowerCase().includes("progreso"),
+                                            )?.value ?? "0"}  %
+                                        </span>
                                         <span>•</span>
-                                        <span>Actualizado: {selectedProject.lastUpdate}</span>
+                                        <span>Actualizado: {new Date(selectedProject?.updatedAt).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Thumbnail Navigation */}
-                            {selectedProject.progressImages.length > 1 && (
+                            {selectedProject?.gallery?.length > 1 && (
                                 <div className="flex justify-center mt-4 space-x-2 overflow-x-auto pb-2">
-                                    {selectedProject.progressImages.map((image, index) => (
+                                    {selectedProject?.gallery?.map((image: any, index: any) => (
                                         <button
                                             key={index}
                                             onClick={() => setCurrentImageIndex(index)}
-                                            className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                                                index === currentImageIndex ? "border-rose-500" : "border-transparent"
-                                            }`}
+                                            className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex ? "border-rose-500" : "border-transparent"
+                                                }`}
                                         >
                                             <Image
                                                 src={image || "/placeholder.svg"}
@@ -293,49 +304,6 @@ export default function ConstruccionPage() {
                     </div>
                 )}
 
-                {/* Construction Updates */}
-                <section className="py-16 bg-gray-50">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Actualizaciones Recientes</h2>
-                            <p className="text-xl text-gray-600">Las últimas novedades de nuestras obras</p>
-                        </div>
-
-                        <div className="space-y-6">
-                            {projects
-                                .filter((p) => p.status === "En Construcción")
-                                .map((project) => (
-                                    <Card key={`update-${project.id}`} className="p-6">
-                                        <div className="flex items-start space-x-4">
-                                            <div className="flex-shrink-0">
-                                                <div
-                                                    className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
-                                                    <TrendingUp className="h-6 w-6 text-rose-600"/>
-                                                </div>
-                                            </div>
-                                            <div className="flex-1">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">{project.name}</h3>
-                                                <p className="text-gray-600 mb-2">
-                                                    Progreso actualizado al {project.progress} - {project.lastUpdate}
-                                                </p>
-                                                <p className="text-sm text-gray-500">
-                                                    Se completaron los trabajos de estructura en el sector norte.
-                                                    Próxima etapa: instalaciones
-                                                    eléctricas y sanitarias.
-                                                </p>
-                                            </div>
-                                            <div className="flex-shrink-0">
-                                                <Button variant="outline" size="sm"
-                                                        onClick={() => openGallery(project)}>
-                                                    Ver Fotos
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                ))}
-                        </div>
-                    </div>
-                </section>
             </main>
         </div>
     )

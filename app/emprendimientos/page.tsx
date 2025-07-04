@@ -121,12 +121,12 @@ export default function EmprendimientosPage() {
                                                 className="w-full h-48 object-cover"
                                             />
                                             <div className="absolute top-4 left-4">
-                        <span
-                            className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                            style={{ backgroundColor: project.status?.color || "#9CA3AF" }}
-                        >
-                          {project.status?.name || "Sin estado"}
-                        </span>
+                                                <span
+                                                    className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                                                    style={{ backgroundColor: project.status?.color || "#9CA3AF" }}
+                                                >
+                                                    {project.status?.name || "Sin estado"}
+                                                </span>
                                             </div>
                                         </div>
 
@@ -136,8 +136,8 @@ export default function EmprendimientosPage() {
                                             <div className="flex items-center text-gray-600 mb-3 text-sm">
                                                 <MapPin className="h-4 w-4 mr-2 text-red-500" />
                                                 <span className="text-sm">
-                          {project.address_id?.city}, {project.address_id?.state}
-                        </span>
+                                                    {project.address_id?.city}, {project.address_id?.state}
+                                                </span>
                                             </div>
 
                                             <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
@@ -153,25 +153,24 @@ export default function EmprendimientosPage() {
                                                 <div className="flex justify-between text-sm text-gray-500 mb-1">
                                                     <span>Progreso</span>
                                                     <span>
-                            {project?.type_info?.find(
-                                (info: any) =>
-                                    info.label?.toLowerCase() === "progreso" ||
-                                    info.name?.toLowerCase().includes("progreso"),
-                            )?.value ?? "0"}
+                                                        {project?.type_info?.find(
+                                                            (info: any) =>
+                                                                info.label?.toLowerCase() === "progreso" ||
+                                                                info.name?.toLowerCase().includes("progreso"),
+                                                        )?.value ?? "0"}
                                                         %
-                          </span>
+                                                    </span>
                                                 </div>
                                                 <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
                                                     <div
                                                         className="h-full bg-gradient-to-r from-brand-black to-brand-dark transition-all duration-500"
                                                         style={{
-                                                            width: `${
-                                                                project?.type_info?.find(
-                                                                    (info: any) =>
-                                                                        info.label?.toLowerCase() === "progreso" ||
-                                                                        info.name?.toLowerCase().includes("progreso"),
-                                                                )?.value ?? "0"
-                                                            }%`,
+                                                            width: `${project?.type_info?.find(
+                                                                (info: any) =>
+                                                                    info.label?.toLowerCase() === "progreso" ||
+                                                                    info.name?.toLowerCase().includes("progreso"),
+                                                            )?.value ?? "0"
+                                                                }%`,
                                                         }}
                                                     />
                                                 </div>
@@ -216,8 +215,8 @@ export default function EmprendimientosPage() {
                                         Anterior
                                     </Button>
                                     <span className="text-sm text-black px-2">
-                    Página {pagination.page} de {pagination.totalPages}
-                  </span>
+                                        Página {pagination.page} de {pagination.totalPages}
+                                    </span>
                                     <Button
                                         variant="outline"
                                         size="sm"

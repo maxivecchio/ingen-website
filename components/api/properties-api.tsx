@@ -70,6 +70,38 @@ export const propertyService = {
         return response.data
     },
 
+    async getAllConstruccion(filters?: {
+        status?: string
+        property_type?: string
+        manager?: string
+        min_price?: number
+        max_price?: number
+        city?: string
+        search?: string
+        page?: number
+        limit?: number
+    }) {
+        const params = new URLSearchParams()
+
+        if (filters?.status) params.append("status", filters.status)
+        if (filters?.property_type && filters.property_type !== "all") {
+            params.append("propertyTypeId", filters.property_type)
+        }
+        if (filters?.manager) params.append("managerId", filters.manager)
+        if (filters?.min_price !== undefined) params.append("minPrice", filters.min_price.toString())
+        if (filters?.max_price !== undefined) params.append("maxPrice", filters.max_price.toString())
+        if (filters?.city) params.append("city", filters.city)
+        if (filters?.search) params.append("search", filters.search)
+        if (filters?.page) params.append("page", filters.page.toString())
+        if (filters?.limit) params.append("limit", filters.limit.toString())
+
+        const queryString = params.toString()
+        const url = `${API_BASE_URL}/properties/visitors/properties/${accountId}/construcciones${queryString ? `?${queryString}` : ""}`
+
+        const response = await axios.get(url)
+        return response.data
+    },
+
     async getById(id: string) {
         const response = await axios.get(`${API_BASE_URL}/properties/visitors/properties/view/${id}?account=${accountId}`);
         return response.data;
