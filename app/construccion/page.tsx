@@ -100,9 +100,9 @@ export default function ConstruccionPage() {
 
     return (
         <div className="min-h-screen bg-white">
-            <main className="pt-8">
+            <main className="">
                 {/* Hero Section */}
-                <section className="bg-gradient-to-r from-rose-50 to-orange-50 py-16">
+                <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Avances de Construcción</h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -123,7 +123,7 @@ export default function ConstruccionPage() {
                             {propertiesConstruccion && propertiesConstruccion.map((project: any) => (
                                 <Card
                                     key={project?._id}
-                                    className="overflow-hidden bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300"
+                                    className="overflow-hidden bg-white rounded-xl shadow-md"
                                 >
                                     <div className="relative">
                                         <Image
@@ -193,7 +193,7 @@ export default function ConstruccionPage() {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <Button className="w-full bg-rose-600 hover:bg-rose-700"
+                                            <Button className="w-full bg-brand-black hover:bg-brand-black/90"
                                                 onClick={() => openGallery(project)}>
                                                 Ver Galería de Avances ({project?.gallery?.length} fotos)
                                             </Button>
@@ -204,6 +204,38 @@ export default function ConstruccionPage() {
                                     </CardContent>
                                 </Card>
                             ))}
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center mt-6">
+                                <div className="text-sm text-black">
+                                    Mostrando {(pagination.page - 1) * pagination.limit + 1}-
+                                    {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} construcciones
+                                    {searchTerm && ` (búsqueda: "${searchTerm}")`}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        disabled={!pagination.hasPrevPage}
+                                        onClick={goToPreviousPage}
+                                        className="shadow-sm bg-transparent"
+                                    >
+                                        Anterior
+                                    </Button>
+                                    <span className="text-sm text-black px-2">
+                                        Página {pagination.page} de {pagination.totalPages}
+                                    </span>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        disabled={!pagination.hasNextPage}
+                                        onClick={goToNextPage}
+                                        className="shadow-sm bg-transparent"
+                                    >
+                                        Siguiente
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
