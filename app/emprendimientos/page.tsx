@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation"
 const DynamicMap = dynamic(() => import("@/components/map-component"), {
     ssr: false,
     loading: () => (
-        <div className="w-full h-[600px] bg-gray-200 flex items-center justify-center">
+        <div className="w-full h-[400px] sm:h-[600px] bg-gray-200 flex items-center justify-center">
             <div className="text-gray-600">Cargando mapa...</div>
         </div>
     ),
@@ -81,7 +81,7 @@ export default function EmprendimientosPage() {
     return (
         <div className="min-h-screen bg-white">
             <section>
-                <div className="w-full h-[600px]">
+                <div className="w-full h-[400px] sm:h-[600px]">
                     <DynamicMap properties={propertiesEmprende} />
                 </div>
             </section>
@@ -198,7 +198,7 @@ export default function EmprendimientosPage() {
                         </div>
 
                         <div>
-                            <div className="flex justify-between items-center mt-6">
+                            <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
                                 <div className="text-sm text-black">
                                     Mostrando {(pagination.page - 1) * pagination.limit + 1}-
                                     {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} emprendimientos

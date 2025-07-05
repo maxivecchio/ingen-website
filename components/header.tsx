@@ -62,13 +62,13 @@ export default function Header() {
                     <div className="lg:hidden absolute top-16 shadow-lg left-0 w-full">
                         <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
                             {navigation.map((item) => (
-                                item.href === "/construccion" ? <p
+                               /*  item.href === "/construccion" ? <p
                                         key={item.name}
                                         className="block rounded px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-dark hover:bg-brand-gray"
                                     >
                                         {item.name} (Próximamente)
                                     </p>
-                                    :
+                                    : */
                                     <Link
                                         key={item.name}
                                         href={item.href}

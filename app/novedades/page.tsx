@@ -184,7 +184,7 @@ export default function NovedadesPage() {
                       )}
                     </Button>
                   </SheetTrigger>
-                  <SheetContent className="w-[400px] sm:w-[540px]">
+                  <SheetContent className="w-full sm:w-[540px]">
                     <SheetHeader>
                       <SheetTitle>Seleccionar Categorías</SheetTitle>
                       <SheetDescription>Elige las categorías que quieres incluir en tu búsqueda</SheetDescription>
@@ -386,10 +386,10 @@ export default function NovedadesPage() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
                 <div className="text-sm text-black">
                   Mostrando {(pagination.page - 1) * pagination.limit + 1}-
-                  {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
+                  {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} publicaciones
                   {searchTerm && ` (búsqueda: "${searchTerm}")`}
                 </div>
                 <div className="flex items-center gap-2">

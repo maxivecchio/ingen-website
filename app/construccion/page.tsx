@@ -206,7 +206,7 @@ export default function ConstruccionPage() {
                             ))}
                         </div>
                         <div>
-                            <div className="flex justify-between items-center mt-6">
+                            <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
                                 <div className="text-sm text-black">
                                     Mostrando {(pagination.page - 1) * pagination.limit + 1}-
                                     {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} construcciones

@@ -16,7 +16,7 @@ import { propertyService, propertyTypeService, statusService } from "@/component
 const DynamicPropertiesMap = dynamic(() => import("@/components/properties-map"), {
   ssr: false,
   loading: () => (
-      <div className="w-full h-[600px] bg-gray-200 flex items-center justify-center">
+      <div className="w-full h-[400px] sm:h-[600px] bg-gray-200 flex items-center justify-center">
         <div className="text-gray-600">Cargando mapa...</div>
       </div>
   ),
@@ -198,7 +198,7 @@ export default function PropiedadesPage() {
   return (
       <div className="min-h-screen bg-white">
         <section>
-          <div className="w-full h-[600px]">
+          <div className="w-full h-[400px] sm:h-[600px]">
             <DynamicPropertiesMap properties={properties} />
           </div>
         </section>
@@ -216,11 +216,11 @@ export default function PropiedadesPage() {
 
           {/* Filters Section */}
           <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-gray-50 rounded-3xl p-10 shadow-md">
+            <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+              <div className="bg-gray-50 rounded-xl sm:rounded-3xl p-3 sm:p-10 shadow-md">
                 <div className="mb-8">
                   <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
-                    <Filter className="h-6 w-6 text-rose-600 mr-3" />
+                    <Filter className="h-6 w-6 text-rose-600 mr-3 max-sm:hidden" />
                     Buscá tu próxima propiedad
                   </h3>
                   <p className="text-gray-600">Filtrá por tipo, precio, dormitorios o ubicación</p>
@@ -336,7 +336,7 @@ export default function PropiedadesPage() {
                 ))}
               </div>
 
-              <div className="flex justify-between items-center mt-4">
+              <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
                 <div className="text-sm text-muted-foreground">
                   Mostrando {(pagination.page - 1) * pagination.limit + 1}-
                   {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades

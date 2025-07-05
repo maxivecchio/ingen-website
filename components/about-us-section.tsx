@@ -3,22 +3,46 @@ import Image from "next/image"
 export default function AboutUsSection() {
   const team = [
     {
-      name: "Roberto Martínez",
-      role: "Director General",
-      image: "/perfil.png",
-      description: "Arquitecto con 20 años de experiencia en desarrollo urbano",
+      name: "Agustin",
+      role: "PONER ROL",
+      image: "/agus.jpeg",
+      description: "PONER DESCRIPCION",
     },
     {
-      name: "Laura Fernández",
-      role: "Directora de Inversiones",
-      image: "/perfil.png",
-      description: "Especialista en finanzas inmobiliarias y gestión de proyectos",
+      name: "Lucas",
+      role: "PONER ROL",
+      image: "/lucas.jpeg",
+      description: "PONER DESCRIPCION",
     },
     {
-      name: "Miguel Torres",
-      role: "Director de Construcción",
-      image: "/perfil.png",
-      description: "Ingeniero civil especializado en construcción sustentable",
+      name: "Martin",
+      role: "PONER ROL",
+      image: "/martin.jpeg",
+      description: "PONER DESCRIPCION",
+    },
+    {
+      name: "Nati",
+      role: "PONER ROL",
+      image: "/nati.jpeg",
+      description: "PONER DESCRIPCION",
+    },
+    {
+      name: "Robert",
+      role: "PONER ROL",
+      image: "/robert2.jpeg",
+      description: "PONER DESCRIPCION",
+    },
+    {
+      name: "Tomas",
+      role: "PONER ROL",
+      image: "/tomas.jpeg",
+      description: "PONER DESCRIPCION",
+    },
+    {
+      name: "Tomi",
+      role: "PONER ROL",
+      image: "/tomi.jpeg",
+      description: "PONER DESCRIPCION",
     },
   ]
 

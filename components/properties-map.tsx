@@ -1,12 +1,12 @@
 "use client"
 
-import {MapContainer, TileLayer, Marker, Popup} from "react-leaflet"
+import {MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet"
+import {useEffect} from "react"
 import {Button} from "@/components/ui/button"
 import "leaflet/dist/leaflet.css"
 /* @ts-ignore */
 import L from "leaflet"
 
-// Fix for default markers in Leaflet with Next.js
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
@@ -16,6 +16,26 @@ L.Icon.Default.mergeOptions({
 
 interface PropertiesMapProps {
     properties: any[]
+}
+
+function FitBounds({properties}: {properties: any[]}) {
+    const map = useMap()
+
+    useEffect(() => {
+        const bounds = new L.LatLngBounds([])
+
+        properties.forEach((property) => {
+            if (property.address_id?.latitude && property.address_id?.longitude) {
+                bounds.extend([property.address_id.latitude, property.address_id.longitude])
+            }
+        })
+
+        if (bounds.isValid()) {
+            map.fitBounds(bounds, {padding: [50, 50]})
+        }
+    }, [properties, map])
+
+    return null
 }
 
 export default function PropertiesMap({properties}: PropertiesMapProps) {
@@ -39,6 +59,8 @@ export default function PropertiesMap({properties}: PropertiesMapProps) {
                 attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
+            <FitBounds properties={properties} />
 
             {properties.map(
                 (property: any) =>
