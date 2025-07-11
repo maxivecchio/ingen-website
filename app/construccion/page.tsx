@@ -10,6 +10,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { propertyService } from "@/components/api/properties-api"
 import Link from "next/link"
+import { getImageUrl } from "@/lib/utils"
 
 export default function ConstruccionPage() {
     const [selectedProject, setSelectedProject] = useState<any>(null)
@@ -44,7 +45,7 @@ export default function ConstruccionPage() {
             }
 
             const response = await propertyService.getAllConstruccion(filters)
-            console.log(response)
+           
             setPropertiesConstruccion(response.data)
             setPagination(response.pagination)
         } catch (error) {
@@ -88,13 +89,13 @@ export default function ConstruccionPage() {
 
     const nextImage = () => {
         if (selectedProject) {
-            setCurrentImageIndex((prev) => (prev === selectedProject?.gallery?.length - 1 ? 0 : prev + 1))
+            setCurrentImageIndex((prev) => (prev === selectedProject?.files?.length - 1 ? 0 : prev + 1))
         }
     }
 
     const prevImage = () => {
         if (selectedProject) {
-            setCurrentImageIndex((prev) => (prev === 0 ? selectedProject?.gallery?.length - 1 : prev - 1))
+            setCurrentImageIndex((prev) => (prev === 0 ? selectedProject?.files?.length - 1 : prev - 1))
         }
     }
 
@@ -127,7 +128,7 @@ export default function ConstruccionPage() {
                                 >
                                     <div className="relative">
                                         <Image
-                                            src={project?.cover_image || "/placeholder.svg"}
+                                            src={project.files?.[0] ? getImageUrl(project?.files[0]) : "/placeholder.svg"}
                                             alt={project?.name}
                                             width={400}
                                             height={300}
@@ -195,10 +196,10 @@ export default function ConstruccionPage() {
                                         <div className="space-y-2">
                                             <Button className="w-full bg-brand-black hover:bg-brand-black/90"
                                                 onClick={() => openGallery(project)}>
-                                                Ver Galería de Avances ({project?.gallery?.length} fotos)
+                                                Ver Galería de Avances ({project?.files?.length} fotos)
                                             </Button>
                                             <div className="text-center text-sm text-gray-500">
-                                                {project?.gallery?.length} fotos de progreso disponibles
+                                                {project?.files?.length} fotos de progreso disponibles
                                             </div>
                                         </div>
                                     </CardContent>
@@ -255,7 +256,8 @@ export default function ConstruccionPage() {
                             {/* Image */}
                             <div className="relative">
                                 <Image
-                                    src={selectedProject?.gallery?.[currentImageIndex] || "/placeholder.svg"}
+                                    /* src={selectedProject?.files?.[currentImageIndex] || "/placeholder.svg"} */
+                                    src={selectedProject.files?.[0] ? getImageUrl(selectedProject?.files[0]) : "/placeholder.svg"}
                                     alt={`Avance ${currentImageIndex + 1} de ${selectedProject?.name}`}
                                     width={800}
                                     height={600}
@@ -263,7 +265,7 @@ export default function ConstruccionPage() {
                                 />
 
                                 {/* Navigation Arrows */}
-                                {selectedProject?.gallery?.length > 1 && (
+                                {selectedProject?.files?.length > 1 && (
                                     <>
                                         <button
                                             onClick={prevImage}
@@ -290,7 +292,7 @@ export default function ConstruccionPage() {
                                     </div>
                                     <div className="text-right">
                                         <span className="text-sm text-gray-500">
-                                            Foto {currentImageIndex + 1} de {selectedProject?.gallery?.length || 1}
+                                            Foto {currentImageIndex + 1} de {selectedProject?.files?.length || 1}
                                         </span>
                                     </div>
                                 </div>
@@ -312,9 +314,9 @@ export default function ConstruccionPage() {
                             </div>
 
                             {/* Thumbnail Navigation */}
-                            {selectedProject?.gallery?.length > 1 && (
+                            {selectedProject?.files?.length > 1 && (
                                 <div className="flex justify-center mt-4 space-x-2 overflow-x-auto pb-2">
-                                    {selectedProject?.gallery?.map((image: any, index: any) => (
+                                    {selectedProject?.files?.map((image: any, index: any) => (
                                         <button
                                             key={index}
                                             onClick={() => setCurrentImageIndex(index)}
@@ -322,7 +324,8 @@ export default function ConstruccionPage() {
                                                 }`}
                                         >
                                             <Image
-                                                src={image || "/placeholder.svg"}
+                                                /* src={image || "/placeholder.svg"} */
+                                                src={getImageUrl(image) || "/placeholder.svg"}
                                                 alt={`Miniatura ${index + 1}`}
                                                 width={64}
                                                 height={64}

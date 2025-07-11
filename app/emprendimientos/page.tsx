@@ -9,6 +9,7 @@ import dynamic from "next/dynamic"
 import { propertyService } from "@/components/api/properties-api"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { getImageUrl } from "@/lib/utils"
 
 // Dynamically import the map component with SSR disabled
 const DynamicMap = dynamic(() => import("@/components/map-component"), {
@@ -114,7 +115,7 @@ export default function EmprendimientosPage() {
                                     >
                                         <div className="relative">
                                             <Image
-                                                src={project?.cover_image || "/placeholder.svg"}
+                                                src={project.files?.[0] ? getImageUrl(project?.files[0]) : "/placeholder.svg"}
                                                 alt={project?.name}
                                                 width={400}
                                                 height={300}

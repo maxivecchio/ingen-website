@@ -38,6 +38,11 @@ export const propertyService = {
         return response.data
     },
 
+    async getImages(id: string) {
+        const response = await axios.get(`${ServerUrl}/upload/linked/${id}`)
+        return response.data
+    },
+
     async getAllEmprende(filters?: {
         status?: string
         property_type?: string

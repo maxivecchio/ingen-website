@@ -19,6 +19,7 @@ L.Icon.Default.mergeOptions({
 })
 import * as LucideIcons from "lucide-react"
 import ReactDOMServer from "react-dom/server"
+import { getImageUrl } from "@/lib/utils"
 
 interface PropertiesMapProps {
     properties: any[]
@@ -137,30 +138,10 @@ export default function PropertiesMap({ properties }: PropertiesMapProps) {
                                 position={[property.address_id.latitude, property.address_id.longitude]}
                                 icon={getCustomIcon(property.property_type_id?.icon || "Home")}
                             >
-                                {/* <Popup>
-                                    <img
-                                        className="mb-2 rounded-lg"
-                                        src={property.cover_image || "/placeholder.svg"}
-                                        alt=""
-                                    />
-                                    <strong>{property.name}</strong>
-                                    <br />
-                                    {property.address_id.address_line}, {property.address_id.city}
-                                    <br />
-                                    <Button
-                                        onClick={() => {
-                                            window.location.href = `/propiedades/${property._id}`
-                                        }}
-                                        className="absolute top-0 h-6 px-2 mt-5 left-7"
-                                    >
-                                        Ver detalle
-                                    </Button>
-                                </Popup> */}
-
                                 <Popup>
                                     <div className="relative">
                                         <img
-                                            src={property.cover_image || "/placeholder.svg"}
+                                            src={property.files?.[0] ? getImageUrl(property?.files[0]) : "/placeholder.svg"}
                                             alt={property.name}
                                             className="w-full h-[140px] object-cover"
                                         />

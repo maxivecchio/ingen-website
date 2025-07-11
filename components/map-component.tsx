@@ -10,6 +10,7 @@ import "leaflet/dist/leaflet.css"
 import L from "leaflet"
 import { PencilRuler } from "lucide-react"
 import ReactDOMServer from "react-dom/server"
+import { getImageUrl } from "@/lib/utils"
 
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -145,30 +146,11 @@ export default function MapComponent({ properties }: MapComponentProps) {
                                 /* @ts-ignore */
                                 icon={customIcon}
                             >
-                                {/* <Popup>
-                                    <img
-                                        className="mb-2 rounded-lg"
-                                        src={property.cover_image || "/placeholder.svg"}
-                                        alt=""
-                                    />
-                                    <strong>{property.name}</strong>
-                                    <br />
-                                    {property.address_id.address_line}, {property.address_id.city}
-                                    <br />
-                                    <Button
-                                        onClick={() => {
-                                            router.push(`/emprendimientos/${property._id}`)
-                                        }}
-                                        className="absolute top-0 h-6 px-2 mt-5 left-7"
-                                    >
-                                        Ver detalle
-                                    </Button>
-                                </Popup> */}
-
                                 <Popup>
                                     <div className="relative">
                                         <img
-                                            src={property.cover_image || "/placeholder.svg"}
+                                            /* src={property.cover_image || "/placeholder.svg"} */
+                                            src={property.files?.[0] ? getImageUrl(property?.files[0]) : "/placeholder.svg"}
                                             alt={property.name}
                                             className="w-full h-[140px] object-cover"
                                         />

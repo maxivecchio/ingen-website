@@ -1,4 +1,5 @@
 "use client"
+
 import { useState, useRef, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -28,7 +29,6 @@ export default function TabComponentFrame({
   const [activeStyle, setActiveStyle] = useState({ left: "0px", width: "0px" })
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // Set activeIndex from current pathname
   useEffect(() => {
     const foundIndex = tabs.findIndex(tab => tab.href === pathname)
     if (foundIndex !== -1) {
@@ -75,13 +75,14 @@ export default function TabComponentFrame({
       <div
         /* @ts-ignore */
         ref={(el) => (tabRefs.current[index] = el)}
-        className={`px-3 py-2 transition-colors duration-300 h-[30px] ${index === activeIndex ? "text-black dark:text-white" : "text-black dark:text-black"
-          } ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+        className={`px-3 py-2 sm:px-4 sm:py-2 transition-colors duration-300 h-[30px] whitespace-nowrap
+          ${index === activeIndex ? "text-black dark:text-white" : "text-black dark:text-black"}
+          ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
         onClick={() => !isDisabled && handleTabClick(index, tab)}
       >
-        <div className="text-sm font-[var(--www-mattmannucci-me-geist-regular-font-family)] leading-5 whitespace-nowrap flex items-center justify-center h-full">
+        <div className="text-sm font-[var(--www-mattmannucci-me-geist-regular-font-family)] leading-5 flex items-center justify-center h-full">
           {tab.name}
         </div>
       </div>
@@ -102,20 +103,20 @@ export default function TabComponentFrame({
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-x-auto">
       <div
-        className="absolute h-[30px] transition-all duration-300 ease-out bg-primary/10 dark:bg-primary rounded-[6px] flex items-center"
+        className="absolute h-[30px] transition-all duration-300 ease-out bg-primary/10 dark:bg-primary rounded-[6px] pointer-events-none"
         style={{
           ...hoverStyle,
           opacity: hoveredIndex !== null ? 1 : 0,
         }}
       />
       <div
-        className="absolute bottom-[-2px] h-[2px] bg-primary dark:bg-white transition-all duration-300 ease-out"
+        className="absolute bottom-[-2px] h-[2px] bg-primary dark:bg-white transition-all duration-300 ease-out pointer-events-none"
         style={activeStyle}
       />
       <TooltipProvider>
-        <div className="relative flex space-x-[6px] items-center">
+        <div className="relative flex space-x-[6px] items-center min-w-max px-2 sm:px-0">
           {tabs.map((tab, index) => renderTab(tab, index))}
         </div>
       </TooltipProvider>

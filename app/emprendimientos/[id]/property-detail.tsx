@@ -38,6 +38,7 @@ import { set } from "date-fns"
 import { propertyService } from "@/components/api/properties-api"
 import TabComponentFrame from "@/components/propiedades/TabComponentFrame"
 import Header from "@/components/header"
+import { getImageUrl } from "@/lib/utils"
 
 // Función para obtener el color de estado
 const getStatusBadge = (status: any) => {
@@ -67,6 +68,7 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
     const [loading, setLoading] = useState(true)
     const [currentImageIndex, setCurrentImageIndex] = useState(0)
     const [activeTab, setActiveTab] = useState("Detalles")
+    const [files, setFiles] = useState([])
     const router = useRouter()
 
     const tabs = [
@@ -83,7 +85,17 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
         try {
             const response = await propertyService.getById(propertyId)
 
-            console.log(response);
+            let imageData = { data: [] }
+
+            try {
+                imageData = await propertyService.getImages(propertyId)
+                setFiles(imageData.data)
+            } catch (err) {
+                console.warn("No se pudieron cargar las imágenes:", err)
+                setFiles([])
+            }
+
+            console.log(imageData);
 
             setProperty(response)
             setLoading(false)
@@ -160,15 +172,15 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                             <div className="relative h-[400px] w-full">
                                 <img
                                     src={
-                                        property?.gallery?.length
-                                            ? property.gallery[currentImageIndex]
+                                        files?.length
+                                            ? getImageUrl(files[currentImageIndex])
                                             : property?.cover_image || "/placeholder.svg"
                                     }
                                     alt={`${property?.name || "Propiedad"} - Imagen ${currentImageIndex + 1}`}
                                     className="h-full w-full object-cover"
                                 />
 
-                                {property?.gallery?.length > 1 && (
+                                {files?.length > 1 && (
                                     <>
                                         <div className="absolute inset-0 flex items-center justify-between p-4">
                                             <Button
@@ -189,24 +201,23 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                                             </Button>
                                         </div>
 
-                                        <div
-                                            className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-md text-sm">
-                                            {currentImageIndex + 1} / {property.gallery.length}
+                                        <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-md text-sm">
+                                            {currentImageIndex + 1} / {files.length}
                                         </div>
                                     </>
                                 )}
                             </div>
 
-                            {property?.gallery?.length > 1 && (
+                            {files?.length > 1 && (
                                 <div className="p-4 flex gap-2 overflow-x-auto">
-                                    {property.gallery.map((image: string, index: number) => (
+                                    {files.map((image: string, index: number) => (
                                         <div
                                             key={index}
                                             className={`h-16 w-24 flex-shrink-0 cursor-pointer rounded-md overflow-hidden border-2 ${index === currentImageIndex ? "border-blue-600" : "border-transparent"}`}
                                             onClick={() => setCurrentImageIndex(index)}
                                         >
                                             <img
-                                                src={image || "/placeholder.svg"}
+                                                src={getImageUrl(files[index]) || "/placeholder.svg"}
                                                 alt={`Miniatura ${index + 1}`}
                                                 className="h-full w-full object-cover"
                                             />

@@ -11,14 +11,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox"
 import { useRouter } from "next/navigation"
 import { propertyService, propertyTypeService, statusService } from "@/components/api/properties-api"
+import { getImageUrl } from "@/lib/utils"
 
 // Dynamically import the map component with SSR disabled
 const DynamicPropertiesMap = dynamic(() => import("@/components/properties-map"), {
   ssr: false,
   loading: () => (
-      <div className="w-full h-[400px] sm:h-[600px] bg-gray-200 flex items-center justify-center">
-        <div className="text-gray-600">Cargando mapa...</div>
-      </div>
+    <div className="w-full h-[400px] sm:h-[600px] bg-gray-200 flex items-center justify-center">
+      <div className="text-gray-600">Cargando mapa...</div>
+    </div>
   ),
 })
 
@@ -49,23 +50,23 @@ export function FilterPopover({ label, options, selected, onChange }: any) {
   }
 
   return (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className="w-full justify-between rounded-xl h-12 bg-transparent">
-            {label}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-64 p-4">
-          <div className="space-y-2">
-            {options.map((option: any) => (
-                <label key={isObjectWithId ? option._id : option.label || option} className="flex items-center space-x-2">
-                  <Checkbox checked={isChecked(option)} onCheckedChange={() => handleToggle(option)} />
-                  <span className="text-sm text-gray-700">{isObjectWithId ? option.name : option.label || option}</span>
-                </label>
-            ))}
-          </div>
-        </PopoverContent>
-      </Popover>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="w-full justify-between rounded-xl h-12 bg-transparent">
+          {label}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-4">
+        <div className="space-y-2">
+          {options.map((option: any) => (
+            <label key={isObjectWithId ? option._id : option.label || option} className="flex items-center space-x-2">
+              <Checkbox checked={isChecked(option)} onCheckedChange={() => handleToggle(option)} />
+              <span className="text-sm text-gray-700">{isObjectWithId ? option.name : option.label || option}</span>
+            </label>
+          ))}
+        </div>
+      </PopoverContent>
+    </Popover>
   )
 }
 
@@ -196,179 +197,179 @@ export default function PropiedadesPage() {
   }
 
   return (
-      <div className="min-h-screen bg-white">
-        <section>
-          <div className="w-full h-[400px] sm:h-[600px]">
-            <DynamicPropertiesMap properties={properties} />
+    <div className="min-h-screen bg-white">
+      <section>
+        <div className="w-full h-[400px] sm:h-[600px]">
+          <DynamicPropertiesMap properties={properties} />
+        </div>
+      </section>
+
+      <main className="">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Nuestras Propiedades</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Encontrá la propiedad perfecta entre nuestra selección de casas, departamentos y lofts
+            </p>
           </div>
         </section>
 
-        <main className="">
-          {/* Hero Section */}
-          <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Nuestras Propiedades</h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Encontrá la propiedad perfecta entre nuestra selección de casas, departamentos y lofts
-              </p>
-            </div>
-          </section>
+        {/* Filters Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="bg-gray-50 rounded-xl sm:rounded-3xl p-3 sm:p-10 shadow-md">
+              <div className="mb-8">
+                <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
+                  <Filter className="h-6 w-6 text-rose-600 mr-3 max-sm:hidden" />
+                  Buscá tu próxima propiedad
+                </h3>
+                <p className="text-gray-600">Filtrá por tipo, precio, dormitorios o ubicación</p>
+              </div>
 
-          {/* Filters Section */}
-          <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-              <div className="bg-gray-50 rounded-xl sm:rounded-3xl p-3 sm:p-10 shadow-md">
-                <div className="mb-8">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
-                    <Filter className="h-6 w-6 text-rose-600 mr-3 max-sm:hidden" />
-                    Buscá tu próxima propiedad
-                  </h3>
-                  <p className="text-gray-600">Filtrá por tipo, precio, dormitorios o ubicación</p>
-                </div>
-
-                <div className="mb-8">
-                  <div className="relative">
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                        placeholder="Buscar por nombre o ubicación..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-12 pr-4 py-4 w-full text-lg rounded-xl border-gray-300 focus:ring-rose-500 focus:border-rose-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {/* Popover 1: Tipo */}
-                  <FilterPopover
-                      label="Tipo de propiedad"
-                      options={propertiesTypes}
-                      selected={selectedType}
-                      onChange={(selected: any) => setSelectedType(selected)}
-                  />
-
-                  {/* Popover 2: Precio */}
-                  <FilterPopover
-                      label="Rango de precio"
-                      options={priceRanges}
-                      selected={priceRangeFilter}
-                      onChange={(selected: any) => setPriceRangeFilter(selected)}
-                  />
-
-                  {/* Popover 3: Estado de la propiedad */}
-                  <FilterPopover
-                      label="Estado de la propiedad"
-                      options={propertiesStatuses}
-                      selected={selectedStatus}
-                      onChange={(selected: any) => setSelectedStatus(selected)}
+              <div className="mb-8">
+                <div className="relative">
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    placeholder="Buscar por nombre o ubicación..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-12 pr-4 py-4 w-full text-lg rounded-xl border-gray-300 focus:ring-rose-500 focus:border-rose-500"
                   />
                 </div>
               </div>
-            </div>
-          </section>
 
-          {/* Properties Grid */}
-          <section className="pb-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-900">{properties.length} Propiedades Encontradas</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {/* Popover 1: Tipo */}
+                <FilterPopover
+                  label="Tipo de propiedad"
+                  options={propertiesTypes}
+                  selected={selectedType}
+                  onChange={(selected: any) => setSelectedType(selected)}
+                />
+
+                {/* Popover 2: Precio */}
+                <FilterPopover
+                  label="Rango de precio"
+                  options={priceRanges}
+                  selected={priceRangeFilter}
+                  onChange={(selected: any) => setPriceRangeFilter(selected)}
+                />
+
+                {/* Popover 3: Estado de la propiedad */}
+                <FilterPopover
+                  label="Estado de la propiedad"
+                  options={propertiesStatuses}
+                  selected={selectedStatus}
+                  onChange={(selected: any) => setSelectedStatus(selected)}
+                />
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {properties.map((property: any) => (
-                    <div key={property._id} className="px-3">
-                      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                        <div className="relative">
-                          <Image
-                              src={property.cover_image || "/placeholder.svg"}
-                              alt={property.name}
-                              width={400}
-                              height={400}
-                              className="w-full h-52 object-cover"
-                          />
+        {/* Properties Grid */}
+        <section className="pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">{properties.length} Propiedades Encontradas</h2>
+            </div>
 
-                          <div className="absolute top-4 left-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {properties.map((property: any) => (
+                <div key={property._id} className="px-3">
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="relative">
+                      <Image
+                        src={property.files?.[0] ? getImageUrl(property?.files[0]) : "/placeholder.svg"}
+                        alt={property.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-52 object-cover"
+                      />
+
+                      <div className="absolute top-4 left-4">
                         <span
-                            className="px-3 py-1 rounded-full text-sm font-medium text-white"
-                            style={{ backgroundColor: property.status?.color || "#9CA3AF" }}
+                          className="px-3 py-1 rounded-full text-sm font-medium text-white"
+                          style={{ backgroundColor: property.status?.color || "#9CA3AF" }}
                         >
                           {property.status?.name || "Sin estado"}
                         </span>
-                          </div>
+                      </div>
 
-                          {property.price && (
-                              <div className="absolute top-4 right-4">
+                      {property.price && (
+                        <div className="absolute top-4 right-4">
                           <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
                             {property.price ? `$${property.price}` : "Sin precio"}
                           </span>
-                              </div>
-                          )}
+                        </div>
+                      )}
 
-                          <div className="absolute bottom-4 left-4">
+                      <div className="absolute bottom-4 left-4">
                         <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">
                           {property.property_type_id?.name || "Sin tipo"}
                         </span>
-                          </div>
-                        </div>
-
-                        <CardContent className="p-6">
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
-
-                          <div className="flex items-center text-gray-600 mb-4">
-                            <MapPin className="h-4 w-4 mr-2 text-red-500" />
-                            <span className="text-sm">{property.address_id?.address_line}</span>
-                          </div>
-
-                          <div>
-                            <p className="line-clamp-3 text-sm">{property.description || "Sin descripción"}</p>
-                          </div>
-
-                          <Button
-                              onClick={() => router.push(`/propiedades/${property._id}`)}
-                              className="w-full mt-2"
-                              variant="outline"
-                          >
-                            Ver Detalles
-                          </Button>
-                        </CardContent>
-                      </Card>
+                      </div>
                     </div>
-                ))}
-              </div>
 
-              <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
-                <div className="text-sm text-muted-foreground">
-                  Mostrando {(pagination.page - 1) * pagination.limit + 1}-
-                  {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
-                  {searchTerm && ` (búsqueda: "${searchTerm}")`}
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{property.name}</h3>
+
+                      <div className="flex items-center text-gray-600 mb-4">
+                        <MapPin className="h-4 w-4 mr-2 text-red-500" />
+                        <span className="text-sm">{property.address_id?.address_line}</span>
+                      </div>
+
+                      <div>
+                        <p className="line-clamp-3 text-sm">{property.description || "Sin descripción"}</p>
+                      </div>
+
+                      <Button
+                        onClick={() => router.push(`/propiedades/${property._id}`)}
+                        className="w-full mt-2"
+                        variant="outline"
+                      >
+                        Ver Detalles
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={!pagination.hasPrevPage}
-                      onClick={goToPreviousPage}
-                      className="shadow-sm bg-transparent"
-                  >
-                    Anterior
-                  </Button>
-                  <span className="text-sm text-muted-foreground px-2">
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-4">
+              <div className="text-sm text-muted-foreground">
+                Mostrando {(pagination.page - 1) * pagination.limit + 1}-
+                {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} propiedades
+                {searchTerm && ` (búsqueda: "${searchTerm}")`}
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!pagination.hasPrevPage}
+                  onClick={goToPreviousPage}
+                  className="shadow-sm bg-transparent"
+                >
+                  Anterior
+                </Button>
+                <span className="text-sm text-muted-foreground px-2">
                   Página {pagination.page} de {pagination.totalPages}
                 </span>
-                  <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={!pagination.hasNextPage}
-                      onClick={goToNextPage}
-                      className="shadow-sm bg-transparent"
-                  >
-                    Siguiente
-                  </Button>
-                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={!pagination.hasNextPage}
+                  onClick={goToNextPage}
+                  className="shadow-sm bg-transparent"
+                >
+                  Siguiente
+                </Button>
               </div>
             </div>
-          </section>
-        </main>
-      </div>
+          </div>
+        </section>
+      </main>
+    </div>
   )
 }
