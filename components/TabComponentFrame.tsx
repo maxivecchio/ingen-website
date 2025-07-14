@@ -26,17 +26,19 @@ export default function TabComponentFrame({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hoverStyle, setHoverStyle] = useState({})
-  const [activeStyle, setActiveStyle] = useState({ left: "0px", width: "0px" })
+  const [activeBackgroundStyle, setActiveBackgroundStyle] = useState({ left: "0px", width: "0px", opacity: 0 })
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
 
+  // Effect to set active tab based on current pathname
   useEffect(() => {
-    const foundIndex = tabs.findIndex(tab => tab.href === pathname)
+    const foundIndex = tabs.findIndex((tab) => tab.href === pathname)
     if (foundIndex !== -1) {
       setActiveIndex(foundIndex)
       setActiveTab(tabs[foundIndex].name)
     }
-  }, [pathname])
+  }, [pathname, tabs, setActiveTab])
 
+  // Effect to update hover style
   useEffect(() => {
     if (hoveredIndex !== null) {
       const hoveredElement = tabRefs.current[hoveredIndex]
@@ -47,19 +49,25 @@ export default function TabComponentFrame({
           width: `${offsetWidth}px`,
         })
       }
+    } else {
+      setHoverStyle({}) // Clear hover style when not hovered
     }
   }, [hoveredIndex])
 
+  // Effect to update active background style
   useEffect(() => {
     const activeElement = tabRefs.current[activeIndex]
     if (activeElement) {
       const { offsetLeft, offsetWidth } = activeElement
-      setActiveStyle({
+      setActiveBackgroundStyle({
         left: `${offsetLeft}px`,
         width: `${offsetWidth}px`,
+        opacity: 1, // Always visible when active
       })
+    } else {
+      setActiveBackgroundStyle({ left: "0px", width: "0px", opacity: 0 }) // Hide if no active tab
     }
-  }, [activeIndex])
+  }, [activeIndex, tabs])
 
   const handleTabClick = (index: number, tab: TabItem) => {
     if (disabledList.includes(tab.name)) return
@@ -70,13 +78,12 @@ export default function TabComponentFrame({
 
   const renderTab = (tab: TabItem, index: number) => {
     const isDisabled = disabledList.includes(tab.name)
-
     const tabContent = (
       <div
         /* @ts-ignore */
         ref={(el) => (tabRefs.current[index] = el)}
         className={`px-3 py-2 sm:px-4 sm:py-2 transition-colors duration-300 h-[30px] whitespace-nowrap
-          ${index === activeIndex ? "text-black dark:text-white" : "text-black dark:text-black"}
+          ${index === activeIndex ? "text-white" : "text-black dark:text-black"}
           ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
@@ -98,22 +105,23 @@ export default function TabComponentFrame({
         </Tooltip>
       )
     }
-
     return <div key={index}>{tabContent}</div>
   }
 
   return (
     <div className="relative w-full overflow-x-auto">
+      {/* Active Tab Background */}
+      <div
+        className="absolute h-[30px] transition-all duration-300 ease-out bg-primary rounded-[6px] pointer-events-none"
+        style={activeBackgroundStyle}
+      />
+      {/* Hover Tab Background (only shows for non-active tabs) */}
       <div
         className="absolute h-[30px] transition-all duration-300 ease-out bg-primary/10 dark:bg-primary rounded-[6px] pointer-events-none"
         style={{
           ...hoverStyle,
-          opacity: hoveredIndex !== null ? 1 : 0,
+          opacity: hoveredIndex !== null && hoveredIndex !== activeIndex ? 1 : 0,
         }}
-      />
-      <div
-        className="absolute bottom-[-2px] h-[2px] bg-primary dark:bg-white transition-all duration-300 ease-out pointer-events-none"
-        style={activeStyle}
       />
       <TooltipProvider>
         <div className="relative flex space-x-[6px] items-center min-w-max px-2 sm:px-0">
