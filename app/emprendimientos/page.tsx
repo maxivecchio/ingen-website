@@ -114,8 +114,20 @@ export default function EmprendimientosPage() {
                                         className="overflow-hidden bg-white rounded-xl shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300"
                                     >
                                         <div className="relative">
-                                            <Image
+                                            {/*  <Image
                                                 src={project.files?.[0] ? getImageUrl(project?.files[0]) : "/placeholder.svg"}
+                                                alt={project?.name}
+                                                width={400}
+                                                height={300}
+                                                className="w-full h-48 object-cover"
+                                            /> */}
+
+                                            <Image
+                                                src={
+                                                    project.files?.find((file) => file.position === 0)?.path
+                                                        ? getImageUrl(project.files.find((file) => file.position === 0))
+                                                        : "/placeholder.svg"
+                                                }
                                                 alt={project?.name}
                                                 width={400}
                                                 height={300}
