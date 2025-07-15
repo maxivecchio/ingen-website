@@ -22,6 +22,7 @@ import {
 import { blogService } from "@/components/api/blog-api"
 import { useRouter } from "next/navigation"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { getImageUrl } from "@/lib/utils"
 
 export default function NovedadesPage() {
 
@@ -73,18 +74,13 @@ export default function NovedadesPage() {
 
   const loadPostsRecomended = useCallback(async () => {
     try {
-      const filters: any = {
-        status: "publish",
-        categories: ["68641d03be9d0053209528ec"],
-      }
-      const response = await blogService.getAllPostRecomended(filters)
-      console.log("Posts loaded:", response);
-      setPostsListRecomended(response)
+      const response = await blogService.getLastThreeRecomendedPosts();
+      console.log("Posts recomendados cargados:", response);
+      setPostsListRecomended(response);
     } catch (error) {
-      console.error("Error loading posts:", error)
+      console.error("Error cargando posts recomendados:", error);
     }
-  }, [currentPage, searchTerm, categoriasSelected])
-
+  }, []);
 
   const loadPosts = useCallback(async () => {
     try {
@@ -277,7 +273,8 @@ export default function NovedadesPage() {
               {postsListRecomended[0] && (
                 <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} className="md:col-span-2 relative rounded-xl overflow-hidden">
                   <Image
-                    src={postsListRecomended[0].image || "/placeholder.svg"}
+                    /* src={postsListRecomended[0].image || "/placeholder.svg"} */
+                    src={postsListRecomended[0].files?.[0] ? getImageUrl(postsListRecomended[0]?.files[0]) : "/placeholder.svg"}
                     alt={postsListRecomended[0].title}
                     width={1200}
                     height={600}
@@ -304,7 +301,7 @@ export default function NovedadesPage() {
                 {postsListRecomended.slice(1, 3).map((post: any) => (
                   <div onClick={() => route.push(`/novedades/${post._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
                     <Image
-                      src={post.image || "/placeholder.svg"}
+                      src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
                       alt={post.title}
                       width={600}
                       height={300}
@@ -344,7 +341,8 @@ export default function NovedadesPage() {
               {postsList.map((post: any) => (
                 <Card key={post.id} className="overflow-hidden relative hover:shadow-xl transition-shadow">
                   <Image
-                    src={post.image || "/placeholder.svg"}
+                    /* src={post.image || "/placeholder.svg"} */
+                    src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
                     alt={post.title}
                     width={400}
                     height={300}

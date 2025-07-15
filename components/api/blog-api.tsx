@@ -30,6 +30,11 @@ export const blogService = {
         return response.data
     },
 
+    async getImages(id: string) {
+        const response = await axios.get(`${ServerUrl}/upload/linked/${id}`)
+        return response.data
+    },
+
     async getAllCategories(filters?: {
         status?: string
         search?: string
@@ -49,22 +54,10 @@ export const blogService = {
         return response.data
     },
 
-    async getAllPostRecomended(filters?: {
-        status?: string
-        categories?: any[]
-    }) {
-        const params = new URLSearchParams()
-
-        if (filters?.status) params.append("status", filters.status)
-        if (filters?.categories && filters.categories.length > 0) {
-            params.append("categories", filters.categories.join(","))
-        }
-
-        const queryString = params.toString()
-        const url = `${API_BASE_URL}/visitors/posts/recomended/${accountId}${queryString ? `?${queryString}` : ""}`
-
-        const response = await axios.get(url)
-        return response.data
+    async getLastThreeRecomendedPosts() {
+        const url = `${API_BASE_URL}/visitors/posts/last-recommended/${accountId}`;
+        const response = await axios.get(url);
+        return response.data;
     },
 
     async getById(id: string) {

@@ -3,13 +3,15 @@
 import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { CalendarDays, User, MessageCircle, Tag } from "lucide-react"
+import { CalendarDays, User, MessageCircle, Tag, ChevronLeft, ChevronRight } from "lucide-react"
 import CommentSection from "./comment-section"
 import Image from "next/image"
 import { use, useCallback, useState, useEffect } from "react"
 import { blogService } from "@/components/api/blog-api"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
+import { getImageUrl } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 
 // Tipos basados en tu schema
 interface Comment {
@@ -60,6 +62,8 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     const [post, setPost] = useState<Post | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [files, setFiles] = useState([])
+    const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
     const loadPost = useCallback(async () => {
         console.log("Loading post with ID:", id);
@@ -68,7 +72,19 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
             setLoading(true)
             setError(null)
             const response = await blogService.getById(id)
-            console.log("Post loaded:", response)
+
+            let imageData = { data: [] }
+
+            try {
+                imageData = await blogService.getImages(id)
+                setFiles(imageData.data)
+            } catch (err) {
+                console.warn("No se pudieron cargar las imágenes:", err)
+                setFiles([])
+            }
+
+            console.log(imageData);
+
             setPost(response)
         } catch (error) {
             console.error("Error loading post:", error)
@@ -107,6 +123,18 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
     }
 
     console.log("post", post);
+
+    const nextImage = () => {
+        if (post) {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % post.gallery.length)
+        }
+    }
+
+    const prevImage = () => {
+        if (post) {
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + post.gallery.length) % post.gallery.length)
+        }
+    }
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -169,6 +197,65 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
                                 </div>
                             )}
                         </div>
+                    </div>
+
+                    <div className="overflow-hidden mb-10 bg-transparent">
+                        <div className="relative h-[400px] w-full">
+                            <img
+                                src={
+                                    files?.length
+                                        ? getImageUrl(files[currentImageIndex])
+                                        : post?.cover_image || "/placeholder.svg"
+                                }
+                                alt={`${post?.name || "Propiedad"} - Imagen ${currentImageIndex + 1}`}
+                                className="h-full w-full object-cover"
+                            />
+
+                            {files?.length > 1 && (
+                                <>
+                                    <div className="absolute inset-0 flex items-center justify-between p-4">
+                                        <Button
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={prevImage}
+                                            className="h-10 w-10 rounded-full bg-white/80 hover:bg-white"
+                                        >
+                                            <ChevronLeft className="h-6 w-6" />
+                                        </Button>
+                                        <Button
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={nextImage}
+                                            className="h-10 w-10 rounded-full bg-white/80 hover:bg-white"
+                                        >
+                                            <ChevronRight className="h-6 w-6" />
+                                        </Button>
+                                    </div>
+
+                                    <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-md text-sm">
+                                        {currentImageIndex + 1} / {files.length}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        {files?.length > 1 && (
+                            <div className="flex gap-2 overflow-x-auto mt-5">
+                                {files.map((image: string, index: number) => (
+                                    <div
+                                        key={index}
+                                        className={`h-16 w-24 flex-shrink-0 cursor-pointer rounded-md overflow-hidden border-2 ${index === currentImageIndex ? "border-blue-600" : "border-transparent"}`}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                    >
+                                        <img
+                                            src={getImageUrl(files[index]) || "/placeholder.svg"}
+                                            alt={`Miniatura ${index + 1}`}
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Contenido del post */}
