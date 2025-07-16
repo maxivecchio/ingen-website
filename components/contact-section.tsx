@@ -8,6 +8,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react"
 
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"
 import { ServerUrl } from "@/lib/utils"
+import { set } from "date-fns"
 
 const containerStyle = {
   width: '100%',
@@ -119,6 +120,12 @@ export default function ContactSection() {
       }
 
       console.log("Form data sent successfully:", payload)
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      })
     } catch (error) {
       console.error("Error sending form data:", error)
     }

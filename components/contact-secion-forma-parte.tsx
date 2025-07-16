@@ -183,6 +183,17 @@ const ContactFormFormaParte = () => {
             }
 
             console.log("Form data sent successfully:", payload)
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                message: "",
+                montoInvertir: "",
+                proyectoInteres: "",
+                source: "website-inversiones",
+                formType: "inversiones",
+                variant: "inversiones",
+            })
         } catch (error) {
             console.error("Error sending form data:", error)
         }
