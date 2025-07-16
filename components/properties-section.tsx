@@ -84,7 +84,8 @@ export default function PropertiesSection() {
 
   const router = useRouter()
 
-  // No mostrar nada si está cargando o no hay propiedades
+
+  
   if (loading) {
     return (
         <section className="py-16 lg:py-24 bg-brand-gray">
