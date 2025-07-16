@@ -1,12 +1,13 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPin, Phone, Mail, Clock } from "lucide-react"
 
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api"
+import { ServerUrl } from "@/lib/utils"
 
 const containerStyle = {
   width: '100%',
@@ -19,6 +20,28 @@ const center = {
   lng: -58.3816,
 }
 
+const getBrowserInfo = () => {
+  const userAgent = navigator.userAgent
+  const referrer = document.referrer
+  const urlParams = new URLSearchParams(window.location.search)
+  const utmSource = urlParams.get("utm_source") || ""
+  const utmMedium = urlParams.get("utm_medium") || ""
+  const utmCampaign = urlParams.get("utm_campaign") || ""
+
+  // Note: IP address cannot be reliably obtained client-side without a third-party API.
+  // For demonstration, we'll use a placeholder or assume it's handled server-side.
+  const ipAddress = "192.168.1.100" // Placeholder
+
+  return {
+    userAgent,
+    referrer,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    ipAddress,
+  }
+}
+
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
@@ -27,17 +50,80 @@ export default function ContactSection() {
     message: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     })
   }
+
+  const [isFormValid, setIsFormValid] = useState(false)
+
+  // Function to validate the form
+  const validateForm = () => {
+    return (
+      formData.name.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.phone.trim() !== "" &&
+      formData.message.trim() !== ""
+    )
+  }
+  // Re-validate form whenever formData or cotizarAuto changes
+  useEffect(() => {
+    setIsFormValid(validateForm())
+  }, [formData])
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!isFormValid) {
+      alert("Por favor, completa todos los campos obligatorios.")
+      return
+    }
+
+    const browserInfo = getBrowserInfo()
+
+    let payload: any = {
+      accountId: "684cb03b2d282f47c65cd8c1", // Fixed ID as per request
+      name: formData.name,
+      email: formData.email,
+      subject: "Mensaje de contacto",
+      phone: formData.phone,
+      message: formData.message,
+      source: "website-inicio",
+      formType: "inicio",
+      variant: "inicio",
+      ipAddress: browserInfo.ipAddress,
+      userAgent: browserInfo.userAgent,
+      referrer: browserInfo.referrer,
+      utmSource: browserInfo.utmSource,
+      utmMedium: browserInfo.utmMedium,
+      utmCampaign: browserInfo.utmCampaign,
+    }
+
+    console.log(payload);
+
+    try {
+      const response = await fetch(`${ServerUrl}/contact-forms`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      console.log("Form data sent successfully:", payload)
+    } catch (error) {
+      console.error("Error sending form data:", error)
+    }
+  }
+
 
   return (
     <section className="py-16 lg:py-24 bg-brand-gray">
@@ -51,7 +137,7 @@ export default function ContactSection() {
           {/* Contact Form */}
           <div className="bg-white rounded-2xl h-full p-8 shadow-sm flex flex-col">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Envianos un Mensaje</h3>
-            <form onSubmit={handleSubmit} className="space-y-6 flex flex-col flex-grow">
+            <form onSubmit={handleFormSubmit} className="space-y-6 flex flex-col flex-grow">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                   Nombre Completo

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { propertyService } from "@/components/api/properties-api"
+import ContactFormFormaParte from "@/components/contact-secion-forma-parte"
 
 export default function FormaPartePage() {
   const [investmentAmount, setInvestmentAmount] = useState(50000)
@@ -110,6 +112,8 @@ export default function FormaPartePage() {
     const rate = Number.parseFloat(returnRate.replace("%", "")) / 100
     return amount * rate
   }
+
+ 
 
   return (
     <div className="min-h-screen bg-white">
@@ -209,90 +213,7 @@ export default function FormaPartePage() {
 
 
         {/* Contact Form */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">¿Listo para Invertir?</h2>
-              <p className="text-xl text-gray-600">Completá el formulario y un asesor se contactará contigo</p>
-            </div>
-
-            <Card className="p-8">
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
-                    <Input placeholder="Tu nombre completo" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <Input type="email" placeholder="tu@email.com" />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
-                    <Input type="tel" placeholder="+54 11 1234-5678" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Monto a Invertir</label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar rango" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="25000-75000">$25,000 - $75,000</SelectItem>
-                        <SelectItem value="75000-200000">$75,000 - $200,000</SelectItem>
-                        <SelectItem value="200000+">$200,000+</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Proyecto de Interés</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar proyecto" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {projects.map((project) => (
-                        <SelectItem key={project.id} value={project.id.toString()}>
-                          {project.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Mensaje Adicional</label>
-                  <Textarea placeholder="Contanos sobre tus objetivos de inversión..." rows={4} />
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button type="submit" className="flex-1 bg-rose-600 hover:bg-rose-700">
-                    Solicitar Información
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex-1"
-                    onClick={() => {
-                      const message =
-                        "Hola! Me interesa conocer más sobre las oportunidades de inversión en sus desarrollos inmobiliarios. ¿Podrían brindarme información detallada?"
-                      const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`
-                      window.open(whatsappUrl, "_blank")
-                    }}
-                  >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Consultar por WhatsApp
-                  </Button>
-                </div>
-              </form>
-            </Card>
-          </div>
-        </section>
+        <ContactFormFormaParte />
       </main>
     </div>
   )
