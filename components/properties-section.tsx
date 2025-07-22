@@ -10,6 +10,7 @@ import { propertyService } from "./api/properties-api"
 import { useRouter } from "next/navigation"
 import { getImageUrl } from "@/lib/utils"
 
+
 export default function PropertiesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(1)
