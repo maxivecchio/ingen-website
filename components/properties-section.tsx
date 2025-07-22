@@ -9,6 +9,7 @@ import Link from "next/link"
 import { propertyService } from "./api/properties-api"
 import { useRouter } from "next/navigation"
 
+
 export default function PropertiesSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(1)
