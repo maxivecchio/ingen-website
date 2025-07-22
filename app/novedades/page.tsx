@@ -144,17 +144,86 @@ export default function NovedadesPage() {
     <div className="min-h-screen bg-white">
       <main className="">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+        {/* <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Novedades</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Mantente al día con las últimas noticias, proyectos y tendencias del mercado inmobiliario
             </p>
           </div>
+        </section> */}
+
+
+
+        {/* Featured Post */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+{/*             <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Artículo Destacado</h2>
+              <div className="w-20 h-1 bg-rose-600"></div>
+            </div> */}
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Post Principal (ocupa 2 columnas en md+) */}
+              {postsListRecomended[0] && (
+                <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} className="md:col-span-2 relative rounded-xl overflow-hidden">
+                  <Image
+                    /* src={postsListRecomended[0].image || "/placeholder.svg"} */
+                    src={postsListRecomended[0].files?.[0] ? getImageUrl(postsListRecomended[0]?.files[0]) : "/placeholder.svg"}
+                    alt={postsListRecomended[0].title}
+                    width={1200}
+                    height={600}
+                    className="w-full h-[400px] md:h-[500px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-60 p-6 flex flex-col justify-end">
+                    <div className="">
+                      <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
+                        {postsListRecomended[0].category.name}
+                      </Badge>
+                    </div>
+
+                    <h2 className="text-white text-3xl font-bold mb-2">{postsListRecomended[0].title}</h2>
+                    <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
+                    <div className="flex items-center justify-between text-sm text-white/80">
+                      <span>Ingen</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Secundarios */}
+              <div className="flex flex-col gap-6">
+                {postsListRecomended.slice(1, 3).map((post: any) => (
+                  <div onClick={() => route.push(`/novedades/${post._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
+                    <Image
+                      src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
+                      alt={post.title}
+                      width={600}
+                      height={300}
+                      className="w-full h-[240px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-60 p-4 flex flex-col justify-end">
+                      <div className="">
+                        <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
+                          {postsListRecomended[0].category.name}
+                        </Badge>
+                      </div>
+                      <h3 className="text-white font-bold text-lg leading-tight mb-1">{post.title}</h3>
+                      <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
+                      <div className="flex justify-between items-center text-sm text-white/80 mt-2">
+                        <span>Ingen</span>
+                        <span>💬 {post.comments.length}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Search and Filters */}
-        <section className="py-8 bg-white border-b">
+        <section className="pb-8 bg-white border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
               <div className="relative flex-1 max-w-md">
@@ -255,73 +324,6 @@ export default function NovedadesPage() {
                     </div>
                   </SheetContent>
                 </Sheet>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Post */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Artículo Destacado</h2>
-              <div className="w-20 h-1 bg-rose-600"></div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Post Principal (ocupa 2 columnas en md+) */}
-              {postsListRecomended[0] && (
-                <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} className="md:col-span-2 relative rounded-xl overflow-hidden">
-                  <Image
-                    /* src={postsListRecomended[0].image || "/placeholder.svg"} */
-                    src={postsListRecomended[0].files?.[0] ? getImageUrl(postsListRecomended[0]?.files[0]) : "/placeholder.svg"}
-                    alt={postsListRecomended[0].title}
-                    width={1200}
-                    height={600}
-                    className="w-full h-[400px] md:h-[500px] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-60 p-6 flex flex-col justify-end">
-                    <div className="">
-                      <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
-                        {postsListRecomended[0].category.name}
-                      </Badge>
-                    </div>
-
-                    <h2 className="text-white text-3xl font-bold mb-2">{postsListRecomended[0].title}</h2>
-                    <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
-                    <div className="flex items-center justify-between text-sm text-white/80">
-                      <span>Ingen</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Secundarios */}
-              <div className="flex flex-col gap-6">
-                {postsListRecomended.slice(1, 3).map((post: any) => (
-                  <div onClick={() => route.push(`/novedades/${post._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
-                    <Image
-                      src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
-                      alt={post.title}
-                      width={600}
-                      height={300}
-                      className="w-full h-[240px] object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-60 p-4 flex flex-col justify-end">
-                      <div className="">
-                        <Badge variant="secondary" className="bg-rose-600 text-white hover:bg-rose-700">
-                          {postsListRecomended[0].category.name}
-                        </Badge>
-                      </div>
-                      <h3 className="text-white font-bold text-lg leading-tight mb-1">{post.title}</h3>
-                      <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
-                      <div className="flex justify-between items-center text-sm text-white/80 mt-2">
-                        <span>Ingen</span>
-                        <span>💬 {post.comments.length}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>

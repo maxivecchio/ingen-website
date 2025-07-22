@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { propertyService } from "./api/properties-api"
+import { getImageUrl } from "@/lib/utils"
 
 export default function ProjectsSection() {
 
@@ -53,7 +54,11 @@ export default function ProjectsSection() {
             >
               <div className="relative">
                 <Image
-                  src={project?.cover_image || "/placeholder.svg"}
+                  src={
+                    project.files?.find((file: any) => file.position === 0)?.path
+                      ? getImageUrl(project.files.find((file: any) => file.position === 0))
+                      : "/placeholder.svg"
+                  }
                   alt={project?.name}
                   width={400}
                   height={300}

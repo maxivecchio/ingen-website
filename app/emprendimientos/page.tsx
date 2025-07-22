@@ -124,8 +124,8 @@ export default function EmprendimientosPage() {
 
                                             <Image
                                                 src={
-                                                    project.files?.find((file) => file.position === 0)?.path
-                                                        ? getImageUrl(project.files.find((file) => file.position === 0))
+                                                    project.files?.find((file: any) => file.position === 0)?.path
+                                                        ? getImageUrl(project.files.find((file: any) => file.position === 0))
                                                         : "/placeholder.svg"
                                                 }
                                                 alt={project?.name}

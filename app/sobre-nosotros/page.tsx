@@ -3,6 +3,7 @@ import Footer from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Phone, Mail, Award, Users, Calendar, Target } from "lucide-react"
 import Image from "next/image"
+import CompanyStats from "@/components/company-stats"
 
 export default function SobreNosotrosPage() {
   const team = [
@@ -102,7 +103,36 @@ export default function SobreNosotrosPage() {
   return (
     <div className="min-h-screen bg-white">
       <main className="">
-        {/* Hero Section */}
+        <section
+          className="relative bg-cover bg-center bg-no-repeat py-16 lg:py-32"
+          style={{ backgroundImage: "url('/sobre-nosotros.jpeg')" }}
+        >
+
+          <div className="absolute inset-0 bg-black/75 z-0" />
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-3 gap-12 items-center">
+              <div className="lg:col-span-2">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+                  Invertí en tu
+                  <span className="text-white block">Futuro Inmobiliario</span>
+                </h1>
+                <p className="text-lg text-white mb-6 leading-relaxed">
+                  Fundada en 2009, <strong>INGEN</strong> nació como un pequeño estudio de arquitectura con una gran visión:
+                  transformar el paisaje urbano a través de desarrollos innovadores y sustentables. Hoy somos una de las desarrolladoras
+                  más reconocidas de la región.
+                </p>
+                <p className="text-lg text-white leading-relaxed">
+                  Nuestro compromiso es crear espacios que mejoren la calidad de vida, combinando diseño de vanguardia, tecnología y
+                  ubicaciones estratégicas. Con más de 2,500 unidades entregadas, seguimos apostando por la calidad, la transparencia y el
+                  crecimiento responsable de nuestras ciudades.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 
         <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Sobre Nosotros</h1>
@@ -111,80 +141,43 @@ export default function SobreNosotrosPage() {
             </p>
           </div>
         </section>
+        <section className="relative h-auto min-h-[600px] w-full">
+          <Image
+            src="/sobre-nosotros.jpeg" // Usás la misma imagen que en tu card
+            alt="Nuestra historia"
+            fill
+            className="object-cover"
+            priority
+          />
 
-        {/* Company Story */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Cards a la derecha */}
-              <div className="flex items-center justify-center gap-6">
-                <img src="/sobre-nosotros.jpeg" className="h-[500px] shadow-lg rounded-lg overflow-hidden flex justify-center" alt="" />
-              </div>
+          <div className="absolute inset-0 bg-black/80" />
 
-              {/* Texto a la izquierda */}
-              <div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  Nuestra Historia
-                </h2>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Fundada en 2009, <strong>INGEN</strong> nació con la visión de transformar el paisaje urbano a
-                  través de desarrollos inmobiliarios innovadores y sustentables. Comenzamos como un pequeño estudio de
-                  arquitectura y hoy somos una de las desarrolladoras más reconocidas de la región.
-                </p>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Nuestro enfoque siempre ha sido crear espacios que mejoren la calidad de vida de las personas,
-                  combinando diseño de vanguardia con tecnologías sustentables y ubicaciones estratégicas. Cada proyecto
-                  es una oportunidad de contribuir al crecimiento ordenado y responsable de nuestras ciudades.
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  A lo largo de más de 15 años, hemos entregado más de 2,500 unidades habitacionales y comerciales,
-                  siempre manteniendo nuestros valores de calidad, transparencia y compromiso con nuestros clientes e
-                  inversores.
-                </p>
-              </div>
+          <div className="absolute inset-0 flex items-center px-6 sm:px-10 lg:px-24 py-20">
+            <div className="max-w-4xl text-white">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Nuestra Historia
+              </h2>
+              <p className="text-lg mb-6 leading-relaxed">
+                Fundada en 2009, <strong>INGEN</strong> nació con la visión de transformar el paisaje urbano a
+                través de desarrollos inmobiliarios innovadores y sustentables. Comenzamos como un pequeño estudio de
+                arquitectura y hoy somos una de las desarrolladoras más reconocidas de la región.
+              </p>
+              <p className="text-lg mb-6 leading-relaxed">
+                Nuestro enfoque siempre ha sido crear espacios que mejoren la calidad de vida de las personas,
+                combinando diseño de vanguardia con tecnologías sustentables y ubicaciones estratégicas. Cada proyecto
+                es una oportunidad de contribuir al crecimiento ordenado y responsable de nuestras ciudades.
+              </p>
+              <p className="text-lg leading-relaxed">
+                A lo largo de más de 15 años, hemos entregado más de 2,500 unidades habitacionales y comerciales,
+                siempre manteniendo nuestros valores de calidad, transparencia y compromiso con nuestros clientes e
+                inversores.
+              </p>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Company Stats */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Texto a la izquierda */}
-              <div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                  Nuestros Números
-                </h2>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Resultados que respaldan nuestra trayectoria.
-                </p>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Cada número representa la confianza de nuestros inversores, la solidez de nuestros proyectos y el compromiso con la transparencia que nos caracteriza. A lo largo de los años, fuimos construyendo un camino que no solo se mide en metros cuadrados, sino también en relaciones duraderas y oportunidades concretas.
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  Estos logros no son solo nuestras estadísticas: son el reflejo del impacto real que generamos en la vida de quienes deciden invertir con nosotros. Y vamos por más.
-                </p>
-              </div>
-
-
-              {/* Stats a la derecha */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {companyStats.map((benefit, index) => (
-                  <div
-                    key={index}
-                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
-                  >
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
-                      <benefit.icon className="w-6 h-6 text-brand-black transition" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{benefit.label}</h3>
-                    <p className="text-sm text-gray-600">{benefit.value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <CompanyStats />
 
         {/* Team Section */}
         <section className="py-20 bg-gray-50">
