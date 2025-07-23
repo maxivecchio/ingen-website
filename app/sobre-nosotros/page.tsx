@@ -329,8 +329,7 @@ export default function SobreNosotrosPage() {
                     <div>
                       <p className="font-semibold text-gray-800">Email</p>
                       <p>
-                        hello@moveup.digital<br />
-                        billing@moveup.digital
+                        contacto@ingendesarrollos.com.ar
                       </p>
                     </div>
                   </div>

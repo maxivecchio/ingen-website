@@ -27,7 +27,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    details: ["info@tuempresa.com", "soporte@tuempresa.com"],
+    details: ["contacto@ingendesarrollos.com.ar"],
   },
   {
     icon: Phone,
@@ -322,6 +322,7 @@ const ContactFomrContacto = () => {
                       className="w-10 h-10 bg-brand-gray rounded-lg flex items-center justify-center hover:bg-black/10 transition-colors"
                       /* @ts-ignore */
                       aria-label={social.label}
+                      target="_blank"
                     >
                       <social.icon className="h-5 w-5 text-brand-black" />
                     </a>

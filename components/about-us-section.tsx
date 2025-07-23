@@ -3,18 +3,16 @@ import Link from "next/link"
 
 export default function AboutUsSection() {
   return (
-    <section className="relative h-[500px] lg:h-[600px] w-full">
+    <section className="relative h-[650px] lg:h-[700px] w-full overflow-hidden">
       <Image
-        src="/cupulaedit.jpg" // Reemplazá esta ruta por tu imagen real
+        src="/cupulaedit.jpg"
         alt="Sobre nosotros"
         fill
-        className="object-cover"
+        className="object-cover scale-125 translate-y-10 lg:translate-y-20 transition-transform duration-500"
         priority
       />
 
-      {/* <div className="absolute inset-0 bg-black/60" /> */}
-
-      <div className="absolute inset-0 flex items-center px-8 md:px-16 lg:px-24">
+      <div className="absolute inset-0 flex items-end justify-center px-8 md:px-16 lg:px-24 pt-32 pb-20 text-center">
         <div className="max-w-2xl text-white">
           <h2 className="text-3xl lg:text-5xl font-bold mb-4">Quiénes Somos</h2>
           <p className="text-lg lg:text-xl mb-6">

@@ -281,7 +281,11 @@ export default function PropiedadesPage() {
                   <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="relative">
                       <Image
-                        src={property.files?.[0] ? getImageUrl(property?.files[0]) : "/placeholder.svg"}
+                        src={
+                          property.files?.find((file: any) => file.position === 0)
+                            ? getImageUrl(property.files.find((file: any) => file.position === 0))
+                            : "/placeholder.svg"
+                        }
                         alt={property.name}
                         width={400}
                         height={400}
@@ -297,13 +301,11 @@ export default function PropiedadesPage() {
                         </span>
                       </div>
 
-                      {property.price && (
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
-                            {property.price ? `$${property.price}` : "Sin precio"}
-                          </span>
-                        </div>
-                      )}
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-md font-bold">
+                          {property.price ? `$${property.price}` : "$0"}
+                        </span>
+                      </div>
 
                       <div className="absolute bottom-4 left-4">
                         <span className="bg-brand-black text-white px-2 py-1 rounded text-xs font-medium capitalize">

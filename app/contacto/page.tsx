@@ -55,7 +55,7 @@ export default function ContactoPage() {
     {
       icon: Mail,
       title: "Emails",
-      details: ["hello@moveup.digital", "billing@moveup.digital"],
+      details: ["contacto@ingendesarrollos.com.ar"],
     },
     {
       icon: Clock,
