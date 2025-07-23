@@ -41,7 +41,7 @@ export default function ProjectsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Invertí en tu Propio Proyecto</h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-lg md:text-xl text-gray-600 mb-8">
             Mirá nuestros próximos proyectos y elegí la oportunidad perfecta para vos
           </p>
         </div>

@@ -137,7 +137,7 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Contactanos</h2>
-          <p className="text-xl text-gray-600">Estamos aquí para ayudarte con tu próxima inversión</p>
+          <p className="text-lg md:text-xl text-gray-600">Estamos aquí para ayudarte con tu próxima inversión</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -216,7 +216,7 @@ export default function ContactSection() {
                   <MapPin className="h-6 w-6 mr-3 mt-1 text-red-500" />
                   <div>
                     <p className="font-medium text-gray-900">Dirección</p>
-                    <p className="text-gray-600">
+                    <p className="text-sm md:text-base text-gray-600">
                       Av. Principal 1234, Centro
                       <br />
                       Ciudad, Provincia 12345
@@ -227,21 +227,21 @@ export default function ContactSection() {
                   <Phone className="h-6 w-6 mr-3 mt-1 text-blue-500" />
                   <div>
                     <p className="font-medium text-gray-900">Teléfono</p>
-                    <p className="text-gray-600">+52 1 984 879 0708</p>
+                    <p className="text-gray-600 text-sm md:text-base">+52 1 984 879 0708</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Mail className="h-6 w-6 mr-3 mt-1 text-purple-500" />
                   <div>
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-gray-600">hello@moveup.digital</p>
+                    <p className="text-gray-600 text-sm md:text-base">hello@moveup.digital</p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <Clock className="h-6 w-6 mr-3 mt-1 text-green-500" />
                   <div>
                     <p className="font-medium text-gray-900">Horarios</p>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 text-sm md:text-base">
                       Lun - Vie: 9:00 - 18:00
                       <br />
                       Sáb: 9:00 - 14:00
@@ -265,7 +265,7 @@ export default function ContactSection() {
               </LoadScript>
             </div> */}
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
+            <div className="bg-white rounded-2xl p-3 md:p-8 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h3>
               <div className="bg-gray-200 rounded-lg h-64 w-full overflow-hidden">
                 <iframe
