@@ -33,11 +33,11 @@ export default function InvestmentSection() {
             <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               ¿Qué son las Inversiones Inmobiliarias?
             </h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            <p className="md:text-lg text-gray-600 mb-6 leading-relaxed">
               Invertí en desarrollos urbanos desde la etapa de construcción y obtené rendimientos superiores al mercado
               tradicional con total seguridad y transparencia.
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="md:text-lg text-gray-600 leading-relaxed">
               Accedé a oportunidades exclusivas con el respaldo de expertos y el potencial de zonas en crecimiento.
             </p>
           </div>

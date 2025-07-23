@@ -15,7 +15,7 @@ export default function HeroSection() {
               Invertí en tu
               <span className="text-white block">Futuro Inmobiliario</span>
             </h1>
-            <p className="text-xl text-white mb-8 leading-relaxed">
+            <p className="md:text-xl text-white mb-8 leading-relaxed">
               Descubrí oportunidades únicas de inversión en desarrollos urbanos de alta calidad. Formá parte de
               proyectos exclusivos con la mejor ubicación y rentabilidad garantizada.
             </p>

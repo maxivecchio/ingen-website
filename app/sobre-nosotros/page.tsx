@@ -117,12 +117,12 @@ export default function SobreNosotrosPage() {
                   Invertí en tu
                   <span className="text-white block">Futuro Inmobiliario</span>
                 </h1>
-                <p className="text-lg text-white mb-6 leading-relaxed">
+                <p className="md:text-lg text-white mb-6 leading-relaxed">
                   Fundada en 2009, <strong>INGEN</strong> nació como un pequeño estudio de arquitectura con una gran visión:
                   transformar el paisaje urbano a través de desarrollos innovadores y sustentables. Hoy somos una de las desarrolladoras
                   más reconocidas de la región.
                 </p>
-                <p className="text-lg text-white leading-relaxed">
+                <p className="md:text-lg text-white leading-relaxed">
                   Nuestro compromiso es crear espacios que mejoren la calidad de vida, combinando diseño de vanguardia, tecnología y
                   ubicaciones estratégicas. Con más de 2,500 unidades entregadas, seguimos apostando por la calidad, la transparencia y el
                   crecimiento responsable de nuestras ciudades.
@@ -180,7 +180,7 @@ export default function SobreNosotrosPage() {
         <CompanyStats />
 
         {/* Team Section */}
-        <section className="py-20 bg-gray-50">
+        {/* <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Nuestro Equipo</h2>
@@ -230,7 +230,7 @@ export default function SobreNosotrosPage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Timeline */}
         {/*  <section className="py-16 bg-gray-50">

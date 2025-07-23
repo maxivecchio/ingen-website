@@ -81,7 +81,7 @@ export default function WhyChooseUsSection() {
     </div>
 
     {/* Reseñas abajo */}
-    <div className="bg-brand-gray rounded-2xl p-8">
+    <div className="bg-brand-gray rounded-2xl p-3 md:p-8">
       <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">Lo que dicen nuestros inversores</h3>
       <div className="grid md:grid-cols-3 gap-6">
         {reviews.map((review, index) => (

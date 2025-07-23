@@ -30,13 +30,17 @@ export default function TabComponentFrame({
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
 
   // Effect to set active tab based on current pathname
-  useEffect(() => {
-    const foundIndex = tabs.findIndex((tab) => tab.href === pathname)
-    if (foundIndex !== -1) {
-      setActiveIndex(foundIndex)
-      setActiveTab(tabs[foundIndex].name)
-    }
-  }, [pathname, tabs, setActiveTab])
+useEffect(() => {
+  const foundIndex = tabs.findIndex((tab) => tab.href === pathname)
+  if (foundIndex !== -1) {
+    setActiveIndex(foundIndex)
+    setActiveTab(tabs[foundIndex].name)
+  } else {
+    // No tab coincide con el pathname actual
+    setActiveIndex(-1)
+    setActiveTab("")
+  }
+}, [pathname, tabs, setActiveTab])
 
   // Effect to update hover style
   useEffect(() => {
