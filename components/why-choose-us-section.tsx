@@ -1,4 +1,6 @@
+"use client"
 import { Star, MapPin, Award, Users, Clock, Shield } from "lucide-react"
+import { useEffect } from "react"
 
 export default function WhyChooseUsSection() {
   const reasons = [
@@ -34,7 +36,7 @@ export default function WhyChooseUsSection() {
       name: "María González",
       rating: 5,
       comment:
-          "Excelente experiencia de inversión. Cumplieron todos los plazos y la rentabilidad fue superior a lo esperado.",
+        "Excelente experiencia de inversión. Cumplieron todos los plazos y la rentabilidad fue superior a lo esperado.",
       project: "Torres del Sol",
     },
     {
@@ -51,37 +53,44 @@ export default function WhyChooseUsSection() {
     },
   ]
 
+  useEffect(() => {
+    const script = document.createElement("script")
+    script.src = "https://static.elfsight.com/platform/platform.js"
+    script.async = true
+    document.body.appendChild(script)
+  }, [])
+
   return (
-      <section className="py-16 lg:py-24 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid gap-12 items-center mb-16">
-      {/* Texto izquierda */}
-      <div>
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">¿Por Qué Elegirnos?</h2>
-        <p className="text-xl text-gray-600 mb-6">
-          Somos líderes en desarrollo urbano con un historial comprobado de éxito.
-        </p>
-        <p className="text-gray-600">
-          Nuestros proyectos combinan ubicación estratégica, calidad superior y transparencia total, asegurando resultados excepcionales para cada inversor.
-        </p>
-      </div>
-
-      {/* Cards derecha */}
-      <div className="grid sm:grid-cols-3 gap-6">
-        {reasons.map((reason, index) => (
-          <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-gray mb-4">
-              <reason.icon className="h-6 w-6 text-brand-black" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">{reason.title}</h3>
-            <p className="text-gray-600 text-sm">{reason.description}</p>
+    <section className="py-16 lg:py-24 bg-white relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 items-center mb-16">
+          {/* Texto izquierda */}
+          <div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">¿Por Qué Elegirnos?</h2>
+            <p className="text-xl text-gray-600 mb-6">
+              Somos líderes en desarrollo urbano con un historial comprobado de éxito.
+            </p>
+            <p className="text-gray-600">
+              Nuestros proyectos combinan ubicación estratégica, calidad superior y transparencia total, asegurando resultados excepcionales para cada inversor.
+            </p>
           </div>
-        ))}
-      </div>
-    </div>
 
-    {/* Reseñas abajo */}
-    <div className="bg-brand-gray rounded-2xl p-3 md:p-8">
+          {/* Cards derecha */}
+          <div className="grid sm:grid-cols-3 gap-6">
+            {reasons.map((reason, index) => (
+              <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-brand-gray mb-4">
+                  <reason.icon className="h-6 w-6 text-brand-black" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{reason.title}</h3>
+                <p className="text-gray-600 text-sm">{reason.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Reseñas abajo */}
+        {/* <div className="bg-brand-gray rounded-2xl p-3 md:p-8">
       <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">Lo que dicen nuestros inversores</h3>
       <div className="grid md:grid-cols-3 gap-6">
         {reviews.map((review, index) => (
@@ -99,8 +108,15 @@ export default function WhyChooseUsSection() {
           </div>
         ))}
       </div>
-    </div>
-  </div>
-</section>
+    </div> */}
+
+        <div className="my-8">
+          <div
+            className="elfsight-app-ed98e6ef-0001-46c9-b8db-d68594dfd1b5"
+            data-elfsight-app-lazy
+          ></div>
+        </div>
+      </div>
+    </section >
   )
 }
