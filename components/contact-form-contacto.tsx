@@ -22,7 +22,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Nuestra Oficina",
-    details: ["Av. Corrientes 1234, CABA", "Buenos Aires, Argentina"],
+    details: ["Aldo Serrano 2026, X5900 Villa María, Córdoba"],
   },
   {
     icon: Mail,
@@ -32,15 +32,14 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Teléfono",
-    details: ["+54 11 1234-5678", "+54 11 9876-5432"],
+    details: ["+54 935 1552-1325"],
   },
 ]
 
 const socialLinks = [
-  { icon: Instagram, href: "https://instagram.com" },
-  { icon: Facebook, href: "https://facebook.com" },
-  { icon: Linkedin, href: "https://linkedin.com" },
-  { icon: Twitter, href: "https://twitter.com" },
+  { icon: Instagram, href: "https://www.instagram.com/ingendesarrollos" },
+  { icon: Facebook, href: "https://www.facebook.com/Ingendesarrollos" },
+  { icon: Linkedin, href: "#" },
 ]
 
 const ContactFomrContacto = () => {

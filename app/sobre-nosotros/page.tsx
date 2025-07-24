@@ -6,100 +6,6 @@ import Image from "next/image"
 import CompanyStats from "@/components/company-stats"
 
 export default function SobreNosotrosPage() {
-  const team = [
-    {
-      name: "Agustin",
-      role: "Rellenar info",
-      image: "/agus.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Lucas",
-      role: "Rellenar info",
-      image: "/lucas.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Martin",
-      role: "Rellenar info",
-      image: "/martin.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Nati",
-      role: "Rellenar info",
-      image: "/nati.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Robert",
-      role: "Rellenar info",
-      image: "/robert2.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Tomas",
-      role: "Rellenar info",
-      image: "/tomas.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-    {
-      name: "Tomi",
-      role: "Rellenar info",
-      image: "/tomi.jpeg",
-      description: "Rellenar info",
-      experience: "Rellenar info",
-      education: "Rellenar info",
-      achievements: ["Rellenar info"],
-    },
-  ];
-
-  const companyStats = [
-    { icon: Calendar, label: "Años de Experiencia", value: "15+" },
-    { icon: Users, label: "Proyectos Completados", value: "75+" },
-    { icon: Target, label: "Unidades Entregadas", value: "2,500+" },
-    { icon: Award, label: "Premios Recibidos", value: "8" },
-  ]
-
-  const milestones = [
-    {
-      year: "2009",
-      title: "Fundación de la Empresa",
-      description: "Inicio de operaciones con el primer proyecto residencial",
-    },
-    {
-      year: "2012",
-      title: "Primer Gran Desarrollo",
-      description: "Completamos nuestro primer complejo de 200 unidades",
-    },
-    { year: "2015", title: "Expansión Regional", description: "Apertura de oficinas en 3 ciudades principales" },
-    { year: "2018", title: "Certificación Sustentable", description: "Primeros proyectos con certificación LEED" },
-    {
-      year: "2021",
-      title: "Programa de Inversores",
-      description: "Lanzamiento del programa de inversión para particulares",
-    },
-    { year: "2024", title: "Líder del Mercado", description: "Reconocidos como desarrolladora líder en la región" },
-  ]
-
   return (
     <div className="min-h-screen bg-white">
       <main className="">
@@ -109,7 +15,7 @@ export default function SobreNosotrosPage() {
         >
 
           <div className="absolute inset-0 bg-black/75 z-0" />
-          
+
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-3 gap-12 items-center">
               <div className="lg:col-span-2">
@@ -131,50 +37,6 @@ export default function SobreNosotrosPage() {
             </div>
           </div>
         </section>
-
-        {/* 
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Sobre Nosotros</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Conocé nuestra historia, nuestro equipo y nuestra misión de transformar el desarrollo urbano
-            </p>
-          </div>
-        </section>
-        <section className="relative h-auto min-h-[600px] w-full">
-          <Image
-            src="/sobre-nosotros.jpeg" // Usás la misma imagen que en tu card
-            alt="Nuestra historia"
-            fill
-            className="object-cover"
-            priority
-          />
-
-          <div className="absolute inset-0 bg-black/80" />
-
-          <div className="absolute inset-0 flex items-center px-6 sm:px-10 lg:px-24 py-20">
-            <div className="max-w-4xl text-white">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Nuestra Historia
-              </h2>
-              <p className="text-lg mb-6 leading-relaxed">
-                Fundada en 2009, <strong>INGEN</strong> nació con la visión de transformar el paisaje urbano a
-                través de desarrollos inmobiliarios innovadores y sustentables. Comenzamos como un pequeño estudio de
-                arquitectura y hoy somos una de las desarrolladoras más reconocidas de la región.
-              </p>
-              <p className="text-lg mb-6 leading-relaxed">
-                Nuestro enfoque siempre ha sido crear espacios que mejoren la calidad de vida de las personas,
-                combinando diseño de vanguardia con tecnologías sustentables y ubicaciones estratégicas. Cada proyecto
-                es una oportunidad de contribuir al crecimiento ordenado y responsable de nuestras ciudades.
-              </p>
-              <p className="text-lg leading-relaxed">
-                A lo largo de más de 15 años, hemos entregado más de 2,500 unidades habitacionales y comerciales,
-                siempre manteniendo nuestros valores de calidad, transparencia y compromiso con nuestros clientes e
-                inversores.
-              </p>
-            </div>
-          </div>
-        </section> */}
 
         {/* Company Stats */}
         <CompanyStats />
@@ -308,19 +170,16 @@ export default function SobreNosotrosPage() {
                     <div>
                       <p className="font-semibold text-gray-800">Dirección Principal</p>
                       <p>
-                        Av. Principal 1234, Piso 12<br />
-                        Centro Empresarial Torre Norte<br />
-                        Ciudad, Provincia 12345
+                        Aldo Serrano 2026, X5900 Villa María, Córdoba
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <Phone className="h-6 w-6 text-rose-600 mr-4 mt-1" />
                     <div>
-                      <p className="font-semibold text-gray-800">Teléfonos</p>
+                      <p className="font-semibold text-gray-800">Teléfono</p>
                       <p>
-                        +52 1 984 879 0708 (Principal)<br />
-                        +52 1 984 879 0709 (Ventas)
+                        +54 935 1552-1325
                       </p>
                     </div>
                   </div>
@@ -337,32 +196,15 @@ export default function SobreNosotrosPage() {
 
                 <div className="mt-8 pt-6 border-t border-gray-200">
                   <h4 className="text-md font-semibold text-gray-800 mb-3">Horarios de Atención</h4>
-                  <p>Lunes a Viernes: 9:00 - 18:00</p>
-                  <p>Sábados: 9:00 - 14:00</p>
-                  <p>Domingos: Cerrado</p>
+                  <p>Lun - Vie: 9:00 - 17:00</p>
                 </div>
               </Card>
 
               {/* Mapa */}
               <Card className="p-8 shadow-md border border-gray-100">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Ubicación en el Mapa</h3>
-                <div className="rounded-lg overflow-hidden h-80 mb-6">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.763088492449!2d-58.41730982426313!3d-34.63565405941545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb6caa16f7e7%3A0xdda4f986f1234567!2sAv.%20Principal%201234!5e0!3m2!1ses!2sar!4v1717020123456"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
-                <div className="text-sm text-gray-700 space-y-2">
-                  <p>
-                    <strong>Transporte público:</strong> Líneas de metro A, B y C — Estación Centro (5 min caminando)
-                  </p>
-                  <p>
-                    <strong>Estacionamiento:</strong> Disponible en el edificio (primeras 2 horas gratuitas)
-                  </p>
+                <div className="rounded-lg overflow-hidden mb-6">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.55965921263282!2d-63.26071728050357!3d-32.393580095367156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc4308a4d1c5bb%3A0x33971dd52b68922c!2sIngen%20Desarrollos!5e0!3m2!1ses!2sar!4v1753390438845!5m2!1ses!2sar" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               </Card>
             </div>

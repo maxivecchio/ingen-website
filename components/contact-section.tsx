@@ -217,9 +217,7 @@ export default function ContactSection() {
                   <div>
                     <p className="font-medium text-gray-900">Dirección</p>
                     <p className="text-sm md:text-base text-gray-600">
-                      Av. Principal 1234, Centro
-                      <br />
-                      Ciudad, Provincia 12345
+                      Aldo Serrano 2026, X5900 Villa María, Córdoba
                     </p>
                   </div>
                 </div>
@@ -227,7 +225,7 @@ export default function ContactSection() {
                   <Phone className="h-6 w-6 mr-3 mt-1 text-blue-500" />
                   <div>
                     <p className="font-medium text-gray-900">Teléfono</p>
-                    <p className="text-gray-600 text-sm md:text-base">+52 1 984 879 0708</p>
+                    <p className="text-gray-600 text-sm md:text-base">+54 935 1552-1325</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -242,9 +240,7 @@ export default function ContactSection() {
                   <div>
                     <p className="font-medium text-gray-900">Horarios</p>
                     <p className="text-gray-600 text-sm md:text-base">
-                      Lun - Vie: 9:00 - 18:00
-                      <br />
-                      Sáb: 9:00 - 14:00
+                      Lun - Vie: 9:00 - 17:00
                     </p>
                   </div>
                 </div>
@@ -267,17 +263,8 @@ export default function ContactSection() {
 
             <div className="bg-white rounded-2xl p-3 md:p-8 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h3>
-              <div className="bg-gray-200 rounded-lg h-64 w-full overflow-hidden">
-                <iframe
-                  title="Mapa de Ubicación"
-                  src="https://maps.google.com/maps?q=-34.6037,-58.3816&z=15&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              <div className="bg-gray-200 rounded-lg w-full overflow-hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.55965921263282!2d-63.26071728050357!3d-32.393580095367156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc4308a4d1c5bb%3A0x33971dd52b68922c!2sIngen%20Desarrollos!5e0!3m2!1ses!2sar!4v1753390438845!5m2!1ses!2sar" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </div>

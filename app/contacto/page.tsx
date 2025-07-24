@@ -94,7 +94,7 @@ export default function ContactoPage() {
         </section>
 
         {/* Contact Form and Info */}
-       <ContactFomrContacto />
+        <ContactFomrContacto />
 
         {/* Map Section */}
         <section className="py-16 bg-gray-50">
@@ -105,17 +105,8 @@ export default function ContactoPage() {
             </div>
 
             <Card className="overflow-hidden shadow-lg">
-              <div className="h-96 bg-gray-200 relative">
-                <iframe
-                  title="Mapa de Ubicación"
-                  src="https://maps.google.com/maps?q=-34.6037,-58.3816&z=15&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              <div className=" bg-gray-200 relative">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.55965921263282!2d-63.26071728050357!3d-32.393580095367156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc4308a4d1c5bb%3A0x33971dd52b68922c!2sIngen%20Desarrollos!5e0!3m2!1ses!2sar!4v1753390438845!5m2!1ses!2sar" width="100%" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </Card>
           </div>

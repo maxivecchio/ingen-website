@@ -14,16 +14,13 @@ export default function Footer() {
                             Líderes en desarrollo urbano e inversiones inmobiliarias con más de 15 años de experiencia.
                         </p>
                         <div className="flex space-x-4">
-                            <Link href="#" className="text-gray-400 hover:text-white">
+                            <Link target="_blank"href="https://www.facebook.com/Ingendesarrollos" className="text-gray-400 hover:text-white">
                                 <Facebook className="h-5 w-5"/>
                             </Link>
-                            <Link href="#" className="text-gray-400 hover:text-white">
+                            <Link target="_blank" href="https://www.instagram.com/ingendesarrollos" className="text-gray-400 hover:text-white">
                                 <Instagram className="h-5 w-5"/>
                             </Link>
-                            <Link href="#" className="text-gray-400 hover:text-white">
-                                <Twitter className="h-5 w-5"/>
-                            </Link>
-                            <Link href="#" className="text-gray-400 hover:text-white">
+                            <Link target="_blank" href="#" className="text-gray-400 hover:text-white">
                                 <Linkedin className="h-5 w-5"/>
                             </Link>
                         </div>
@@ -84,9 +81,8 @@ export default function Footer() {
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Contacto</h4>
                         <div className="space-y-2 text-gray-300">
-                            <p>Av. Principal 1234, Centro</p>
-                            <p>Ciudad, Provincia 12345</p>
-                            <p>+52 1 984 879 0708</p>
+                            <p>Aldo Serrano 2026, X5900 Villa María, Córdoba</p>
+                            <p>+54 935 1552-1325</p>
                             <p>contacto@ingendesarrollos.com.ar</p>
                         </div>
                     </div>
