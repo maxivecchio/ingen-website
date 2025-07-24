@@ -110,12 +110,12 @@ export default function WhyChooseUsSection() {
       </div>
     </div> */}
 
-        <div className="my-8">
+       {/*  <div className="my-8">
           <div
             className="elfsight-app-ed98e6ef-0001-46c9-b8db-d68594dfd1b5"
             data-elfsight-app-lazy
           ></div>
-        </div>
+        </div> */}
       </div>
     </section >
   )
