@@ -36,6 +36,7 @@ const ContactFormFormaParte = () => {
         hasNextPage: false,
         hasPrevPage: false,
     })
+    const [selectedProject, setSelectedProject] = useState("")
 
     const getBrowserInfo = () => {
         const userAgent = navigator.userAgent
@@ -220,15 +221,18 @@ const ContactFormFormaParte = () => {
                                     ) : (
                                         propertiesEmprende.map((project: any) => (
                                             <div
-                                                key={project.name}
-                                                className={`cursor-pointer rounded-lg border p-4 text-center transition-all hover:shadow-lg ${formData.proyectoInteres === project.name
+                                                key={project._id}
+                                                className={`cursor-pointer rounded-lg border p-4 text-center transition-all hover:shadow-lg ${selectedProject === project._id
                                                     ? "border-brand-black ring-brand-black"
                                                     : "border-gray-200"
                                                     }`}
-                                                onClick={() => handleProjectSelect(project.name)}
+                                                onClick={() => {
+                                                    handleProjectSelect(project.name)
+                                                    setSelectedProject(project._id)
+                                                }}
                                                 role="button"
                                                 tabIndex={0}
-                                                aria-pressed={formData.proyectoInteres === project.name}
+                                                aria-pressed={selectedProject === project._id}
                                             >
                                                 <img
                                                     src={

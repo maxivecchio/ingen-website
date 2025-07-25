@@ -158,7 +158,7 @@ export default function NovedadesPage() {
         {/* Featured Post */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-{/*             <div className="mb-8">
+            {/*             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Artículo Destacado</h2>
               <div className="w-20 h-1 bg-rose-600"></div>
             </div> */}
@@ -169,7 +169,12 @@ export default function NovedadesPage() {
                 <div onClick={() => route.push(`/novedades/${postsListRecomended[0]._id}`)} className="md:col-span-2 relative rounded-xl overflow-hidden">
                   <Image
                     /* src={postsListRecomended[0].image || "/placeholder.svg"} */
-                    src={postsListRecomended[0].files?.[0] ? getImageUrl(postsListRecomended[0]?.files[0]) : "/placeholder.svg"}
+                    /* src={postsListRecomended[0].files?.[0] ? getImageUrl(postsListRecomended[0]?.files[0]) : "/placeholder.svg"} */
+                    src={
+                      postsListRecomended[0].files?.find((file: any) => file.position === 0)
+                        ? getImageUrl(postsListRecomended[0].files.find((file: any) => file.position === 0))
+                        : "/placeholder.svg"
+                    }
                     alt={postsListRecomended[0].title}
                     width={1200}
                     height={600}
@@ -196,7 +201,12 @@ export default function NovedadesPage() {
                 {postsListRecomended.slice(1, 3).map((post: any) => (
                   <div onClick={() => route.push(`/novedades/${post._id}`)} key={post._id} className="relative rounded-xl overflow-hidden">
                     <Image
-                      src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
+                      /* src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"} */
+                      src={
+                        post.files?.find((file: any) => file.position === 0)
+                          ? getImageUrl(post.files.find((file: any) => file.position === 0))
+                          : "/placeholder.svg"
+                      }
                       alt={post.title}
                       width={600}
                       height={300}
@@ -343,8 +353,12 @@ export default function NovedadesPage() {
               {postsList.map((post: any) => (
                 <Card key={post.id} className="overflow-hidden relative hover:shadow-xl transition-shadow">
                   <Image
-                    /* src={post.image || "/placeholder.svg"} */
-                    src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"}
+                    /*  src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"} */
+                    src={
+                      post.files?.find((file: any) => file.position === 0)
+                        ? getImageUrl(post.files.find((file: any) => file.position === 0))
+                        : "/placeholder.svg"
+                    }
                     alt={post.title}
                     width={400}
                     height={300}

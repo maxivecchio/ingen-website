@@ -113,7 +113,7 @@ export default function FormaPartePage() {
     return amount * rate
   }
 
- 
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -174,43 +174,42 @@ export default function FormaPartePage() {
 
             <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
               <AccordionItem value="item-1">
-                <AccordionTrigger>¿Cuál es el monto mínimo para invertir?</AccordionTrigger>
+                <AccordionTrigger>¿Por qué invertir en un proyecto de Ingen?</AccordionTrigger>
                 <AccordionContent>
-                  Podés invertir desde USD 5.000 en cualquiera de nuestros proyectos habilitados.
+                  Porque combinamos diseño moderno, materiales de primera calidad y ubicaciones estratégicas que aseguran alta rentabilidad y plusvalía futura.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-2">
-                <AccordionTrigger>¿Qué rentabilidad ofrecen las inversiones?</AccordionTrigger>
+                <AccordionTrigger>¿Qué diferencia a Ingen de otras desarrolladoras?</AccordionTrigger>
                 <AccordionContent>
-                  Dependiendo del proyecto, estimamos retornos anuales entre el 8% y el 12%. Siempre brindamos un informe detallado previo a invertir.
+                  Nuestro enfoque está en crear viviendas modernas con ubicaciones privilegiadas y detalles diferenciales como mayor iluminación natural, eficiencia en el uso del espacio y terminaciones premium, sumado a un trato personalizado.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-3">
-                <AccordionTrigger>¿Puedo invertir si estoy fuera de Argentina?</AccordionTrigger>
+                <AccordionTrigger>¿Ofrecen planes de financiación?</AccordionTrigger>
                 <AccordionContent>
-                  Sí. Aceptamos inversores del exterior y ofrecemos acompañamiento legal y fiscal para cada caso.
+                  Sí, contamos con planes de pago flexibles durante la etapa de obra, adaptados a las necesidades de cada cliente para que acceder a tu nuevo hogar sea más simple.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-4">
-                <AccordionTrigger>¿Qué pasa si el proyecto se retrasa?</AccordionTrigger>
+                <AccordionTrigger>¿En qué barrios o zonas están ubicados los proyectos?</AccordionTrigger>
                 <AccordionContent>
-                  Mantenemos comunicación constante y reportes mensuales. En caso de demoras, se ajustan los plazos estimados sin perder tu inversión.
+                  Trabajamos principalmente en barrios de alto valor y zonas urbanas en crecimiento, seleccionadas estratégicamente para garantizar seguridad, accesibilidad y potencial de valorización.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-5">
-                <AccordionTrigger>¿Qué documentación necesito para invertir?</AccordionTrigger>
+                <AccordionTrigger>¿Cómo puedo obtener más información o asesoramiento?</AccordionTrigger>
                 <AccordionContent>
-                  Solo necesitás tu DNI o pasaporte vigente. Nosotros nos encargamos del resto con firma digital y contrato electrónico.
+                  Podés contactarnos a través del formulario web, WhatsApp o visitarnos en nuestras oficinas. Un asesor te acompañará en todo el proceso.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </section>
-
 
         {/* Contact Form */}
         <ContactFormFormaParte />

@@ -120,7 +120,11 @@ export default function ConstruccionPage() {
                   <Card key={project?._id} className="overflow-hidden bg-white rounded-xl shadow-md">
                     <div className="relative">
                       <Image
-                        src={project.files?.[0] ? getImageUrl(project?.files[0]) : "/placeholder.svg"}
+                        src={
+                          project.files?.find((file: any) => file.position === 0)
+                            ? getImageUrl(project.files.find((file: any) => file.position === 0))
+                            : "/placeholder.svg"
+                        }
                         alt={project?.name}
                         width={400}
                         height={300}
@@ -168,13 +172,12 @@ export default function ConstruccionPage() {
                           <div
                             className="h-full bg-gradient-to-r from-brand-black to-brand-dark transition-all duration-500"
                             style={{
-                              width: `${
-                                project?.type_info?.find(
-                                  (info: any) =>
-                                    info.label?.toLowerCase() === "progreso" ||
-                                    info.name?.toLowerCase().includes("progreso"),
-                                )?.value ?? "0"
-                              }%`,
+                              width: `${project?.type_info?.find(
+                                (info: any) =>
+                                  info.label?.toLowerCase() === "progreso" ||
+                                  info.name?.toLowerCase().includes("progreso"),
+                              )?.value ?? "0"
+                                }%`,
                             }}
                           />
                         </div>
@@ -312,9 +315,8 @@ export default function ConstruccionPage() {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                        index === currentImageIndex ? "border-rose-500" : "border-transparent"
-                      }`}
+                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${index === currentImageIndex ? "border-rose-500" : "border-transparent"
+                        }`}
                     >
                       <Image
                         src={getImageUrl(image) || "/placeholder.svg"}
