@@ -351,7 +351,7 @@ export default function NovedadesPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {postsList.map((post: any) => (
-                <Card key={post.id} className="overflow-hidden relative hover:shadow-xl transition-shadow">
+                <Card key={post._id} className="overflow-hidden relative hover:shadow-xl transition-shadow">
                   <Image
                     /*  src={post.files?.[0] ? getImageUrl(post?.files[0]) : "/placeholder.svg"} */
                     src={

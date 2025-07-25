@@ -126,13 +126,13 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
 
     const nextImage = () => {
         if (post) {
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % post.gallery.length)
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % files.length)
         }
     }
 
     const prevImage = () => {
         if (post) {
-            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + post.gallery.length) % post.gallery.length)
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + files.length) % files.length)
         }
     }
 

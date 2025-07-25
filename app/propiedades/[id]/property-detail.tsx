@@ -114,13 +114,13 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
 
     const nextImage = () => {
         if (property) {
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % property.gallery.length)
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % files.length)
         }
     }
 
     const prevImage = () => {
         if (property) {
-            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + property.gallery.length) % property.gallery.length)
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + files.length) % files.length)
         }
     }
 
