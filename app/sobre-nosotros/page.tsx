@@ -1,9 +1,17 @@
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Award, Users, Calendar, Target } from "lucide-react"
-import Image from "next/image"
-import CompanyStats from "@/components/company-stats"
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Award,
+  Users,
+  Calendar,
+  Target,
+} from "lucide-react";
+import Image from "next/image";
+import CompanyStats from "@/components/company-stats";
 
 export default function SobreNosotrosPage() {
   return (
@@ -13,7 +21,6 @@ export default function SobreNosotrosPage() {
           className="relative bg-cover bg-center bg-no-repeat py-16 lg:py-32"
           style={{ backgroundImage: "url('/sobre-nosotros.jpeg')" }}
         >
-
           <div className="absolute inset-0 bg-black/75 z-0" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,14 +31,19 @@ export default function SobreNosotrosPage() {
                   <span className="text-white block">Futuro Inmobiliario</span>
                 </h1>
                 <p className="md:text-lg text-white mb-6 leading-relaxed">
-                  Fundada en 2009, <strong>INGEN</strong> nació como un pequeño estudio de arquitectura con una gran visión:
-                  transformar el paisaje urbano a través de desarrollos innovadores y sustentables. Hoy somos una de las desarrolladoras
-                  más reconocidas de la región.
+                  Fundada en 2009, <strong>INGEN</strong> nació como un pequeño
+                  estudio de arquitectura con una gran visión: transformar el
+                  paisaje urbano a través de desarrollos innovadores y
+                  sustentables. Hoy somos una de las desarrolladoras más
+                  reconocidas de la región.
                 </p>
                 <p className="md:text-lg text-white leading-relaxed">
-                  Nuestro compromiso es crear espacios que mejoren la calidad de vida, combinando diseño de vanguardia, tecnología y
-                  ubicaciones estratégicas. Con más de 2,500 unidades entregadas, seguimos apostando por la calidad, la transparencia y el
-                  crecimiento responsable de nuestras ciudades.
+                  Nuestro compromiso es crear espacios que mejoren la calidad de
+                  vida, combinando diseño de vanguardia, tecnología y
+                  ubicaciones estratégicas. Con más de 2,500 unidades
+                  entregadas, seguimos apostando por la calidad, la
+                  transparencia y el crecimiento responsable de nuestras
+                  ciudades.
                 </p>
               </div>
             </div>
@@ -130,22 +142,31 @@ export default function SobreNosotrosPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12">
               <Card className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Nuestra Misión</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Nuestra Misión
+                </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Crear desarrollos urbanos sustentables que mejoren la calidad de vida de las personas, generando
-                  oportunidades de inversión rentables y seguras para nuestros socios. Nos comprometemos con la
-                  excelencia, la transparencia y la innovación en cada proyecto, contribuyendo al crecimiento ordenado y
-                  responsable de nuestras ciudades.
+                  Crear desarrollos urbanos sustentables que mejoren la calidad
+                  de vida de las personas, generando oportunidades de inversión
+                  rentables y seguras para nuestros socios. Nos comprometemos
+                  con la excelencia, la transparencia y la innovación en cada
+                  proyecto, contribuyendo al crecimiento ordenado y responsable
+                  de nuestras ciudades.
                 </p>
               </Card>
 
               <Card className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Nuestra Visión</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Nuestra Visión
+                </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Ser la desarrolladora urbana líder en la región, reconocida por la calidad de nuestros proyectos, la
-                  satisfacción de nuestros clientes y el impacto positivo en las comunidades donde operamos. Aspiramos a
-                  establecer nuevos estándares en el desarrollo inmobiliario sustentable y ser la primera opción para
-                  inversores que buscan rentabilidad con responsabilidad social.
+                  Ser la desarrolladora urbana líder en la región, reconocida
+                  por la calidad de nuestros proyectos, la satisfacción de
+                  nuestros clientes y el impacto positivo en las comunidades
+                  donde operamos. Aspiramos a establecer nuevos estándares en el
+                  desarrollo inmobiliario sustentable y ser la primera opción
+                  para inversores que buscan rentabilidad con responsabilidad
+                  social.
                 </p>
               </Card>
             </div>
@@ -156,38 +177,47 @@ export default function SobreNosotrosPage() {
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h2>
-              <p className="text-xl text-gray-600">Visitanos en nuestras oficinas centrales</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Nuestra Ubicación
+              </h2>
+              <p className="text-xl text-gray-600">
+                Visitanos en nuestras oficinas centrales
+              </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Información de contacto */}
               <Card className="p-8 shadow-md border">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Información de Contacto</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  Información de Contacto
+                </h3>
+
                 <div className="space-y-6 text-gray-700 text-sm">
-                  <div className="flex items-start">
-                    <MapPin className="h-6 w-6 text-rose-600 mr-4 mt-1" />
-                    <div>
-                      <p className="font-semibold text-gray-800">Dirección Principal</p>
-                      <p>
+                  <div className="flex flex-col sm:flex-row items-start w-full">
+                    <MapPin className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-gray-800">
+                        Dirección Principal
+                      </p>
+                      <p className="break-words">
                         Aldo Serrano 2026, X5900 Villa María, Córdoba
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start">
-                    <Phone className="h-6 w-6 text-rose-600 mr-4 mt-1" />
-                    <div>
+
+                  <div className="flex flex-col sm:flex-row items-start w-full">
+                    <Phone className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
+                    <div className="flex-1 min-w-0">
                       <p className="font-semibold text-gray-800">Teléfono</p>
-                      <p>
-                        +54 935 1552-1325
-                      </p>
+                      <p className="break-words">+54 935 1552-1325</p>
                     </div>
                   </div>
-                  <div className="flex items-start">
-                    <Mail className="h-6 w-6 text-rose-600 mr-4 mt-1" />
-                    <div>
+
+                  <div className="flex flex-col sm:flex-row items-start w-full">
+                    <Mail className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
+                    <div className="flex-1 min-w-0">
                       <p className="font-semibold text-gray-800">Email</p>
-                      <p>
+                      <p className="break-all">
                         contacto@ingendesarrollos.com.ar
                       </p>
                     </div>
@@ -195,16 +225,30 @@ export default function SobreNosotrosPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <h4 className="text-md font-semibold text-gray-800 mb-3">Horarios de Atención</h4>
+                  <h4 className="text-md font-semibold text-gray-800 mb-3">
+                    Horarios de Atención
+                  </h4>
                   <p>Lun - Vie: 9:00 - 17:00</p>
                 </div>
               </Card>
 
               {/* Mapa */}
               <Card className="p-8 shadow-md border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Ubicación en el Mapa</h3>
-                <div className="rounded-lg overflow-hidden mb-6">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.55965921263282!2d-63.26071728050357!3d-32.393580095367156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc4308a4d1c5bb%3A0x33971dd52b68922c!2sIngen%20Desarrollos!5e0!3m2!1ses!2sar!4v1753390438845!5m2!1ses!2sar" width="600" height="450" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    Nuestra Ubicación
+                  </h3>
+                  <div className="bg-gray-200 rounded-lg w-full overflow-hidden">
+                    <div className="relative pb-[56.25%] h-0">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d210.55965921263282!2d-63.26071728050357!3d-32.393580095367156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc4308a4d1c5bb%3A0x33971dd52b68922c!2sIngen%20Desarrollos!5e0!3m2!1ses!2sar!4v1753390438845!5m2!1ses!2sar"
+                        className="absolute top-0 left-0 w-full h-full border-0"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
                 </div>
               </Card>
             </div>
@@ -212,5 +256,5 @@ export default function SobreNosotrosPage() {
         </section>
       </main>
     </div>
-  )
+  );
 }
