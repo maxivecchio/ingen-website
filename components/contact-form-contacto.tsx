@@ -1,14 +1,30 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useCallback, useEffect, useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { MessageCircle, Send, MapPin, Mail, Phone, Instagram, Facebook, Linkedin, Twitter } from "lucide-react"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ServerUrl } from "@/lib/utils"
+import type React from "react";
+import { useCallback, useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  MessageCircle,
+  Send,
+  MapPin,
+  Mail,
+  Phone,
+  Instagram,
+  Facebook,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ServerUrl } from "@/lib/utils";
 
 // Define mock data for departments, contactInfo, and socialLinks
 const departments = [
@@ -16,7 +32,7 @@ const departments = [
   { label: "Soporte Técnico", value: "Soporte" },
   { label: "Ventas", value: "Ventas" },
   { label: "Inversiones", value: "Inversiones" },
-]
+];
 
 const contactInfo = [
   {
@@ -34,13 +50,13 @@ const contactInfo = [
     title: "Teléfono",
     details: ["+54 935 1552-1325"],
   },
-]
+];
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/ingendesarrollos" },
   { icon: Facebook, href: "https://www.facebook.com/Ingendesarrollos" },
   { icon: Linkedin, href: "#" },
-]
+];
 
 const ContactFomrContacto = () => {
   const [formData, setFormData] = useState({
@@ -52,20 +68,20 @@ const ContactFomrContacto = () => {
     source: "website-contacto", // Adjusted source for this form
     formType: "contacto", // Adjusted formType for this form
     variant: "contacto", // Adjusted variant for this form
-  })
-  const [isFormValid, setIsFormValid] = useState(false)
+  });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   // Function to get browser information
   const getBrowserInfo = useCallback(() => {
-    const userAgent = navigator.userAgent
-    const referrer = document.referrer
-    const urlParams = new URLSearchParams(window.location.search)
-    const utmSource = urlParams.get("utm_source") || ""
-    const utmMedium = urlParams.get("utm_medium") || ""
-    const utmCampaign = urlParams.get("utm_campaign") || ""
+    const userAgent = navigator.userAgent;
+    const referrer = document.referrer;
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get("utm_source") || "";
+    const utmMedium = urlParams.get("utm_medium") || "";
+    const utmCampaign = urlParams.get("utm_campaign") || "";
     // Note: IP address cannot be reliably obtained client-side without a third-party API.
     // For demonstration, we'll use a placeholder or assume it's handled server-side.
-    const ipAddress = "192.168.1.100" // Placeholder
+    const ipAddress = "192.168.1.100"; // Placeholder
     return {
       userAgent,
       referrer,
@@ -73,25 +89,27 @@ const ContactFomrContacto = () => {
       utmMedium,
       utmCampaign,
       ipAddress,
-    }
-  }, [])
+    };
+  }, []);
 
   // Handle input changes for text fields and textarea
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   // Handle select changes
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   // Function to validate the form
   const validateForm = useCallback(() => {
@@ -101,22 +119,22 @@ const ContactFomrContacto = () => {
       formData.phone.trim() !== "" &&
       formData.message.trim() !== "" &&
       formData.subject.trim() !== "" // Validating 'subject' field
-    )
-  }, [formData])
+    );
+  }, [formData]);
 
   // Re-validate form whenever formData changes
   useEffect(() => {
-    setIsFormValid(validateForm())
-  }, [formData, validateForm])
+    setIsFormValid(validateForm());
+  }, [formData, validateForm]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!isFormValid) {
-      alert("Por favor, completa todos los campos obligatorios.")
-      return
+      alert("Por favor, completa todos los campos obligatorios.");
+      return;
     }
 
-    const browserInfo = getBrowserInfo()
+    const browserInfo = getBrowserInfo();
     const payload: any = {
       accountId: "684cb03b2d282f47c65cd8c1", // Fixed ID as per request
       name: formData.name,
@@ -134,8 +152,8 @@ const ContactFomrContacto = () => {
       utmSource: browserInfo.utmSource,
       utmMedium: browserInfo.utmMedium,
       utmCampaign: browserInfo.utmCampaign,
-    }
-    console.log(payload)
+    };
+    console.log(payload);
     try {
       const response = await fetch(`${ServerUrl}/contact-forms`, {
         method: "POST",
@@ -143,13 +161,13 @@ const ContactFomrContacto = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      })
-      console.log(response)
+      });
+      console.log(response);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      console.log("Form data sent successfully:", payload)
-      alert("Formulario enviado con éxito!")
+      console.log("Form data sent successfully:", payload);
+      alert("Formulario enviado con éxito!");
       // Optionally reset form
       setFormData({
         name: "",
@@ -160,12 +178,14 @@ const ContactFomrContacto = () => {
         source: "website-contacto",
         formType: "contacto",
         variant: "contacto",
-      })
+      });
     } catch (error) {
-      console.error("Error sending form data:", error)
-      alert("Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.")
+      console.error("Error sending form data:", error);
+      alert(
+        "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo."
+      );
     }
-  }
+  };
 
   return (
     <section className="py-16">
@@ -175,11 +195,16 @@ const ContactFomrContacto = () => {
           <div className="lg:col-span-2">
             <Card className="shadow-lg">
               <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Envianos un Mensaje</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  Envianos un Mensaje
+                </h2>
                 <form onSubmit={handleFormSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Nombre Completo *
                       </label>
                       <Input
@@ -193,7 +218,10 @@ const ContactFomrContacto = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Email *
                       </label>
                       <Input
@@ -209,7 +237,10 @@ const ContactFomrContacto = () => {
                   </div>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Teléfono
                       </label>
                       <Input
@@ -222,12 +253,17 @@ const ContactFomrContacto = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="subject"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Asunto *
                       </label>
                       <Select
                         value={formData.subject}
-                        onValueChange={(value) => handleSelectChange("subject", value)}
+                        onValueChange={(value) =>
+                          handleSelectChange("subject", value)
+                        }
                         required
                       >
                         <SelectTrigger id="subject">
@@ -244,7 +280,10 @@ const ContactFomrContacto = () => {
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Mensaje *
                     </label>
                     <Textarea
@@ -258,7 +297,11 @@ const ContactFomrContacto = () => {
                     />
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button type="submit" className="flex-1 bg-brand-black hover:bg-black/80" disabled={!isFormValid}>
+                    <Button
+                      type="submit"
+                      className="flex-1 bg-brand-black hover:bg-black/80"
+                      disabled={!isFormValid}
+                    >
                       <Send className="h-4 w-4 mr-2" />
                       Enviar Mensaje
                     </Button>
@@ -278,28 +321,35 @@ const ContactFomrContacto = () => {
                     </Button> */}
                   </div>
                   <p className="text-sm text-gray-500">
-                    * Campos obligatorios. Nos pondremos en contacto contigo dentro de las 24 horas.
+                    * Campos obligatorios. Nos pondremos en contacto contigo
+                    dentro de las 24 horas.
                   </p>
                 </form>
               </CardContent>
             </Card>
           </div>
+
           {/* Contact Information */}
-          <div className="space-y-6">
+          <div className="space-y-6 w-full">
             {contactInfo.map((info, index) => (
               <Card key={index}>
                 <CardContent className="p-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
+                  <div className="flex flex-col sm:flex-row items-start w-full">
+                    <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
                       <div className="w-12 h-12 bg-brand-gray rounded-lg flex items-center justify-center">
                         <info.icon className="h-6 w-6 text-brand-black" />
                       </div>
                     </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {info.title}
+                      </h3>
                       <div className="space-y-1">
                         {info.details.map((detail, detailIndex) => (
-                          <p key={detailIndex} className="text-gray-600 text-sm">
+                          <p
+                            key={detailIndex}
+                            className="text-gray-600 text-sm break-words overflow-hidden text-ellipsis"
+                          >
                             {detail}
                           </p>
                         ))}
@@ -309,11 +359,14 @@ const ContactFomrContacto = () => {
                 </CardContent>
               </Card>
             ))}
+
             {/* Social Media */}
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Seguinos en Redes</h3>
-                <div className="flex space-x-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Seguinos en Redes
+                </h3>
+                <div className="flex flex-wrap gap-4">
                   {socialLinks.map((social, index) => (
                     <a
                       key={index}
@@ -322,6 +375,7 @@ const ContactFomrContacto = () => {
                       /* @ts-ignore */
                       aria-label={social.label}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <social.icon className="h-5 w-5 text-brand-black" />
                     </a>
@@ -333,7 +387,7 @@ const ContactFomrContacto = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ContactFomrContacto
+export default ContactFomrContacto;

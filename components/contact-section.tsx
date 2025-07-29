@@ -233,43 +233,46 @@ export default function ContactSection() {
 
           {/* Contact Info & Map */}
           <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
+            <div className="bg-white rounded-2xl p-8 shadow-sm w-full max-w-full">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Información de Contacto
               </h3>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <MapPin className="h-6 w-6 mr-3 mt-1 text-red-500" />
-                  <div>
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row items-start w-full">
+                  <MapPin className="h-6 w-6 text-red-500 mb-2 sm:mr-3 sm:mb-0 shrink-0" />
+                  <div className="flex-1">
                     <p className="font-medium text-gray-900">Dirección</p>
-                    <p className="text-sm md:text-base text-gray-600">
+                    <p className="text-sm md:text-base text-gray-600 break-words">
                       Aldo Serrano 2026, X5900 Villa María, Córdoba
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <Phone className="h-6 w-6 mr-3 mt-1 text-blue-500" />
-                  <div>
+
+                <div className="flex flex-col sm:flex-row items-start w-full">
+                  <Phone className="h-6 w-6 text-blue-500 mb-2 sm:mr-3 sm:mb-0 shrink-0" />
+                  <div className="flex-1">
                     <p className="font-medium text-gray-900">Teléfono</p>
-                    <p className="text-gray-600 text-sm md:text-base">
+                    <p className="text-gray-600 text-sm md:text-base break-words">
                       +54 935 1552-1325
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <Mail className="h-6 w-6 mr-3 mt-1 text-purple-500" />
-                  <div>
+
+                <div className="flex flex-col sm:flex-row items-start w-full">
+                  <Mail className="h-6 w-6 text-purple-500 mb-2 sm:mr-3 sm:mb-0 shrink-0" />
+                  <div className="flex-1">
                     <p className="font-medium text-gray-900">Email</p>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 text-sm md:text-base break-all">
                       contacto@ingendesarrollos.com.ar
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <Clock className="h-6 w-6 mr-3 mt-1 text-green-500" />
-                  <div>
+
+                <div className="flex flex-col sm:flex-row items-start w-full">
+                  <Clock className="h-6 w-6 text-green-500 mb-2 sm:mr-3 sm:mb-0 shrink-0" />
+                  <div className="flex-1">
                     <p className="font-medium text-gray-900">Horarios</p>
-                    <p className="text-gray-600 text-sm md:text-base">
+                    <p className="text-gray-600 text-sm md:text-base break-words">
                       Lun - Vie: 9:00 - 17:00
                     </p>
                   </div>
