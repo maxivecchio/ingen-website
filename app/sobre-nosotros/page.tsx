@@ -21,7 +21,7 @@ export default function SobreNosotrosPage() {
           className="relative bg-cover bg-center bg-no-repeat py-16 lg:py-32"
           style={{ backgroundImage: "url('/sobre-nosotros.jpeg')" }}
         >
-          <div className="absolute inset-0 bg-black/75 z-0" />
+          <div className="absolute inset-0 bg-black/30 z-0" />
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-3 gap-12 items-center">
