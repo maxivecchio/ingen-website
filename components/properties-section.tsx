@@ -151,14 +151,6 @@ export default function PropertiesSection() {
                         </span>
                       </div>
 
-                      {property.price && (
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-white text-gray-900 px-2 py-0.5 rounded-full text-sm md:text-base font-bold">
-                            ${property.price}
-                          </span>
-                        </div>
-                      )}
-
                       <div className="absolute bottom-4 left-4">
                         <span className="bg-gray-900 text-white px-2 py-1 rounded text-xs font-medium capitalize">
                           {property.property_type_id?.name || "Sin tipo"}

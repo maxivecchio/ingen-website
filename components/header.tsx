@@ -45,7 +45,7 @@ export default function Header() {
             </Button>
             <div className="flex items-center text-sm text-gray-600">
               <Phone className="h-4 w-4 mr-2" />
-              +11 2345-6789
+              +54 935 1552-1325
             </div>
           </div>
           {/* Mobile menu button */}

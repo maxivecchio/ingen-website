@@ -312,7 +312,7 @@ const ContactFomrContacto = () => {
                       onClick={() => {
                         const message =
                           "Hola! Me gustaría obtener más información sobre sus servicios y proyectos disponibles."
-                        const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`
+                        const whatsappUrl = `https://wa.me/5493515521325?text=${encodeURIComponent(message)}`
                         window.open(whatsappUrl, "_blank")
                       }}
                     >

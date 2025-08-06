@@ -55,7 +55,7 @@ export default function ConstruccionPage() {
 
   const handleWhatsAppContact = (project: any) => {
     const message = `Hola! Me interesa obtener más información sobre el proyecto ${project.name} ubicado en ${project.location}. ¿Podrían brindarme detalles sobre las oportunidades de inversión disponibles?`
-    const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5493515521325?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
   }
 

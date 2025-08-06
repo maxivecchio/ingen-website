@@ -32,7 +32,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     }, []);
 
     const handleWhatsAppSubmit = (message = "") => {
-        const whatsappUrl = `https://wa.me/5491135221036?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/5493515521325?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, "_blank");
     };
 
