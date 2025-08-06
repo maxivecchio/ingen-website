@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative bg-cover bg-center bg-no-repeat py-16 lg:py-32"
-      style={{ backgroundImage: "url('/imagen-header.jpg')" }}
+      style={{ backgroundImage: "url('/portadaweb.png')" }}
     >
       <div className="absolute inset-0 bg-black/60 z-0" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
