@@ -131,7 +131,7 @@ export default function ContactoPage() {
               <AccordionItem value="item-2">
                 <AccordionTrigger>¿Qué diferencia a Ingen de otras desarrolladoras?</AccordionTrigger>
                 <AccordionContent>
-                  Nuestro enfoque está en crear viviendas modernas con ubicaciones privilegiadas y detalles diferenciales como mayor iluminación natural, eficiencia en el uso del espacio y terminaciones premium, sumado a un trato personalizado.
+                  Nuestro enfoque está en crear viviendas modernas con ubicaciones privilegiadas y detalles diferenciales como mayor iluminación natural, eficiencia en el uso del espacio y terminaciones de alta calidad, sumado a un trato personalizado.
                 </AccordionContent>
               </AccordionItem>
 

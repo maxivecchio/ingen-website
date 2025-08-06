@@ -1,28 +1,31 @@
-import { TrendingUp, Shield, MapPin, Users } from "lucide-react"
+import { TrendingUp, Shield, MapPin, Users } from "lucide-react";
 
 export default function InvestmentSection() {
   const benefits = [
     {
       icon: TrendingUp,
       title: "Alta Rentabilidad",
-      description: "Proyectos con retorno de inversión superior al mercado tradicional",
+      description:
+        "Proyectos con retorno de inversión superior al mercado tradicional",
     },
     {
       icon: Shield,
       title: "Inversión Segura",
-      description: "Respaldo legal completo y transparencia en cada etapa del proyecto",
+      description:
+        "Respaldo legal completo y transparencia en cada etapa del proyecto",
     },
     {
       icon: MapPin,
       title: "Ubicaciones Premium",
-      description: "Desarrollos en las mejores zonas con alta plusvalía garantizada",
+      description:
+        "Desarrollos en las mejores zonas con alta plusvalía garantizada",
     },
     {
       icon: Users,
-      title: "Acompañamiento",
-      description: "Asesoramiento personalizado durante todo el proceso de inversión",
+      title: "Servicio postventa",
+      description: "Acompañamiento y asistencia luego de la compra",
     },
-  ]
+  ];
 
   return (
     <section className="py-20 bg-white">
@@ -34,11 +37,13 @@ export default function InvestmentSection() {
               ¿Qué son las Inversiones Inmobiliarias?
             </h2>
             <p className="md:text-lg text-gray-600 mb-6 leading-relaxed">
-              Invertí en desarrollos urbanos desde la etapa de construcción y obtené rendimientos superiores al mercado
-              tradicional con total seguridad y transparencia.
+              Invertí en desarrollos urbanos desde la etapa de construcción y
+              obtené rendimientos superiores al mercado tradicional con total
+              seguridad y transparencia.
             </p>
             <p className="md:text-lg text-gray-600 leading-relaxed">
-              Accedé a oportunidades exclusivas con el respaldo de expertos y el potencial de zonas en crecimiento.
+              Accedé a oportunidades exclusivas con el respaldo de expertos y el
+              potencial de zonas en crecimiento.
             </p>
           </div>
 
@@ -52,7 +57,9 @@ export default function InvestmentSection() {
                 <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
                   <benefit.icon className="w-6 h-6 text-brand-black transition" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{benefit.title}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  {benefit.title}
+                </h3>
                 <p className="text-sm text-gray-600">{benefit.description}</p>
               </div>
             ))}
@@ -60,5 +67,5 @@ export default function InvestmentSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
