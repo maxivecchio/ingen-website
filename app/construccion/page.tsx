@@ -94,13 +94,12 @@ export default function ConstruccionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-black">
       <main className="">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 dark:from-neutral-800 dark:to-neutral-900 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Avances de Construcción</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Avances de Construcción</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Seguí el progreso de nuestros proyectos en tiempo real con fotos actualizadas de cada obra
             </p>
           </div>
@@ -110,14 +109,14 @@ export default function ConstruccionPage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestras Obras en Progreso</h2>
-              <p className="text-xl text-gray-600">Transparencia total en cada etapa de construcción</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4 dark:text-white">Nuestras Obras en Progreso</h2>
+              <p className="text-xl text-gray-600 dark:text-white">Transparencia total en cada etapa de construcción</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {propertiesConstruccion &&
                 propertiesConstruccion.map((project: any) => (
-                  <Card key={project?._id} className="overflow-hidden bg-white rounded-xl shadow-md">
+                  <Card key={project?._id} className="overflow-hidden bg-white rounded-xl shadow-md dark:border-neutral-900 dark:bg-neutral-800">
                     <div className="relative">
                       <Image
                         src={
@@ -140,8 +139,8 @@ export default function ConstruccionPage() {
                       </div>
                     </div>
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{project.name}</h3>
-                      <div className="flex items-center text-gray-600 mb-3">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 dark:text-white">{project.name}</h3>
+                      <div className="flex items-center text-gray-600 mb-3 dark:text-white">
                         <MapPin className="h-4 w-4 mr-2 text-red-400" />
                         <span className="text-sm">{project?.address_id?.address_line}</span>
                       </div>
@@ -155,9 +154,9 @@ export default function ConstruccionPage() {
                           <span>Estado: {project?.status?.name}</span>
                         </div>
                       </div>
-                      <p className="text-gray-600 text-sm mb-2 line-clamp-3">{project.description}</p>
+                      <p className="text-gray-600 text-sm mb-2 line-clamp-3 dark:text-white">{project.description}</p>
                       <div className="mb-5">
-                        <div className="flex justify-between text-sm text-gray-500 mb-1">
+                        <div className="flex justify-between text-sm text-gray-500 dark:text-white mb-1">
                           <span>Progreso</span>
                           <span>
                             {project?.type_info?.find(
@@ -168,7 +167,7 @@ export default function ConstruccionPage() {
                             %
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-gray-200 dark:bg-neutral-700 h-2 rounded-full overflow-hidden">
                           <div
                             className="h-full bg-gradient-to-r from-brand-black to-brand-dark transition-all duration-500"
                             style={{
@@ -184,7 +183,7 @@ export default function ConstruccionPage() {
                       </div>
                       <div className="space-y-2">
                         <Button
-                          className="w-full bg-brand-black hover:bg-brand-black/90"
+                          className="w-full bg-brand-black dark:text-white hover:bg-brand-black/90"
                           onClick={() => openGallery(project)}
                         >
                           Ver Galería de Avances ({project?.files?.length} fotos)
@@ -200,7 +199,7 @@ export default function ConstruccionPage() {
 
             <div>
               <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
-                <div className="text-sm text-black">
+                <div className="text-sm text-black dark:text-white">
                   Mostrando {(pagination.page - 1) * pagination.limit + 1}-
                   {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} construcciones
                   {searchTerm && ` (búsqueda: "${searchTerm}")`}
@@ -215,7 +214,7 @@ export default function ConstruccionPage() {
                   >
                     Anterior
                   </Button>
-                  <span className="text-sm text-black px-2">
+                  <span className="text-sm text-black dark:text-white px-2">
                     Página {pagination.page} de {pagination.totalPages}
                   </span>
                   <Button

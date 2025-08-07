@@ -30,22 +30,22 @@ export default function Footer() {
                         <h4 className="text-lg font-semibold mb-4">Navegación</h4>
                         <ul className="space-y-2">
                             <li>
-                                <Link href="/" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/" className="text-gray-300">
                                     Inicio
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/emprendimientos" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/emprendimientos" className="text-gray-300">
                                     Emprendimientos
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/propiedades" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/propiedades" className="text-gray-300">
                                     Propiedades
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/forma-parte" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/forma-parte" className="text-gray-300">
                                     Forma Parte
                                 </Link>
                             </li>
@@ -56,22 +56,22 @@ export default function Footer() {
                         <h4 className="text-lg font-semibold mb-4">Servicios</h4>
                         <ul className="space-y-2">
                             {/*<li>
-                                <Link href="/construccion" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/construccion" className="text-gray-300">
                                     Construcción
                                 </Link>
                             </li>*/}
                             <li>
-                                <Link href="/sobre-nosotros" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/sobre-nosotros" className="text-gray-300">
                                     Sobre Nosotros
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/novedades" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/novedades" className="text-gray-300">
                                     Novedades
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contacto" className="text-gray-300 hover:text-rose-400">
+                                <Link href="/contacto" className="text-gray-300">
                                     Contacto
                                 </Link>
                             </li>

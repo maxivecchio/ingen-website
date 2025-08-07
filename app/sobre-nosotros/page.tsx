@@ -138,14 +138,14 @@ export default function SobreNosotrosPage() {
         </section> */}
 
         {/* Mission & Vision */}
-        <section className="py-16">
+        <section className="py-16 dark:bg-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12">
-              <Card className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <Card className="p-8 dark:bg-black dark:border-black">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Nuestra Misión
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 dark:text-white leading-relaxed">
                   Crear desarrollos urbanos sustentables que mejoren la calidad
                   de vida de las personas, generando oportunidades de inversión
                   rentables y seguras para nuestros socios. Nos comprometemos
@@ -155,11 +155,11 @@ export default function SobreNosotrosPage() {
                 </p>
               </Card>
 
-              <Card className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <Card className="p-8 dark:bg-black dark:border-black">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Nuestra Visión
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 dark:text-white leading-relaxed">
                   Ser la desarrolladora urbana líder en la región, reconocida
                   por la calidad de nuestros proyectos, la satisfacción de
                   nuestros clientes y el impacto positivo en las comunidades
@@ -174,21 +174,21 @@ export default function SobreNosotrosPage() {
         </section>
 
         {/* Location */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white dark:bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl dark:text-white font-bold text-gray-900 mb-4">
                 Nuestra Ubicación
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl dark:text-white text-gray-600">
                 Visitanos en nuestras oficinas centrales
               </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Información de contacto */}
-              <Card className="p-8 shadow-md border">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <Card className="p-8 shadow-md border dark:bg-neutral-900 dark:border-neutral-900">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Información de Contacto
                 </h3>
 
@@ -196,10 +196,10 @@ export default function SobreNosotrosPage() {
                   <div className="flex flex-col sm:flex-row items-start w-full">
                     <MapPin className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-800">
+                      <p className="font-semibold text-gray-800 dark:text-white">
                         Dirección Principal
                       </p>
-                      <p className="break-words">
+                      <p className="break-words dark:text-white">
                         Aldo Serrano 2026, X5900 Villa María, Córdoba
                       </p>
                     </div>
@@ -208,16 +208,16 @@ export default function SobreNosotrosPage() {
                   <div className="flex flex-col sm:flex-row items-start w-full">
                     <Phone className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-800">Teléfono</p>
-                      <p className="break-words">+54 935 1552-1325</p>
+                      <p className="font-semibold text-gray-800 dark:text-white">Teléfono</p>
+                      <p className="break-words dark:text-white">+54 935 1552-1325</p>
                     </div>
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-start w-full">
                     <Mail className="h-6 w-6 text-rose-600 mb-2 sm:mb-0 sm:mr-4 mt-1" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-800">Email</p>
-                      <p className="break-all">
+                      <p className="font-semibold text-gray-800 dark:text-white">Email</p>
+                      <p className="break-all dark:text-white">
                         contacto@ingendesarrollos.com.ar
                       </p>
                     </div>
@@ -225,7 +225,7 @@ export default function SobreNosotrosPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <h4 className="text-md font-semibold text-gray-800 mb-3">
+                  <h4 className="text-md font-semibold text-gray-800 dark:text-white mb-3">
                     Horarios de Atención
                   </h4>
                   <p>Lun - Vie: 9:00 - 17:00</p>
@@ -233,9 +233,9 @@ export default function SobreNosotrosPage() {
               </Card>
 
               {/* Mapa */}
-              <Card className="p-8 shadow-md border border-gray-100">
+              <Card className="p-8 shadow-md border border-gray-100 dark:bg-neutral-800 dark:border-neutral-900">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                     Nuestra Ubicación
                   </h3>
                   <div className="bg-gray-200 rounded-lg w-full overflow-hidden">

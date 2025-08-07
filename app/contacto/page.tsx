@@ -82,11 +82,10 @@ export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-white">
       <main className="">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 dark:from-neutral-800 dark:to-neutral-900 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Contactanos</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Contactanos</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Estamos aquí para ayudarte. Ponete en contacto con nosotros para cualquier consulta sobre nuestros
               proyectos e inversiones
             </p>
@@ -97,11 +96,11 @@ export default function ContactoPage() {
         <ContactFomrContacto />
 
         {/* Map Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestra Ubicación</h2>
-              <p className="text-xl text-gray-600">Visitanos en nuestras oficinas centrales</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4 dark:text-white">Nuestra Ubicación</h2>
+              <p className="text-xl text-gray-600 dark:text-white">Visitanos en nuestras oficinas centrales</p>
             </div>
 
             <Card className="overflow-hidden shadow-lg">
@@ -114,45 +113,68 @@ export default function ContactoPage() {
 
 
         {/* FAQ Section */}
-        <section className="py-16">
+        <section className="py-16 dark:bg-black transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h4 className="text-xl font-bold text-gray-900 text-center mb-6">
+            <h4 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-6">
               Preguntas Frecuentes
             </h4>
 
-            <Accordion type="single" collapsible className="max-w-3xl mx-auto space-y-4">
+            <Accordion
+              type="single"
+              collapsible
+              className="max-w-3xl mx-auto space-y-4"
+            >
               <AccordionItem value="item-1">
-                <AccordionTrigger>¿Por qué invertir en un proyecto de Ingen?</AccordionTrigger>
+                <AccordionTrigger>
+                  ¿Por qué invertir en un proyecto de Ingen?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Porque combinamos diseño moderno, materiales de primera calidad y ubicaciones estratégicas que aseguran alta rentabilidad y plusvalía futura.
+                  Porque combinamos diseño moderno, materiales de primera
+                  calidad y ubicaciones estratégicas que aseguran alta
+                  rentabilidad y plusvalía futura.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-2">
-                <AccordionTrigger>¿Qué diferencia a Ingen de otras desarrolladoras?</AccordionTrigger>
+                <AccordionTrigger>
+                  ¿Qué diferencia a Ingen de otras desarrolladoras?
+                </AccordionTrigger>
                 <AccordionContent>
                   Nuestro enfoque está en crear viviendas modernas con ubicaciones privilegiadas y detalles diferenciales como mayor iluminación natural, eficiencia en el uso del espacio y terminaciones de alta calidad, sumado a un trato personalizado.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-3">
-                <AccordionTrigger>¿Ofrecen planes de financiación?</AccordionTrigger>
+                <AccordionTrigger>
+                  ¿Ofrecen planes de financiación?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Sí, contamos con planes de pago flexibles durante la etapa de obra, adaptados a las necesidades de cada cliente para que acceder a tu nuevo hogar sea más simple.
+                  Sí, contamos con planes de pago flexibles durante la etapa de
+                  obra, adaptados a las necesidades de cada cliente para que
+                  acceder a tu nuevo hogar sea más simple.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-4">
-                <AccordionTrigger>¿En qué barrios o zonas están ubicados los proyectos?</AccordionTrigger>
+                <AccordionTrigger>
+                  ¿En qué barrios o zonas están ubicados los proyectos?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Trabajamos principalmente en barrios de alto valor y zonas urbanas en crecimiento, seleccionadas estratégicamente para garantizar seguridad, accesibilidad y potencial de valorización.
+                  Trabajamos principalmente en barrios de alto valor y zonas
+                  urbanas en crecimiento, seleccionadas estratégicamente para
+                  garantizar seguridad, accesibilidad y potencial de
+                  valorización.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="item-5">
-                <AccordionTrigger>¿Cómo puedo obtener más información o asesoramiento?</AccordionTrigger>
+                <AccordionTrigger>
+                  ¿Cómo puedo obtener más información o asesoramiento?
+                </AccordionTrigger>
                 <AccordionContent>
-                  Podés contactarnos a través del formulario web, WhatsApp o visitarnos en nuestras oficinas. Un asesor te acompañará en todo el proceso.
+                  Podés contactarnos a través del formulario web, WhatsApp o
+                  visitarnos en nuestras oficinas. Un asesor te acompañará en
+                  todo el proceso.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

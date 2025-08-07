@@ -28,20 +28,20 @@ export default function InvestmentSection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-black transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Texto a la izquierda */}
           <div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               ¿Qué son las Inversiones Inmobiliarias?
             </h2>
-            <p className="md:text-lg text-gray-600 mb-6 leading-relaxed">
+            <p className="md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
               Invertí en desarrollos urbanos desde la etapa de construcción y
               obtené rendimientos superiores al mercado tradicional con total
               seguridad y transparencia.
             </p>
-            <p className="md:text-lg text-gray-600 leading-relaxed">
+            <p className="md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               Accedé a oportunidades exclusivas con el respaldo de expertos y el
               potencial de zonas en crecimiento.
             </p>
@@ -52,15 +52,17 @@ export default function InvestmentSection() {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
+                className="group bg-white dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 dark:border-black transition-all"
               >
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
-                  <benefit.icon className="w-6 h-6 text-brand-black transition" />
+                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray dark:bg-neutral-800 transition">
+                  <benefit.icon className="w-6 h-6 text-brand-black dark:text-white transition" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                   {benefit.title}
                 </h3>
-                <p className="text-sm text-gray-600">{benefit.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  {benefit.description}
+                </p>
               </div>
             ))}
           </div>

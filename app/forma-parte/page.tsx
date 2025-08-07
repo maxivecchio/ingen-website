@@ -156,13 +156,10 @@ export default function FormaPartePage() {
   return (
     <div className="min-h-screen bg-white">
       <main className="">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-brand-gray to-gray-50 py-16">
+        <section className="bg-gradient-to-r from-brand-gray to-gray-50 dark:from-neutral-800 dark:to-neutral-900 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Formá Parte de Nuestros Proyectos
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">Formá Parte de Nuestros Proyectos</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Invertí en desarrollos inmobiliarios de alta calidad y obtené
               rendimientos superiores al mercado tradicional
             </p>
@@ -170,39 +167,39 @@ export default function FormaPartePage() {
         </section>
 
         {/* Investment Benefits */}
-        <section className="py-20 bg-white">
+        <section className="py-20 dark:bg-black transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Texto a la izquierda */}
               <div>
-                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                   ¿Por Qué Invertir con Nosotros?
                 </h2>
-                <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  Formá parte de proyectos inmobiliarios cuidadosamente
+                <p className="md:text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                 Formá parte de proyectos inmobiliarios cuidadosamente
                   seleccionados, con alto potencial de rentabilidad y
                   desarrollados por profesionales del sector.
                 </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  Te acompañamos en cada paso del proceso con transparencia,
+                <p className="md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                 Te acompañamos en cada paso del proceso con transparencia,
                   seguridad jurídica y opciones accesibles desde montos bajos.
                 </p>
               </div>
 
               {/* Cards a la derecha */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {investmentBenefits.map((benefit, index) => (
+                {benefits.map((benefit, index) => (
                   <div
                     key={index}
-                    className="group bg-white rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 transition-all"
+                    className="group bg-white dark:bg-neutral-900 rounded-2xl shadow-md hover:shadow-xl p-6 border border-gray-100 dark:border-black transition-all"
                   >
-                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray transition">
-                      <benefit.icon className="w-6 h-6 text-brand-black transition" />
+                    <div className="w-12 h-12 flex items-center justify-center rounded-full bg-brand-gray dark:bg-neutral-800 transition">
+                      <benefit.icon className="w-6 h-6 text-brand-black dark:text-white transition" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                       {benefit.title}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {benefit.description}
                     </p>
                   </div>
@@ -212,9 +209,9 @@ export default function FormaPartePage() {
           </div>
         </section>
 
-        <section className="py-16">
+        <section className="py-16 dark:bg-neutral-900 transition-colors">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h4 className="text-xl font-bold text-gray-900 text-center mb-6">
+            <h4 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-6">
               Preguntas Frecuentes
             </h4>
 

@@ -6,6 +6,7 @@ import { Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import TabComponentFrame from "./TabComponentFrame"
 import Image from "next/image" // Import Image component
+import { ModeToggle } from "./ModeToggle"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,13 +22,16 @@ export default function Header() {
   ]
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-[40]">
+    <header className="bg-white dark:bg-black shadow-sm border-b border-gray-200 dark:border-black sticky top-0 z-[40]">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
+            <Link className="dark:hidden" href="/">
               <Image src="/logo.png" width={120} height={32} alt="INGEN DESARROLLOS Logo" className="h-8 w-auto" />
+            </Link>
+            <Link className="dark:block hidden" href="/">
+              <Image src="/logo-white.png" width={120} height={32} alt="INGEN DESARROLLOS Logo" className="h-8 w-auto" />
             </Link>
           </div>
           {/* Desktop Navigation */}
@@ -40,16 +44,18 @@ export default function Header() {
           </nav>
           {/* Contact Info and Button */}
           <div className="hidden min-[1300px]:flex items-center space-x-4">
+            <ModeToggle />
             <Button asChild className="bg-black text-white hover:bg-gray-800 px-4 py-2 rounded-md text-sm font-medium">
               <Link href="/contacto">Contacto</Link>
             </Button>
-            <div className="flex items-center text-sm text-gray-600">
+            <div className="flex items-center text-sm text-gray-600 dark:text-white">
               <Phone className="h-4 w-4 mr-2" />
               +54 935 1552-1325
             </div>
           </div>
           {/* Mobile menu button */}
           <div className="min-[1300px]:hidden">
+            <ModeToggle />
             <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -57,13 +63,13 @@ export default function Header() {
         </div>
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-16 shadow-lg inset-x-0">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
+          <div className="min-[1300px]:hidden absolute top-16 shadow-lg inset-x-0">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-black border-t">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block rounded px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                  className="block rounded px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-white/10 dark:text-white"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

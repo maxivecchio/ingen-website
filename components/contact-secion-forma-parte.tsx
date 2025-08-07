@@ -202,17 +202,17 @@ const ContactFormFormaParte = () => {
 
     return (
         <>
-            <section className="py-16 bg-gray-50">
+            <section className="py-16 bg-gray-50 dark:bg-black">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">¿Listo para Invertir?</h2>
-                        <p className="text-xl text-gray-600">Completá el formulario y un asesor se contactará contigo</p>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4 dark:text-white">¿Listo para Invertir?</h2>
+                        <p className="text-xl text-gray-600 dark:text-white">Completá el formulario y un asesor se contactará contigo</p>
                     </div>
-                    <Card className="p-8">
+                    <Card className="p-8 dark:bg-neutral-900">
                         <form onSubmit={handleFormSubmit} className="space-y-6">
                             {/* Project Selection Grid */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Proyecto de Interés</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">Proyecto de Interés</label>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {loading ? (
                                         <p className="col-span-full text-center text-gray-600">Cargando proyectos...</p>
@@ -243,7 +243,7 @@ const ContactFormFormaParte = () => {
                                                     alt={project.name}
                                                     className="mx-auto mb-4 h-24 w-24 object-cover rounded-md"
                                                 />
-                                                <h3 className="text-xs font-semibold text-gray-800">{project.name}</h3>
+                                                <h3 className="text-xs font-semibold text-gray-800 dark:text-white">{project.name}</h3>
                                             </div>
                                         ))
                                     )}
@@ -251,7 +251,7 @@ const ContactFormFormaParte = () => {
 
                                 <div>
                                     <div className="flex flex-col sm:flex-row justify-between items-center mt-6">
-                                        <div className="text-sm text-black">
+                                        <div className="text-sm text-black dark:text-white">
                                             Mostrando {(pagination.page - 1) * pagination.limit + 1}-
                                             {Math.min(pagination.page * pagination.limit, pagination.total)} de {pagination.total} emprendimientos
                                             {searchTerm && ` (búsqueda: "${searchTerm}")`}
@@ -266,7 +266,7 @@ const ContactFormFormaParte = () => {
                                             >
                                                 Anterior
                                             </Button>
-                                            <span className="text-sm text-black px-2">
+                                            <span className="text-sm text-black dark:text-white px-2">
                                                 Página {pagination.page} de {pagination.totalPages}
                                             </span>
                                             <Button
@@ -286,7 +286,7 @@ const ContactFormFormaParte = () => {
                             {/* Other form fields */}
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                                         Nombre Completo
                                     </label>
                                     <Input
@@ -298,7 +298,7 @@ const ContactFormFormaParte = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                                         Email
                                     </label>
                                     <Input
@@ -313,7 +313,7 @@ const ContactFormFormaParte = () => {
                             </div>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                                         Teléfono
                                     </label>
                                     <Input
@@ -326,17 +326,17 @@ const ContactFormFormaParte = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="montoInvertir" className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label htmlFor="montoInvertir" className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                                         Monto a Invertir
                                     </label>
                                     <Select
                                         value={formData.montoInvertir}
                                         onValueChange={(value) => handleSelectChange("montoInvertir", value)}
                                     >
-                                        <SelectTrigger id="montoInvertir">
+                                        <SelectTrigger id="montoInvertir" className="dark:bg-black dark:border-black">
                                             <SelectValue placeholder="Seleccionar rango" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="dark:bg-black dark:border-black">
                                             <SelectItem value="25000-75000">$25,000 - $75,000</SelectItem>
                                             <SelectItem value="75000-200000">$75,000 - $200,000</SelectItem>
                                             <SelectItem value="200000+">$200,000+</SelectItem>
@@ -345,7 +345,7 @@ const ContactFormFormaParte = () => {
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 dark:text-white">
                                     Mensaje Adicional
                                 </label>
                                 <Textarea
@@ -358,7 +358,7 @@ const ContactFormFormaParte = () => {
                                 />
                             </div>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Button type="submit" className="flex-1 bg-brand-black hover:bg-brand-black">
+                                <Button type="submit" className="flex-1 bg-brand-black hover:bg-brand-black dark:text-white">
                                     Solicitar Información
                                 </Button>
                                 {/* <Button

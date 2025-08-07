@@ -63,16 +63,16 @@ export default function CompanyStats() {
   ];
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-16 lg:py-24 bg-white dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold dark:text-white text-gray-900 mb-4">
             ¿Qué hacemos?
           </h2>
-          <p className="md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="md:text-xl text-gray-600 dark:text-white max-w-3xl mx-auto">
             En Ingen Desarrollos elevamos tu estilo de vida. Nuestros proyectos están pensados para familias y personas que buscan su hogar ideal, pero también para inversores que valoran la solidez, la estética y el crecimiento sostenido.
           </p>
-          <p className="md:text-xl mt-5 text-gray-600 max-w-3xl mx-auto">
+          <p className="md:text-xl mt-5 text-gray-600 dark:text-white max-w-3xl mx-auto">
             Nuestro diferencial está en cómo hacemos las cosas: con visión, compromiso y una estética cuidada que se siente en cada terminación, cada textura y cada línea de diseño. Apostamos a transformar el entorno urbano a través de obras que dialogan con la ciudad, generando valor a largo plazo.
           </p>
         </div>
@@ -89,10 +89,10 @@ export default function CompanyStats() {
                   className="w-48 h-48 rounded-full mx-auto object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-gray-90 dark:text-white mb-2">
                 {member.name}
               </h3>
-              <p className="text-rose-600 font-medium mb-3">{member.role}</p>
+              <p className="text-rose-600 font-medium dark:text-white mb-3">{member.role}</p>
               {/* <p className="text-sm text-gray-600">{member.description}</p> */}
             </div>
           ))}

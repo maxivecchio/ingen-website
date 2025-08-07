@@ -188,14 +188,14 @@ const ContactFomrContacto = () => {
   };
 
   return (
-    <section className="py-16">
+    <section className="py-16 dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card className="shadow-lg">
+            <Card className="shadow-lg dark:bg-neutral-900 dark:border-neutral-900">
               <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Envianos un Mensaje
                 </h2>
                 <form onSubmit={handleFormSubmit} className="space-y-6">
@@ -203,7 +203,7 @@ const ContactFomrContacto = () => {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-white mb-2"
                       >
                         Nombre Completo *
                       </label>
@@ -220,7 +220,7 @@ const ContactFomrContacto = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-white mb-2"
                       >
                         Email *
                       </label>
@@ -239,7 +239,7 @@ const ContactFomrContacto = () => {
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-white mb-2"
                       >
                         Teléfono
                       </label>
@@ -255,7 +255,7 @@ const ContactFomrContacto = () => {
                     <div>
                       <label
                         htmlFor="subject"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-white mb-2"
                       >
                         Asunto *
                       </label>
@@ -266,10 +266,10 @@ const ContactFomrContacto = () => {
                         }
                         required
                       >
-                        <SelectTrigger id="subject">
+                        <SelectTrigger className="dark:text-white dark:bg-black dark:border-black" id="subject">
                           <SelectValue placeholder="Seleccionar asunto" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="dark:bg-black dark:border-black">
                           {departments.map((dept) => (
                             <SelectItem key={dept.value} value={dept.value}>
                               {dept.label}
@@ -282,7 +282,7 @@ const ContactFomrContacto = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 mb-2"
+                      className="block text-sm font-medium text-gray-700 dark:text-white mb-2"
                     >
                       Mensaje *
                     </label>
@@ -299,7 +299,7 @@ const ContactFomrContacto = () => {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button
                       type="submit"
-                      className="flex-1 bg-brand-black hover:bg-black/80"
+                      className="flex-1 bg-brand-black hover:bg-black/80 dark:text-white"
                       disabled={!isFormValid}
                     >
                       <Send className="h-4 w-4 mr-2" />
@@ -332,7 +332,7 @@ const ContactFomrContacto = () => {
           {/* Contact Information */}
           <div className="space-y-6 w-full">
             {contactInfo.map((info, index) => (
-              <Card key={index}>
+              <Card key={index} className="dark:bg-neutral-900 dark:border-neutral-900">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start w-full">
                     <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
@@ -341,14 +341,14 @@ const ContactFomrContacto = () => {
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                         {info.title}
                       </h3>
                       <div className="space-y-1">
                         {info.details.map((detail, detailIndex) => (
                           <p
                             key={detailIndex}
-                            className="text-gray-600 text-sm break-words overflow-hidden text-ellipsis"
+                            className="text-gray-600 dark:text-white text-sm break-words overflow-hidden text-ellipsis"
                           >
                             {detail}
                           </p>
@@ -361,9 +361,9 @@ const ContactFomrContacto = () => {
             ))}
 
             {/* Social Media */}
-            <Card>
+            <Card className="dark:bg-neutral-900 dark:border-neutral-900">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Seguinos en Redes
                 </h3>
                 <div className="flex flex-wrap gap-4">
@@ -371,7 +371,7 @@ const ContactFomrContacto = () => {
                     <a
                       key={index}
                       href={social.href}
-                      className="w-10 h-10 bg-brand-gray rounded-lg flex items-center justify-center hover:bg-black/10 transition-colors"
+                      className="w-10 h-10 bg-brand-gray rounded-lg flex items-center justify-center hover:bg-black/10 dark:hover:bg-white transition-colors"
                       /* @ts-ignore */
                       aria-label={social.label}
                       target="_blank"

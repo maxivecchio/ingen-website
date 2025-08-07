@@ -1,9 +1,10 @@
-import type {Metadata} from 'next'
+import type { Metadata } from 'next'
 import './globals.css'
-import {Montserrat} from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import Providers from "@/app/layout-master";
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
     title: 'Ingen | Desarrollo Urbano e Inversiones Inmobiliarias',
@@ -16,19 +17,26 @@ const montserrat = Montserrat({
 });
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en">
-        <body className={`${montserrat.className}`}>
-        <Providers>
-            <Header/>
-            {children}
-            <Footer/>
-        </Providers>
-        </body>
+        <html lang="en" suppressHydrationWarning>
+            <body className={`${montserrat.className}`}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <Providers>
+                        <Header />
+                        {children}
+                        <Footer />
+                    </Providers>
+                </ThemeProvider>
+            </body>
         </html>
     )
 }

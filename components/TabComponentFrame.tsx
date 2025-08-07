@@ -87,7 +87,7 @@ useEffect(() => {
         /* @ts-ignore */
         ref={(el) => (tabRefs.current[index] = el)}
         className={`px-3 py-2 sm:px-4 sm:py-2 transition-colors duration-300 h-[30px] whitespace-nowrap
-          ${index === activeIndex ? "text-white" : "text-black dark:text-black"}
+          ${index === activeIndex ? "text-white dark:text-black" : "text-black dark:text-white"}
           ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
@@ -121,14 +121,14 @@ useEffect(() => {
       />
       {/* Hover Tab Background (only shows for non-active tabs) */}
       <div
-        className="absolute h-[30px] transition-all duration-300 ease-out bg-primary/10 dark:bg-primary rounded-[6px] pointer-events-none"
+        className="absolute h-[30px] transition-all duration-300 ease-out bg-primary/10 dark:bg-white/10 rounded-[6px] pointer-events-none"
         style={{
           ...hoverStyle,
           opacity: hoveredIndex !== null && hoveredIndex !== activeIndex ? 1 : 0,
         }}
       />
       <TooltipProvider>
-        <div className="relative flex space-x-[6px] items-center min-w-max px-2 sm:px-0">
+        <div className="relative  flex space-x-[6px] items-center min-w-max px-2 sm:px-0">
           {tabs.map((tab, index) => renderTab(tab, index))}
         </div>
       </TooltipProvider>
