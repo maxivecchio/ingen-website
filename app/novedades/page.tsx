@@ -189,9 +189,6 @@ export default function NovedadesPage() {
 
                     <h2 className="text-white text-3xl font-bold mb-2">{postsListRecomended[0].title}</h2>
                     <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
-                    <div className="flex items-center justify-between text-sm text-white/80">
-                      <span>Ingen</span>
-                    </div>
                   </div>
                 </div>
               )}
@@ -372,13 +369,6 @@ export default function NovedadesPage() {
                     <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">{post.title}</h3>
 
                     <p className="text-black mb-4 line-clamp-2">{post?.short_description}</p>
-
-                    <div className="flex flex-col justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-1" />
-                        <span>Ingen</span>
-                      </div>
-                    </div>
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center text-sm text-gray-500">
