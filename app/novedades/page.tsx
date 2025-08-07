@@ -221,7 +221,6 @@ export default function NovedadesPage() {
                       <h3 className="text-white font-bold text-lg leading-tight mb-1">{post.title}</h3>
                       <p className="text-white/80 mb-4 line-clamp-2">{postsListRecomended[0].short_description}</p>
                       <div className="flex justify-between items-center text-sm text-white/80 mt-2">
-                        <span>Ingen</span>
                         <span>💬 {post.comments.length}</span>
                       </div>
                     </div>
