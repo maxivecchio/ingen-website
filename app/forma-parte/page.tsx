@@ -42,7 +42,7 @@ export default function FormaPartePage() {
     {
       icon: TrendingUp,
       title: "Alta Rentabilidad",
-      description: "Retornos del 8% al 9% anual según el proyecto",
+      description: "Retornos de inversión superior al mercado tradicional",
     },
     {
       icon: Shield,
@@ -52,7 +52,7 @@ export default function FormaPartePage() {
     {
       icon: Clock,
       title: "Plazos Definidos",
-      description: "Proyectos con cronogramas claros de 12 a 24 meses",
+      description: "Proyectos con cronogramas claros y etapas planificadas desde el inicio",
     },
     {
       icon: Users,
@@ -239,10 +239,7 @@ export default function FormaPartePage() {
                   ¿Qué diferencia a Ingen de otras desarrolladoras?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Nuestro enfoque está en crear viviendas modernas con
-                  ubicaciones privilegiadas y detalles diferenciales como mayor
-                  iluminación natural, eficiencia en el uso del espacio y
-                  terminaciones premium, sumado a un trato personalizado.
+                  Nuestro enfoque está en crear viviendas modernas con ubicaciones privilegiadas y detalles diferenciales como mayor iluminación natural, eficiencia en el uso del espacio y terminaciones de alta calidad, sumado a un trato personalizado.
                 </AccordionContent>
               </AccordionItem>
 

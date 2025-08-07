@@ -16,7 +16,7 @@ export default function AboutUsSection() {
         <div className="max-w-2xl text-white">
           <h2 className="text-3xl lg:text-5xl font-bold mb-4">Quiénes Somos</h2>
           <p className="text-lg lg:text-xl mb-6">
-            Somos expertos en desarrollo urbano. Transformamos espacios y generamos valor para quienes confían en nosotros.
+           Detrás de Ingen hay un equipo con más de 15 años de trayectoria en el rubro, enfocado en desarrollar proyectos que impulsan el crecimiento urbano y brindan valor a cada inversor.
           </p>
           <Link
             href="/sobre-nosotros"

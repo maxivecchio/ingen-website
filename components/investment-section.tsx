@@ -16,7 +16,7 @@ export default function InvestmentSection() {
     },
     {
       icon: MapPin,
-      title: "Ubicaciones Premium",
+      title: "Ubicaciones Estratégicas",
       description:
         "Desarrollos en las mejores zonas con alta plusvalía garantizada",
     },

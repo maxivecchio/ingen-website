@@ -53,7 +53,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
             >
                 <button
                     onClick={() =>
-                        handleWhatsAppSubmit("Hola! Me gustaría recibir más información sobre los seguros.")
+                        handleWhatsAppSubmit("Hola Ingen! Me gustaría recibir más información sobre…")
                     }
                     className="bg-green-500 hover:bg-green-600 text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg transition-colors duration-200"
                     aria-label="Contactar por WhatsApp"
@@ -99,7 +99,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
                         </p>
                         <Button
                             onClick={() =>
-                                handleWhatsAppSubmit("Hola! Me gustaría recibir más información sobre los seguros.")
+                                handleWhatsAppSubmit("Hola Ingen! Me gustaría recibir más información sobre…")
                             }
                             className="w-full bg-green-500 hover:bg-green-600 text-white transition-colors duration-200"
                         >

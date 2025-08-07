@@ -199,6 +199,11 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
     return null;
   }
 
+  const handleWhatsAppSubmit = (message = "") => {
+    const whatsappUrl = `https://wa.me/5493515521325?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <main className="space-y-6 p-5">
@@ -238,12 +243,10 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                       ? getImageUrl(files[currentImageIndex])
                       : property?.cover_image || "/placeholder.svg"
                   }
-                  alt={`${property?.name || "Propiedad"} - Imagen ${
-                    currentImageIndex + 1
-                  }`}
-                  className={`h-full w-full ${
-                    isSmallImage ? "object-contain" : "object-cover"
-                  }`}
+                  alt={`${property?.name || "Propiedad"} - Imagen ${currentImageIndex + 1
+                    }`}
+                  className={`h-full w-full ${isSmallImage ? "object-contain" : "object-cover"
+                    }`}
                 />
 
                 {files?.length > 1 && (
@@ -279,11 +282,10 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                   {files.map((image: string, index: number) => (
                     <div
                       key={index}
-                      className={`h-16 w-24 flex-shrink-0 cursor-pointer rounded-md overflow-hidden border-2 ${
-                        index === currentImageIndex
-                          ? "border-blue-600"
-                          : "border-transparent"
-                      }`}
+                      className={`h-16 w-24 flex-shrink-0 cursor-pointer rounded-md overflow-hidden border-2 ${index === currentImageIndex
+                        ? "border-blue-600"
+                        : "border-transparent"
+                        }`}
                       onClick={() => setCurrentImageIndex(index)}
                     >
                       <img
@@ -526,6 +528,13 @@ export default function PropertyDetail({ propertyId }: { propertyId: string }) {
                 </Card>
               </>
             )} */}
+
+            <div className="border-b pb-5">
+              <Button onClick={() => handleWhatsAppSubmit(`Quiero saber mas sobre la propiedad ${property.name}`)}  className="w-full !bg-brand-black hover:!bg-brand-black/10 gap-1">
+                <ExternalLink className="h-4 w-4" />
+                <span>Saber mas</span>
+              </Button>
+            </div>
 
             {/* Información de ubicación */}
             <Card className="shadow-sm border-0">
