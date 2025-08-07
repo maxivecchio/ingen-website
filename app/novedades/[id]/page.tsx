@@ -160,10 +160,6 @@ export default function PostDetailPage({ params }: { params: Promise<{ id: strin
                                     {/* @ts-ignore */}
                                     <span>{formatDate(post?.createdAt)}</span>
                                 </div>
-                                <div className="flex items-center gap-1">
-                                    <User className="h-4 w-4" />
-                                    <span>Por Ingen</span>
-                                </div>
                                 {post?.category && (
                                     <div className="flex items-center gap-1">
                                         <Tag className="h-4 w-4" />
